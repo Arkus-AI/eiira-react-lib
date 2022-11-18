@@ -30,7 +30,7 @@ export interface IconWithTooltipProps {
 
 export default function IconWithTooltip({ tooltipType = "help", tooltipText }: IconWithTooltipProps) {
     return (
-        <BootstrapTooltip title={<Typography variant='body2'>{tooltipText}</Typography>} arrow>
+        <BootstrapTooltip title={<Typography variant='body2'>{tooltipText}</Typography>} arrow enterTouchDelay={100}>
             <IconButton sx={{ padding: 0 }} color="primary">
                 <Icon iconType={tooltipType} color="inherit" sx={{ "&:hover": { color: "hover.main" } }} />
             </IconButton>
