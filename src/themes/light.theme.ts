@@ -34,7 +34,8 @@ const palette: PaletteOptions = {
     main: "#CA2B2B"
   },
   text: {
-    primary: "#233750"
+    primary: "#233750",
+    secondary: "rgba(35, 55, 73, 0.7)",
   },
   hover: {
     main: "#0046C3"
@@ -66,6 +67,15 @@ export const lightTheme = createTheme({
         root: {
           lineHeight: "24px",
           color: palette.text?.primary
+        }
+      }
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        input: {
+          "::placeholder": {
+            color: palette.text?.secondary,
+          },
         }
       }
     }

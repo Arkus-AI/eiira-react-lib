@@ -35,10 +35,7 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     '&.MuiInputBase-root.Mui-error': {
         '& .MuiInputBase-input': {
             borderColor: theme.palette.error.main,
-            '&:focus': {
-                boxShadow: `inset 0px 0px 0px 1px ${theme.palette.primary.main}`,
-                borderColor: theme.palette.primary.main,
-            },
+            boxShadow: `inset 0px 0px 0px 1px ${theme.palette.error.main}`,
         }
     }
 }));
@@ -65,6 +62,8 @@ export default function TextInput({ label, errorText = "", tooltipText = "", ...
     const inputLabelProps = {
         disableAnimation: true,
         shrink: true,
+        focused: false,
+        error: false,
         htmlFor: "bootstrap-input",
         sx: {
             position: "relative", transformOrigin: "unset", transform: "unset",

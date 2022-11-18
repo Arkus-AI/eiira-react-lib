@@ -13,7 +13,6 @@ const Template: Story<TextInputProps> = (args) => <TextInput {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-    errorText: "",
     label: "Some kind of label",
 };
 export const WithAnError = Template.bind({});
@@ -26,17 +25,21 @@ WithAnError.args = {
 export const WithATooltip = Template.bind({});
 WithATooltip.args = {
     tooltipText: "Some kind of tooltip text here",
-    errorText: "",
     label: "Some kind of label",
 };
 
 export const WithATooltipAndRequired = Template.bind({});
 WithATooltipAndRequired.args = {
     tooltipText: "Some kind of tooltip text here",
-    errorText: "",
     label: "Some kind of label",
     required: true,
 };
 
+export const WithAPlaceholder = Template.bind({});
+WithAPlaceholder.args = { label: "Some kind of label", placeholder: "Some kind of placeholder" };
+// export const StoryTemplate = Template.bind({});
+// StoryTemplate.args = {iconType: "", color: ""};
+// export const StoryTemplate = Template.bind({});
+// StoryTemplate.args = {iconType: "", color: ""};
 // export const StoryTemplate = Template.bind({});
 // StoryTemplate.args = {iconType: "", color: ""};
