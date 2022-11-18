@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "React UI components for Eiira Genetics",
   "main": "index.js",
-  "author": "Vladimir Li",
+  "author": {
+    "name": "Vladimir Li"
+  },
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.20.2",
@@ -31,6 +33,9 @@
   },
   "scripts": {
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
-  }
+    "build-storybook": "build-storybook",
+    "chromatic": "npx chromatic --project-token=5f1856e814d8"
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "eiira-react-lib@1.0.0"
 }
