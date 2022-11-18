@@ -56,12 +56,10 @@ export default function TextInput({ label, errorText, ...props }: TextInputProps
             </InputLabel>
             <BootstrapInput id="bootstrap-input" {...props} />
             <FormHelperText error={error} color="error">
-                {error && (
-                    <>
-                        <Icon iconType="exclamation-triangle" color="inherit" fontSize='inherit' sx={{ transform: "translateY(1px)", marginRight: .5 }} />
-                        {errorText}
-                    </>
-                )}
+                {error && (<>
+                    <Icon iconType="exclamation-triangle" color="inherit" fontSize='inherit' sx={{ transform: "translateY(1px)", marginRight: .5 }} />
+                    {errorText}
+                </>)}
             </FormHelperText>
         </FormControl>
     )
