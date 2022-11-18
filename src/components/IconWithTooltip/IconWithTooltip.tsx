@@ -28,7 +28,7 @@ export interface IconWithTooltipProps {
     tooltipText: string;
 }
 
-export default function IconWithTooltip({ tooltipType="help", tooltipText }: IconWithTooltipProps) {
+export default function IconWithTooltip({ tooltipType = "help", tooltipText }: IconWithTooltipProps) {
     return (
         <BootstrapTooltip title={<Typography variant='body2'>{tooltipText}</Typography>} arrow>
             <IconButton sx={{ padding: 0 }} color="primary">

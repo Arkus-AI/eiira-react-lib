@@ -1,40 +1,48 @@
 import * as React from 'react';
-import { FormControl, FormHelperText, FormControlLabel, InputLabel } from '@mui/material';
+import { FormControl, FormHelperText, Stack, InputLabel, } from '@mui/material';
 import { InputBaseProps, InputBase, } from '@mui/material';
-import { styled, alpha } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Icon from '../Icon';
-import { ThemeContext } from '@emotion/react';
+import IconWithTooltip from '../IconWithTooltip';
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
-    'label + &': {
-        marginTop: theme.spacing(3),
-    },
     '& .MuiInputBase-input': {
         borderRadius: 4,
         position: 'relative',
-        backgroundColor: theme.palette.mode === 'light' ? '#fcfcfb' : '#2b2b2b',
         border: `1px solid ${theme.palette.neutral.field}`,
-        width: 'auto',
-        padding: '10px 12px',
+        padding: '8px',
+        marginTop: theme.spacing(.5),
         transition: theme.transitions.create([
             'border-color',
-            'border-width',
             'background-color',
+            'box-shadow',
         ]),
         '&:hover': {
             borderColor: theme.palette.primary.main,
         },
         '&:focus': {
-            borderWidth: "2px",
+            boxShadow: `inset 0px 0px 0px 1px ${theme.palette.primary.main}`,
             borderColor: theme.palette.primary.main,
+        },
+        "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
+            "WebkitAppearance": "none",
+            margin: 0,
+        },
+        "&[type=number]": {
+            "MozAppearance": "textfield",
         },
     },
     '&.MuiInputBase-root.Mui-error': {
         '& .MuiInputBase-input': {
             borderColor: theme.palette.error.main,
+            '&:focus': {
+                boxShadow: `inset 0px 0px 0px 1px ${theme.palette.primary.main}`,
+                borderColor: theme.palette.primary.main,
+            },
         }
     }
 }));
+
 
 export interface TextInputProps extends InputBaseProps {
     /**
@@ -44,16 +52,38 @@ export interface TextInputProps extends InputBaseProps {
     /**
      * Error message to display
      */
-    errorText: string;
+    errorText?: string;
+    /**
+     * Tooltip text to display
+     */
+    tooltipText?: string;
 }
 
-export default function TextInput({ label, errorText, ...props }: TextInputProps) {
+export default function TextInput({ label, errorText = "", tooltipText = "", ...props }: TextInputProps) {
     const error = errorText.length > 0;
+    const { required } = props;
+    const inputLabelProps = {
+        disableAnimation: true,
+        shrink: true,
+        htmlFor: "bootstrap-input",
+        sx: {
+            position: "relative", transformOrigin: "unset", transform: "unset",
+            ".MuiInputLabel-asterisk": {
+                color: "error.main",
+            }
+        }
+    }
+
     return (
-        <FormControl variant="standard" error={error}>
-            <InputLabel shrink htmlFor="bootstrap-input">
-                {label}
-            </InputLabel>
+        <FormControl variant="standard" error={error} required={required}>
+            {tooltipText ? (
+                <Stack direction="row" alignItems="center" spacing={1.5}>
+                    <InputLabel {...inputLabelProps}> {label} </InputLabel>
+                    <IconWithTooltip tooltipText={tooltipText} />
+                </Stack>
+            ) :
+                <InputLabel {...inputLabelProps}> {label} </InputLabel>
+            }
             <BootstrapInput id="bootstrap-input" {...props} />
             <FormHelperText error={error} color="error">
                 {error && (<>

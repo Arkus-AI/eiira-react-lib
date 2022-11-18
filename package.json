@@ -36,6 +36,8 @@
   "scripts": {
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
+    "predeploy": "npm run build-storybook",
+    "deploy-storybook": "gh-pages -d storybook-static",
     "chromatic": "npx chromatic --project-token=5f1856e814d8"
   },
   "readme": "ERROR: No README data found!",

@@ -22,6 +22,21 @@ WithAnError.args = {
     label: "Some kind of label",
 };
 
+
+export const WithATooltip = Template.bind({});
+WithATooltip.args = {
+    tooltipText: "Some kind of tooltip text here",
+    errorText: "",
+    label: "Some kind of label",
+};
+
+export const WithATooltipAndRequired = Template.bind({});
+WithATooltipAndRequired.args = {
+    tooltipText: "Some kind of tooltip text here",
+    errorText: "",
+    label: "Some kind of label",
+    required: true,
+};
+
 // export const StoryTemplate = Template.bind({});
 // StoryTemplate.args = {iconType: "", color: ""};
-
