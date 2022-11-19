@@ -78,6 +78,14 @@ export const lightTheme = createTheme({
           },
         }
       }
+    },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontSize: "12px",
+          lineHeight: "16px"
+        }
+      }
     }
   }
 });

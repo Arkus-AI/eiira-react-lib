@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { FormControl, FormHelperText, Stack, InputLabel, } from '@mui/material';
+import { FormControl, Stack, InputLabel, } from '@mui/material';
 import { InputBaseProps, InputBase, } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import Icon from '../Icon';
 import IconWithTooltip from '../IconWithTooltip';
+import ErrorOrHelperText from '../ErrorOrHelperText/ErrorOrHelperText';
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
     '& .MuiInputBase-input': {
@@ -35,7 +35,9 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
     '&.MuiInputBase-root.Mui-error': {
         '& .MuiInputBase-input': {
             borderColor: theme.palette.error.main,
-            boxShadow: `inset 0px 0px 0px 1px ${theme.palette.error.main}`,
+            "&:focus": {
+                boxShadow: `inset 0px 0px 0px 1px ${theme.palette.error.main}`,
+            }
         }
     }
 }));
@@ -54,9 +56,13 @@ export interface TextInputProps extends InputBaseProps {
      * Tooltip text to display
      */
     tooltipText?: string;
+    /**
+     * Helper text to display
+     */
+    helperText?: string;
 }
 
-export default function TextInput({ label, errorText = "", tooltipText = "", ...props }: TextInputProps) {
+export default function TextInput({ label, errorText = "", tooltipText = "", helperText = "", ...props }: TextInputProps) {
     const error = errorText.length > 0;
     const { required } = props;
     const inputLabelProps = {
@@ -84,12 +90,7 @@ export default function TextInput({ label, errorText = "", tooltipText = "", ...
                 <InputLabel {...inputLabelProps}> {label} </InputLabel>
             }
             <BootstrapInput id="bootstrap-input" {...props} />
-            <FormHelperText error={error} color="error">
-                {error && (<>
-                    <Icon iconType="exclamation-triangle" color="inherit" fontSize='inherit' sx={{ transform: "translateY(1px)", marginRight: .5 }} />
-                    {errorText}
-                </>)}
-            </FormHelperText>
+            <ErrorOrHelperText errorText={errorText} helperText={helperText} />
         </FormControl>
     )
 }
