@@ -30,11 +30,20 @@ Default.args = {};
 
 export const WithAnError = Template.bind({});
 WithAnError.args = { errorText: "Some kind of error" };
+
 export const Required = Template.bind({});
 Required.args = { required: true };
+
 export const WithAHelperText = Template.bind({});
 WithAHelperText.args = { helperText: "Some kind of helper text here" };
+
 export const WithATooltip = Template.bind({});
 WithATooltip.args = { tooltipText: "Some kind of tooltip text here" };
+
+export const OnARow = Template.bind({});
+OnARow.args = { row: true };
+
+// export const Story = Template.bind({});
+// Story.args = { };
 // export const Story = Template.bind({});
 // Story.args = { };

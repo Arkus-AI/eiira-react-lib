@@ -4,7 +4,7 @@ import { Story } from "@storybook/react";
 import Icon, { IconProps } from "./Icon";
 
 export default {
-    title: "Molecules/Icon",
+    title: "Atoms/Icon",
     component: Icon,
 } as Meta;
 

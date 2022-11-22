@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Tooltip, { TooltipProps, tooltipClasses } from '@mui/material/Tooltip';
-import Icon from "../Icon/Icon";
+import Icon from "../Icon";
 import { IconButton, Typography } from '@mui/material';
 import ClickAwayListener from '@mui/base/ClickAwayListener';
 

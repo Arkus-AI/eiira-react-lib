@@ -2,8 +2,8 @@ import * as React from 'react';
 import { FormControl, Stack, InputLabel, } from '@mui/material';
 import { InputBaseProps, InputBase, } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import IconWithTooltip from '../IconWithTooltip';
-import ErrorOrHelperText from '../ErrorOrHelperText/ErrorOrHelperText';
+import IconWithTooltip from '../../atoms/IconWithTooltip';
+import ErrorOrHelperText from '../../atoms/ErrorOrHelperText';
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
     '& .MuiInputBase-input': {

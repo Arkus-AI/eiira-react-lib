@@ -2,13 +2,17 @@
   "name": "eiira-react-lib",
   "version": "1.0.0",
   "description": "React UI components for Eiira Genetics",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "module": "lib/index.esm.js",
+  "types": "lib/index.d.ts",
   "author": {
     "name": "Vladimir Li"
   },
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.20.2",
+    "@rollup/plugin-commonjs": "^23.0.2",
+    "@rollup/plugin-node-resolve": "^15.0.1",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",
     "@storybook/addon-interactions": "^6.5.13",
@@ -21,8 +25,13 @@
     "babel-loader": "^8.3.0",
     "chromatic": "^6.11.4",
     "gh-pages": "^4.0.0",
+    "postcss": "^8.4.19",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rollup": "^3.4.0",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-typescript2": "^0.34.1",
     "typescript": "^4.9.3"
   },
   "dependencies": {
@@ -38,7 +47,8 @@
     "build-storybook": "build-storybook",
     "predeploy": "npm run build-storybook",
     "deploy-storybook": "gh-pages -d storybook-static",
-    "chromatic": "npx chromatic --project-token=5f1856e814d8"
+    "chromatic": "npx chromatic --project-token=5f1856e814d8",
+    "build": "rollup -c --bundleConfigAsCjs"
   },
   "readme": "ERROR: No README data found!",
   "_id": "eiira-react-lib@1.0.0"

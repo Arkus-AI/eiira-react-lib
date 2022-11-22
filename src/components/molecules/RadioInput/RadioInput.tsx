@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup, FormHelperText, Stack } from "@mui/material";
+import { FormControlLabel, Radio, RadioGroup, } from "@mui/material";
 import { RadioGroupProps } from "@mui/material/RadioGroup";
-import IconWithTooltip from "../IconWithTooltip/IconWithTooltip";
-import ErrorOrHelperText from '../ErrorOrHelperText/ErrorOrHelperText';
+import FormControlWrapper from "../FormControlWrapper";
 
 interface RadioInputOption {
     label: string;
@@ -49,21 +48,8 @@ export interface RadioInputProps extends RadioGroupProps {
 
 const RadioInput = ({ label, options, value, onChange, errorText = "", helperText = "", tooltipText = "", required = false, ...radioGroupProps }: RadioInputProps) => {
     const error = errorText !== "";
-    const formLabelProps = {
-        focused: false,
-        error: false,
-    }
     return (
-        <FormControl required={required} error={error}>
-            {tooltipText ? (
-                <Stack direction="row" alignItems="center" spacing={1.5}>
-                    <FormLabel {...formLabelProps}>{label}</FormLabel>
-                    <IconWithTooltip tooltipText={tooltipText} />
-                </Stack>
-            ) :
-                <FormLabel {...formLabelProps}>{label}</FormLabel>
-            }
-
+        <FormControlWrapper label={label} tooltipText={tooltipText} required={required} errorText={errorText} helperText={helperText}>
             <RadioGroup value={value} onChange={onChange} {...radioGroupProps}>
                 {options.map((option) => (
                     <FormControlLabel
@@ -79,8 +65,7 @@ const RadioInput = ({ label, options, value, onChange, errorText = "", helperTex
                     />
                 ))}
             </RadioGroup>
-            <ErrorOrHelperText errorText={errorText} helperText={helperText} />
-        </FormControl>
+        </FormControlWrapper>
     );
 }
 
