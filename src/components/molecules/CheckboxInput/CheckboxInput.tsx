@@ -8,7 +8,7 @@ interface CheckboxInputOption {
 }
 interface CheckboxInputOptions extends Array<CheckboxInputOption> { }
 
-interface CheckboxInputValues {
+export interface CheckboxInputValues {
     [key: string]: boolean;
 }
 
@@ -45,9 +45,15 @@ export interface CheckboxInputProps {
      * Is required
      */
     required?: boolean;
+    /**
+     * Display the checkboxes on a row
+     */
+    row?: boolean;
 }
 
-const CheckboxInput = ({ label, options, value, onChange, errorText = "", helperText = "", tooltipText = "", required = false }: CheckboxInputProps) => {
+const CheckboxInput = ({ label, options, value, onChange,
+    errorText = "", helperText = "", tooltipText = "",
+    required = false, row = false }: CheckboxInputProps) => {
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const tmpValue = { ...value };
@@ -57,12 +63,13 @@ const CheckboxInput = ({ label, options, value, onChange, errorText = "", helper
 
     return (
         <FormControlWrapper label={label} tooltipText={tooltipText} required={required} errorText={errorText} helperText={helperText}>
-            <FormGroup>
+            <FormGroup row={row}>
                 {options.map((option) => (
                     <FormControlLabel
                         key={option.value}
                         value={option.value}
-                        control={<Checkbox checked={value[option.value]} onChange={handleChange} name={option.value} />}
+                        control={<Checkbox checked={value[option.value]}
+                            onChange={handleChange} name={option.value} />}
                         label={option.label}
                     />
                 ))}
