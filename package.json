@@ -26,21 +26,22 @@
     "chromatic": "^6.11.4",
     "gh-pages": "^4.0.0",
     "postcss": "^8.4.19",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "rollup": "^3.4.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
-    "typescript": "^4.9.3"
-  },
-  "dependencies": {
+    "typescript": "^4.9.3",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/material": "^5.10.14"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
   },
   "scripts": {
     "storybook": "start-storybook -p 6006",
