@@ -4,6 +4,10 @@ import { InputBaseProps, InputBase, } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import IconWithTooltip from '../../atoms/IconWithTooltip';
 import ErrorOrHelperText from '../../atoms/ErrorOrHelperText';
+import { PatternFormat } from 'react-number-format';
+import { NumericFormat, InputAttributes } from 'react-number-format';
+
+
 
 const BootstrapInput = styled(InputBase)(({ theme }) => ({
     '& .MuiInputBase-input': {
@@ -43,7 +47,7 @@ const BootstrapInput = styled(InputBase)(({ theme }) => ({
 }));
 
 
-export interface TextInputProps extends InputBaseProps {
+export interface TextInputProps {
     /**
      * Label to display
      */
@@ -60,11 +64,93 @@ export interface TextInputProps extends InputBaseProps {
      * Helper text to display
      */
     helperText?: string;
+    /**
+     * onChange handler
+     */
+    onChange: (value: string) => void;
+    /**
+     * Value
+     */
+    value: string | number | null;
+    /**
+     * Is required
+     */
+    required?: boolean;
+    /**
+     * Format
+     */
+    format?: "default" | "year" | "age";
+    /**
+     * placeholder
+     */
+    placeholder?: string;
 }
 
-export default function TextInput({ label, errorText = "", tooltipText = "", helperText = "", ...props }: TextInputProps) {
+interface CustomProps {
+    onChange: (event: { target: { name: string; value: string } }) => void;
+    name: string;
+}
+
+const YearFormat = React.forwardRef<
+    typeof PatternFormat<InputAttributes>,
+    CustomProps
+>(function NumberFormatCustom(props, ref) {
+    const { onChange, ...other } = props;
+
+    return (
+        <PatternFormat
+            {...other}
+            getInputRef={ref}
+            onValueChange={(values) => {
+                onChange({
+                    target: {
+                        name: props.name,
+                        value: values.value,
+                    },
+                });
+            }}
+            format="####"
+            mask="Y"
+        />
+    );
+});
+
+const AgeFormat = React.forwardRef<
+    typeof NumericFormat<InputAttributes>,
+    CustomProps
+>(function NumberFormatCustom(props, ref) {
+    const { onChange, ...other } = props;
+
+    return (
+        <NumericFormat
+            {...other}
+            getInputRef={ref}
+            onValueChange={(values) => {
+                onChange({
+                    target: {
+                        name: props.name,
+                        value: values.value,
+                    },
+                });
+            }}
+            isAllowed={(values) => {
+                const { value } = values;
+                return Number(value) < 200;
+            }}
+        />
+    );
+});
+
+const FORMATS = {
+    year: YearFormat as any,
+    age: AgeFormat as any,
+    default: 'input',
+}
+
+export default function TextInput({ label, errorText = "", tooltipText = "",
+    helperText = "", onChange, value, required, format = "default",
+    placeholder = "" }: TextInputProps) {
     const error = errorText.length > 0;
-    const { required } = props;
     const inputLabelProps = {
         disableAnimation: true,
         shrink: true,
@@ -79,6 +165,16 @@ export default function TextInput({ label, errorText = "", tooltipText = "", hel
         }
     }
 
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        onChange(event.target.value);
+    }
+
+    const inputProps: InputBaseProps = {
+        id: "bootstrap-input",
+        value, onChange: handleChange, placeholder,
+        inputComponent: FORMATS[format]
+    }
+
     return (
         <FormControl variant="standard" error={error} required={required}>
             {tooltipText ? (
@@ -89,7 +185,7 @@ export default function TextInput({ label, errorText = "", tooltipText = "", hel
             ) :
                 <InputLabel {...inputLabelProps}> {label} </InputLabel>
             }
-            <BootstrapInput id="bootstrap-input" {...props} />
+            <BootstrapInput {...inputProps} />
             <ErrorOrHelperText errorText={errorText} helperText={helperText} />
         </FormControl>
     )

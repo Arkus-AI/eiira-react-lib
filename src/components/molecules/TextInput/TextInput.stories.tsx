@@ -2,6 +2,7 @@ import React from "react";
 import { Meta } from "@storybook/react/types-6-0";
 import { Story } from "@storybook/react";
 import TextInput, { TextInputProps } from "./TextInput";
+import { useArgs } from '@storybook/client-api';
 
 
 export default {
@@ -9,7 +10,13 @@ export default {
     component: TextInput,
 } as Meta;
 
-const Template: Story<TextInputProps> = (args) => <TextInput {...args} />;
+const Template: Story<TextInputProps> = (args) => {
+    const [{ }, updateArgs] = useArgs();
+    const onChange = (value: string) => {
+        updateArgs({ value });
+    };
+    return <TextInput {...args} onChange={onChange} />
+}
 
 export const Default = Template.bind({});
 Default.args = {
@@ -50,5 +57,13 @@ WithAHelper.args = { label: "Some kind of label", helperText: "Some kind of help
 
 export const WithAHelperAndAnError = Template.bind({});
 WithAHelperAndAnError.args = { label: "Some kind of label", helperText: "Some kind of helper text here", errorText: "Some kind of error" };
+
+export const YearInput = Template.bind({});
+YearInput.args = { label: "Year input", format: "year" };
+
+// export const StoryTemplate = Template.bind({});
+// StoryTemplate.args = {iconType: "", color: ""};
+// export const StoryTemplate = Template.bind({});
+// StoryTemplate.args = {iconType: "", color: ""};
 // export const StoryTemplate = Template.bind({});
 // StoryTemplate.args = {iconType: "", color: ""};

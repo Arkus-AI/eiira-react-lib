@@ -5,12 +5,12 @@ import FormControlWrapper from "../FormControlWrapper";
 
 interface RadioInputOption {
     label: string;
-    value: string;
+    value: string | boolean;
 }
 
 interface RadioInputOptions extends Array<RadioInputOption> { }
 
-export interface RadioInputProps extends RadioGroupProps {
+export interface RadioInputProps {
     /**
      * The label for the radio input
      */
@@ -22,11 +22,11 @@ export interface RadioInputProps extends RadioGroupProps {
     /**
      * The value of the radio input
      */
-    value: string;
+    value: string | boolean | null;
     /**
      * onChange handler
      */
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (value: string | boolean | null) => void;
     /**
      * Error message to display
      */
@@ -43,17 +43,37 @@ export interface RadioInputProps extends RadioGroupProps {
      * Is required
      */
     required?: boolean;
-
+    /**
+     * show on a row
+     */
+    row?: boolean;
 }
 
-const RadioInput = ({ label, options, value, onChange, errorText = "", helperText = "", tooltipText = "", required = false, ...radioGroupProps }: RadioInputProps) => {
+const isBoolean = (value: string | boolean): value is boolean => {
+    return typeof value === 'boolean';
+}
+
+const isBoleanString = (value: string | boolean): value is string => {
+    // if value is a string and is either 'true' or 'false' then return true
+    return typeof value === 'string' && (value === 'true' || value === 'false');
+}
+
+const RadioInput = ({ label, options, value, onChange, errorText = "", helperText = "", tooltipText = "", required = false, row = false }: RadioInputProps) => {
     const error = errorText !== "";
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const val = event.target.value;
+        if (isBoleanString(val)) {
+            onChange(val === 'true');
+        } else {
+            onChange(val);
+        }
+    }
     return (
         <FormControlWrapper label={label} tooltipText={tooltipText} required={required} errorText={errorText} helperText={helperText}>
-            <RadioGroup value={value} onChange={onChange} {...radioGroupProps}>
+            <RadioGroup value={value} onChange={handleChange} row={row}>
                 {options.map((option) => (
                     <FormControlLabel
-                        key={option.value}
+                        key={isBoolean(option.value) ? option.value.toString() : option.value}
                         value={option.value}
                         control={<Radio sx={{
                             color: error ? "error.main" : "primary.main",

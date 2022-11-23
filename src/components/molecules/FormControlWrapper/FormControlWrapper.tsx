@@ -3,11 +3,7 @@ import { FormControl, Stack, FormLabel } from '@mui/material';
 import IconWithTooltip from '../../atoms/IconWithTooltip';
 import ErrorOrHelperText from '../../atoms/ErrorOrHelperText';
 
-export interface FormControlWrapperProps {
-    /**
-     * Children to render inside the wrapper
-     */
-    children: React.ReactNode;
+export interface FormFieldProps {
     /**
      * The label for form control
      */
@@ -28,6 +24,13 @@ export interface FormControlWrapperProps {
      * Is required
      */
     required?: boolean;
+}
+
+export interface FormControlWrapperProps extends FormFieldProps {
+    /**
+     * Children to render inside the wrapper
+     */
+    children: React.ReactNode;
 }
 
 const FormControlWrapper = ({ children, label, tooltipText = "", required = false, errorText = "", helperText = "" }: FormControlWrapperProps) => {

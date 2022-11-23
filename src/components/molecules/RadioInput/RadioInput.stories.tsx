@@ -19,8 +19,8 @@ export default {
 
 const Template: ComponentStory<typeof RadioInput> = (args) => {
     const [{ }, updateArgs] = useArgs();
-    const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        updateArgs({ value: event.target.value });
+    const onChange = (value: string | boolean | null) => {
+        updateArgs({ value });
     };
     return <RadioInput {...args} onChange={onChange} />
 };
