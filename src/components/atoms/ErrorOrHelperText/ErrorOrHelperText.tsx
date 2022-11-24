@@ -15,6 +15,7 @@ export interface ErrorOrHelperTextProps {
 
 const ErrorOrHelperText = ({ errorText = "", helperText = "" }: ErrorOrHelperTextProps) => {
     const error = errorText !== "";
+    if (errorText === "" && helperText === "") return null;
     return (
         <FormHelperText error={error}
             sx={{

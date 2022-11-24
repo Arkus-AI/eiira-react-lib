@@ -1,6 +1,7 @@
 import * as React from "react";
 import FormControlWrapper from "../FormControlWrapper";
 import { FormGroup, FormControlLabel, Checkbox } from "@mui/material";
+import { useTheme } from "@mui/material";
 
 interface CheckboxInputOption {
     label: string;
@@ -55,11 +56,23 @@ const CheckboxInput = ({ label, options, value, onChange,
     errorText = "", helperText = "", tooltipText = "",
     required = false, row = false }: CheckboxInputProps) => {
 
+    const theme = useTheme();
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const tmpValue = { ...value };
         tmpValue[event.target.name] = event.target.checked;
         onChange(tmpValue);
     }
+
+    const error = errorText !== "";
+    const CheckboxSx: any = {
+        "&.Mui-checked": {
+            color: error ? "error.main" : "primary.main",
+        },
+        ":hover": {
+            backgroundColor: error ? theme.palette.error.light : theme.palette.hover.light,
+        }
+    }
+    if (error) CheckboxSx["color"] = "error.main";
 
     return (
         <FormControlWrapper label={label} tooltipText={tooltipText} required={required} errorText={errorText} helperText={helperText}>
@@ -69,7 +82,8 @@ const CheckboxInput = ({ label, options, value, onChange,
                         key={option.value}
                         value={option.value}
                         control={<Checkbox checked={value[option.value]}
-                            onChange={handleChange} name={option.value} />}
+                            onChange={handleChange} name={option.value}
+                            sx={CheckboxSx} />}
                         label={option.label}
                     />
                 ))}

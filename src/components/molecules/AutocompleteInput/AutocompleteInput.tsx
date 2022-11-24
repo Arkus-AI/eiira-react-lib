@@ -22,7 +22,7 @@ export interface IAutocompleteInputProps extends FormFieldProps {
     /**
      * onChange handler
      */
-    onChange: (value: string | null) => void;
+    onChange: (value: string | null | string[]) => void;
     /**
      * Placeholder
      */

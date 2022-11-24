@@ -40,7 +40,8 @@ const palette: PaletteOptions = {
     main: "#EBF1FB"
   },
   error: {
-    main: "#CA2B2B"
+    main: "#CA2B2B",
+    light: "#FFEBEE"
   },
   text: {
     primary: "#233750",
@@ -63,6 +64,19 @@ export const lightTheme = createTheme({
   },
   components: {
     MuiCssBaseline,
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: "revert",
+          padding: "8px 24px",
+          fontSize: "16px",
+          lineHeight: "24px"
+        },
+        outlinedPrimary: {
+          borderColor: palette.primary?.main,
+        }
+      },
+    },
     MuiButtonBase: {
       styleOverrides: {
         root: {
@@ -88,9 +102,12 @@ export const lightTheme = createTheme({
         }
       }
     },
-    MuiTextField: {
+    MuiInputBase: {
       styleOverrides: {
-        root: {
+        input: {
+          "::placeholder": {
+            color: palette.text?.secondary,
+          },
           '& .MuiOutlinedInput-root': {
             '& fieldset': {
               borderColor: palette.neutral?.field,
@@ -104,15 +121,6 @@ export const lightTheme = createTheme({
               borderWidth: "2px",
             },
           },
-        },
-      }
-    },
-    MuiInputBase: {
-      styleOverrides: {
-        input: {
-          "::placeholder": {
-            color: palette.text?.secondary,
-          },
         }
       }
     },
@@ -120,7 +128,7 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           fontSize: "12px",
-          lineHeight: "16px"
+          lineHeight: "16px",
         }
       }
     },

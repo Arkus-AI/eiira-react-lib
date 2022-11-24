@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { FormControlLabel, Radio, RadioGroup, } from "@mui/material";
-import { RadioGroupProps } from "@mui/material/RadioGroup";
+import { FormControlLabel, Radio, RadioGroup, useTheme, } from "@mui/material";
 import FormControlWrapper from "../FormControlWrapper";
 
 interface RadioInputOption {
@@ -8,7 +7,7 @@ interface RadioInputOption {
     value: string | boolean;
 }
 
-interface RadioInputOptions extends Array<RadioInputOption> { }
+export interface RadioInputOptions extends Array<RadioInputOption> { }
 
 export interface RadioInputProps {
     /**
@@ -59,6 +58,7 @@ const isBoleanString = (value: string | boolean): value is string => {
 }
 
 const RadioInput = ({ label, options, value, onChange, errorText = "", helperText = "", tooltipText = "", required = false, row = false }: RadioInputProps) => {
+    const theme = useTheme()
     const error = errorText !== "";
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const val = event.target.value;
@@ -68,6 +68,17 @@ const RadioInput = ({ label, options, value, onChange, errorText = "", helperTex
             onChange(val);
         }
     }
+    const RadioSx: any = {
+        "&.Mui-checked": {
+            color: error ? "error.main" : "primary.main",
+        },
+        ":hover": {
+            color: error ? "error.main" : "primary.main",
+            backgroundColor: error ? theme.palette.error.light : theme.palette.hover.light,
+        }
+    }
+    if (error) RadioSx["color"] = "error.main";
+
     return (
         <FormControlWrapper label={label} tooltipText={tooltipText} required={required} errorText={errorText} helperText={helperText}>
             <RadioGroup value={value} onChange={handleChange} row={row}>
@@ -75,12 +86,7 @@ const RadioInput = ({ label, options, value, onChange, errorText = "", helperTex
                     <FormControlLabel
                         key={isBoolean(option.value) ? option.value.toString() : option.value}
                         value={option.value}
-                        control={<Radio sx={{
-                            color: error ? "error.main" : "primary.main",
-                            "&.Mui-checked": {
-                                color: error ? "error.main" : "primary.main",
-                            }
-                        }} />}
+                        control={<Radio sx={RadioSx} />}
                         label={option.label}
                     />
                 ))}

@@ -1,51 +1,10 @@
 import * as React from 'react';
 import { FormControl, Stack, InputLabel, } from '@mui/material';
-import { InputBaseProps, InputBase, } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { InputBaseProps, InputBase } from '@mui/material';
 import IconWithTooltip from '../../atoms/IconWithTooltip';
 import ErrorOrHelperText from '../../atoms/ErrorOrHelperText';
 import { PatternFormat } from 'react-number-format';
 import { NumericFormat, InputAttributes } from 'react-number-format';
-
-
-
-const BootstrapInput = styled(InputBase)(({ theme }) => ({
-    '& .MuiInputBase-input': {
-        borderRadius: 4,
-        position: 'relative',
-        border: `1px solid ${theme.palette.neutral.field}`,
-        padding: '8px',
-        marginTop: theme.spacing(.5),
-        transition: theme.transitions.create([
-            'border-color',
-            'background-color',
-            'box-shadow',
-        ]),
-        '&:hover': {
-            borderColor: theme.palette.primary.main,
-        },
-        '&:focus': {
-            boxShadow: `inset 0px 0px 0px 1px ${theme.palette.primary.main}`,
-            borderColor: theme.palette.primary.main,
-        },
-        "&::-webkit-outer-spin-button, &::-webkit-inner-spin-button": {
-            "WebkitAppearance": "none",
-            margin: 0,
-        },
-        "&[type=number]": {
-            "MozAppearance": "textfield",
-        },
-    },
-    '&.MuiInputBase-root.Mui-error': {
-        '& .MuiInputBase-input': {
-            borderColor: theme.palette.error.main,
-            "&:focus": {
-                boxShadow: `inset 0px 0px 0px 1px ${theme.palette.error.main}`,
-            }
-        }
-    }
-}));
-
 
 export interface TextInputProps {
     /**
@@ -185,7 +144,7 @@ export default function TextInput({ label, errorText = "", tooltipText = "",
             ) :
                 <InputLabel {...inputLabelProps}> {label} </InputLabel>
             }
-            <BootstrapInput {...inputProps} />
+            <InputBase {...inputProps} />
             <ErrorOrHelperText errorText={errorText} helperText={helperText} />
         </FormControl>
     )

@@ -4,7 +4,7 @@ import * as React from "react";
 import RadioInput from "../../molecules/RadioInput";
 import { ISingleCancerDiagnoseData } from "../../molecules/SingleCancerDiagnoseInput/SingleCancerDiagnoseInput";
 import SingleCancerDiagnoseInput from "../../molecules/SingleCancerDiagnoseInput";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 
 export interface ICancerDiagnoseInputData {
     /**
@@ -91,7 +91,11 @@ const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagn
                 data.cancerDiagnoses?.map((cancerDiagnose, index) => (
                     <SingleCancerDiagnoseInput key={index} data={cancerDiagnose} onChange={onCancerDiagnoseChangeFactory(index)} forTarget={forTarget} />
                 )))}
-            {data.hasCancerDiagnosis && <Button onClick={onAddCancerDiagnose}>Add another diagnosis</Button>}
+            {data.hasCancerDiagnosis && (
+                <Box>
+                    <Button onClick={onAddCancerDiagnose} variant="outlined">Add another diagnosis</Button>
+                </Box>
+            )}
 
         </Stack>
     );
