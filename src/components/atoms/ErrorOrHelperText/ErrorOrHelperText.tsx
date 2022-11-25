@@ -11,9 +11,13 @@ export interface ErrorOrHelperTextProps {
      * The helper text to display
      */
     helperText?: string;
+    /**
+     * Styles object
+     */
+    sx?: any;
 }
 
-const ErrorOrHelperText = ({ errorText = "", helperText = "" }: ErrorOrHelperTextProps) => {
+const ErrorOrHelperText = ({ errorText = "", helperText = "", sx = {} }: ErrorOrHelperTextProps) => {
     const error = errorText !== "";
     if (errorText === "" && helperText === "") return null;
     return (
@@ -21,6 +25,7 @@ const ErrorOrHelperText = ({ errorText = "", helperText = "" }: ErrorOrHelperTex
             sx={{
                 margin: 0,
                 marginTop: "5px",
+                ...sx
             }}
         >
             {error ? (<>

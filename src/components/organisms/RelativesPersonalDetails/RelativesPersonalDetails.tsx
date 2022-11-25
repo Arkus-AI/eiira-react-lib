@@ -1,9 +1,9 @@
-import { Box, Stack } from "@mui/system";
+import { Stack } from "@mui/system";
 import * as React from "react";
 import TextInput from "../../molecules/TextInput";
 import RadioInput from "../../molecules/RadioInput";
 
-interface RelativesPersonalDetailsData {
+export interface IRelativesPersonalDetailsData {
     /**
      * Full name
      */
@@ -11,43 +11,62 @@ interface RelativesPersonalDetailsData {
     /**
      * Year of birth
      */
-    yearOfBirth: number | null;
+    yearOfBirth: string;
     /**
      * Year of death
      */
-    yearOfDeath: number | null;
+    yearOfDeath: string;
     /**
      * Is dead
      */
     isDead: boolean | null;
 }
 
+export interface IRelativesPersonalDetailsErrors {
+    /**
+     * year of birth error message
+     */
+    yearOfBirthError?: string;
+    /**
+     * year of death error message
+     */
+    yearOfDeathError?: string;
+}
+
+
 export interface RelativesPersonalDetailsProps {
     /**
      * Data for the relatives
      */
-    data: RelativesPersonalDetailsData;
+    data: IRelativesPersonalDetailsData;
     /**
      * onChange handler
      */
-    onChange: (data: RelativesPersonalDetailsData) => void;
+    onChange: (data: IRelativesPersonalDetailsData) => void;
+    /** 
+     * Error messages for the fields
+     */
+    errors?: IRelativesPersonalDetailsErrors;
 }
 
-const RelativesPersonalDetails = ({ data, onChange }: RelativesPersonalDetailsProps) => {
+const RelativesPersonalDetails = ({ data, onChange, errors }: RelativesPersonalDetailsProps) => {
 
-    const onChangeFactory = (key: keyof RelativesPersonalDetailsData) => (value: string | boolean | null) => {
+    const onChangeFactory = (key: keyof IRelativesPersonalDetailsData) => (value: string | boolean | null) => {
         onChange({ ...data, [key]: value });
     }
 
     return (
         <Stack gap={3}>
             <TextInput label="Full name" value={data.fullName} onChange={onChangeFactory('fullName')} />
-            <TextInput label="Year of birth" value={data.yearOfBirth} onChange={onChangeFactory('yearOfBirth')} format="year" placeholder="YYYY" />
+            <TextInput label="Year of birth" value={data.yearOfBirth} onChange={onChangeFactory('yearOfBirth')}
+                format="year" placeholder="YYYY" errorText={errors?.yearOfBirthError} />
             <RadioInput label="Living?" value={data.isDead} onChange={onChangeFactory('isDead')} options={[
                 { label: "Yes, living", value: false },
                 { label: "No, deceased", value: true },
             ]} row />
-            {data.isDead && <TextInput label="Year of death" value={data.yearOfDeath} onChange={onChangeFactory('yearOfDeath')} format="year" placeholder="YYYY" />}
+            {data.isDead && <TextInput label="Year of death" value={data.yearOfDeath}
+                onChange={onChangeFactory('yearOfDeath')} format="year" placeholder="YYYY"
+                errorText={errors?.yearOfDeathError} />}
         </Stack>
     )
 }

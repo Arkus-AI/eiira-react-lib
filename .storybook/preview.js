@@ -2,6 +2,7 @@ import { CssBaseline, ThemeProvider } from "@mui/material";
 import { useMemo } from "react";
 import { darkTheme } from "../src/themes/dark.theme";
 import { lightTheme } from "../src/themes/light.theme";
+import MuiCssBaseline from "../src/themes/cssBaseline";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -25,6 +26,7 @@ export const withMuiTheme = (Story, context) => {
 
   // only recompute the theme if the themeKey changes
   const theme = useMemo(() => THEMES[themeKey] || THEMES["light"], [themeKey]);
+  theme.components.MuiCssBaseline = MuiCssBaseline;
 
   return (
     <ThemeProvider theme={theme}>

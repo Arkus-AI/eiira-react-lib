@@ -11,9 +11,9 @@ export default {
     args: {
         data: {
             fullName: '',
-            yearOfBirth: null,
+            yearOfBirth: '',
             isDead: null,
-            yearOfDeath: null,
+            yearOfDeath: '',
         }
     },
 } as ComponentMeta<typeof RelativesPersonalDetails>;

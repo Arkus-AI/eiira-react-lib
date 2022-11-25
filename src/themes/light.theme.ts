@@ -1,5 +1,4 @@
 import { createTheme, PaletteOptions } from "@mui/material";
-import MuiCssBaseline from "./cssBaseline";
 
 declare module '@mui/material/styles' {
   interface PaletteColorOptions {
@@ -35,13 +34,15 @@ const palette: PaletteOptions = {
   },
   secondary: {
     main: "#F9EEE5",
+    dark: "#FAE2CF"
   },
   info: {
     main: "#EBF1FB"
   },
   error: {
     main: "#CA2B2B",
-    light: "#FFEBEE"
+    light: "#FFEBEE",
+    dark: "#910002"
   },
   text: {
     primary: "#233750",
@@ -61,9 +62,38 @@ export const lightTheme = createTheme({
   palette,
   typography: {
     fontFamily: "Manrope",
+    h1: {
+      fontSize: "36px",
+      lineHeight: "40px",
+      fontWeight: 200,
+    },
+    h2: {
+      fontSize: "28px",
+      lineHeight: "32px",
+      fontWeight: 200,
+    },
+    h3: {
+      fontSize: "24px",
+      lineHeight: "28px",
+      fontWeight: 200,
+    },
+    h4: {
+      fontSize: "20px",
+      lineHeight: "24px",
+      fontWeight: 200,
+    },
+    h5: {
+      fontSize: "16px",
+      lineHeight: "24px",
+      fontWeight: "bold",
+    },
+    h6: {
+      fontSize: "14px",
+      lineHeight: "20px",
+      fontWeight: "bold",
+    },
   },
   components: {
-    MuiCssBaseline,
     MuiButton: {
       styleOverrides: {
         root: {
@@ -102,26 +132,64 @@ export const lightTheme = createTheme({
         }
       }
     },
-    MuiInputBase: {
+    MuiFormGroup: {
       styleOverrides: {
-        input: {
+        row: {
+          ".MuiFormControlLabel-root": {
+            marginRight: "48px",
+          }
+        }
+      }
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
           "::placeholder": {
             color: palette.text?.secondary,
           },
           '& .MuiOutlinedInput-root': {
             '& fieldset': {
-              borderColor: palette.neutral?.field,
+              borderWidth: 0,
             },
             '&:hover fieldset': {
-              borderColor: palette.primary?.main,
-              borderWidth: "1px",
+              borderWidth: 0,
             },
             '&.Mui-focused fieldset': {
-              borderColor: palette.primary?.main,
-              borderWidth: "2px",
+              borderWidth: 0,
             },
           },
         }
+      }
+    },
+    MuiInputBase: {
+      styleOverrides: {
+        root: {
+          border: `1px solid ${palette.neutral?.field}`,
+          padding: "8px",
+          borderRadius: "4px",
+          boxSizing: "border-box",
+          "&:hover": {
+            borderColor: palette.primary?.main
+          },
+          "&.Mui-focused": {
+            borderColor: palette.primary?.main,
+            borderWidth: "2px",
+            padding: "7px",
+          },
+          "&.Mui-error": {
+            borderColor: palette.error?.main,
+            "&:hover": {
+              borderColor: palette.error?.dark
+            },
+            "&.Mui-focused": {
+              borderColor: palette.error?.main,
+            },
+          }
+        },
+        input: {
+          padding: 0
+        }
+
       }
     },
     MuiFormHelperText: {
@@ -135,18 +203,10 @@ export const lightTheme = createTheme({
     MuiAutocomplete: {
       styleOverrides: {
         root: {
-          marginTop: "4px"
-        },
-        tag: {
-          ".MuiChip-deleteIcon": {
-            color: palette.primary?.main
-          }
+          marginTop: "4px",
         },
         popper: {
           ">div": {
-            // borderWidth: "1px",
-            // borderStyle: "solid",
-            // borderColor: palette.primary?.main,
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
             borderRadius: "4px",
           },
@@ -158,9 +218,9 @@ export const lightTheme = createTheme({
           },
         },
         inputRoot: {
-          paddingTop: 0, paddingBottom: 0, paddingLeft: 0,
+          padding: "8px",
           ".MuiAutocomplete-input": {
-            padding: "9px 9px 9px 9px",
+            padding: "0px",
           }
         },
         listbox: {
@@ -176,8 +236,65 @@ export const lightTheme = createTheme({
             backgroundColor: palette.hover?.light,
             color: palette.hover?.contrastText,
           }
+        },
+        clearIndicator: {
+          fontSize: "20px"
         }
       }
     },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          // border: `1px solid ${palette.secondary?.main}`,
+          // borderTop: 'none',
+          marginBottom: 8,
+          '&:before': {
+            display: 'none',
+          },
+        }
+      }
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          backgroundColor: palette.secondary?.main,
+          boxSizing: "content-box",
+          padding: "12px 24px",
+          paddingRight: "12px",
+          minHeight: "unset",
+          ".MuiAccordionSummary-expandIconWrapper": {
+            color: palette.text?.primary,
+            fontSize: "20px",
+          },
+          ".MuiAccordionSummary-content": {
+            margin: 0,
+          },
+          ":hover": {
+            backgroundColor: palette.secondary?.dark,
+          }
+        }
+      }
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
+          padding: "24px",
+        }
+      }
+    },
+    MuiChip: {
+      styleOverrides: {
+        outlined: {
+          borderColor: palette.neutral?.field,
+        },
+        deleteIcon: {
+          color: palette.neutral?.field,
+          fontSize: "20px",
+          ":hover": {
+            color: palette.primary?.main,
+          }
+        }
+      }
+    }
   }
 });

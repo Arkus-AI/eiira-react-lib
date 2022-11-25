@@ -1,9 +1,9 @@
 import * as React from "react";
-import { Autocomplete, TextField } from "@mui/material";
-import { styled } from '@mui/material/styles';
+import { Autocomplete, Chip, TextField } from "@mui/material";
 
 import FormControlWrapper from "../FormControlWrapper";
 import { FormFieldProps } from "../FormControlWrapper/FormControlWrapper";
+import Icon from "../../atoms/Icon";
 
 
 export interface IAutocompleteInputProps extends FormFieldProps {
@@ -43,6 +43,7 @@ const AutocompleteInput = (props: IAutocompleteInputProps) => {
     const autocompleteProps: any = {
         options,
         renderInput: (params: any) => <TextField {...params} placeholder={placeholder} />,
+        clearIcon: <Icon iconType="xmark" fontSize="inherit" />,
         ...rest
     }
 
@@ -57,6 +58,13 @@ const AutocompleteInput = (props: IAutocompleteInputProps) => {
         }
         autocompleteProps.value = value || []
     }
+    if (props.multiple)
+        autocompleteProps.renderTags = (value: readonly string[], getTagProps: any) =>
+            value.map((option, index) => (
+                <Chip variant="outlined" label={option} clickable={false} {...getTagProps({ index })}
+                    sx={{ ":hover": { backgroundColor: "unset", } }}
+                    deleteIcon={<Icon iconType="circle-xmark" fontSize="inherit" />} />
+            ));
 
     return (<FormControlWrapper {...{
         label, tooltipText, errorText,

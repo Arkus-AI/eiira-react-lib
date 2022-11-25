@@ -8,7 +8,7 @@ import geneOptions from "./geneOptions.json";
 
 
 
-interface IGeneticTestingHistoryData {
+export interface IGeneticTestingHistoryData {
     /**
      * Has done genetic testing
      */
