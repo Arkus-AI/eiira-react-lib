@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { FormControlLabel, Radio, RadioGroup, useTheme, } from "@mui/material";
 import FormControlWrapper from "../FormControlWrapper";
+import { FormFieldProps } from "../FormControlWrapper/FormControlWrapper";
 
 interface RadioInputOption {
     label: string;
@@ -9,11 +10,7 @@ interface RadioInputOption {
 
 export interface RadioInputOptions extends Array<RadioInputOption> { }
 
-export interface RadioInputProps {
-    /**
-     * The label for the radio input
-     */
-    label: string;
+export interface RadioInputProps extends FormFieldProps {
     /**
      * Options for the radio input
      */
@@ -26,22 +23,6 @@ export interface RadioInputProps {
      * onChange handler
      */
     onChange: (value: string | boolean | null) => void;
-    /**
-     * Error message to display
-     */
-    errorText?: string;
-    /**
-     * Helper text to display
-     */
-    helperText?: string;
-    /**
-     * Tooltip text to display
-     */
-    tooltipText?: string;
-    /**
-     * Is required
-     */
-    required?: boolean;
     /**
      * show on a row
      */

@@ -7,6 +7,7 @@ import {
 } from "@mui/material";
 import { AccordionProps, AccordionSummaryProps } from "@mui/material";
 import { styled } from "@mui/system";
+import { useTranslation } from "react-i18next";
 
 import Icon from "../../atoms/Icon";
 import RelativesPersonalDetails,
@@ -63,24 +64,27 @@ const yearOfBirthAfterYearOfDeath = (yearOfBirth: string, yearOfDeath: string) =
     return yearOfBirth.length === 4 && yearOfDeath.length === 4 && parseInt(yearOfBirth) > parseInt(yearOfDeath);
 }
 
-const getValidationErrorMessages = (data: IRelativesPersonalDetailsData): IRelativesPersonalDetailsErrors => {
-    const { yearOfBirth, yearOfDeath } = data
-    let yearOfBirthError: string, yearOfDeathError: string;
-    yearOfBirthError = yearInFuture(yearOfBirth) ? "Cannot be in the future" : "";
-    yearOfDeathError = yearInFuture(yearOfDeath) ? "Cannot be in the future" : "";
-    if (yearOfBirthAfterYearOfDeath(yearOfBirth, yearOfDeath))
-        yearOfDeathError = "Must be after birth";
-    return { yearOfBirthError, yearOfDeathError };
-}
 
 const errorsObjHasError = (errors: IRelativesPersonalDetailsErrors) => {
     return Object.values(errors).some(error => error !== "");
 }
 
 const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps) => {
+    const { t } = useTranslation();
+
+    const getValidationErrorMessages = (data: IRelativesPersonalDetailsData): IRelativesPersonalDetailsErrors => {
+        const { yearOfBirth, yearOfDeath } = data
+        let yearOfBirthError: string, yearOfDeathError: string;
+        yearOfBirthError = yearInFuture(yearOfBirth) ? t("Cannot be in the future") : "";
+        yearOfDeathError = yearInFuture(yearOfDeath) ? t("Cannot be in the future") : "";
+        if (yearOfBirthAfterYearOfDeath(yearOfBirth, yearOfDeath))
+            yearOfDeathError = t("Must be after birth");
+        return { yearOfBirthError, yearOfDeathError };
+    }
+
     const [personDetailErrors, setPersonDetailErrors] =
         React.useState(getValidationErrorMessages(data.personalDetails));
-    const [personalDetailsErrorMessage, setPersonalDetailsErrorMessage] = React.useState("");
+    const [personalDetailsErrorMessage, setPersonalDetailsErrorMessage] = React.useState<any>("");
 
     const [expandedPanel, setExpandedPanel] = React.useState<
         "personal-details" | "medical-history" |
@@ -90,7 +94,7 @@ const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps)
         const errors = getValidationErrorMessages(data.personalDetails)
         const hasError = errorsObjHasError(errors)
         if (hasError && expandedPanel !== "personal-details") {
-            setPersonalDetailsErrorMessage("Please fix errors in Personal details");
+            setPersonalDetailsErrorMessage(t("Please fix errors in Personal details"));
         } else {
             setPersonalDetailsErrorMessage("");
         }
@@ -115,7 +119,7 @@ const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps)
     return (
         <Box>
             <Accordion expanded={expandedPanel === 'personal-details'} onChange={panelChangeHandlerFactory('personal-details')}>
-                <AccordionSummary > <Typography variant="h4">Personal details</Typography> </AccordionSummary>
+                <AccordionSummary > <Typography variant="h4">{t("Personal details")}</Typography> </AccordionSummary>
                 <AccordionDetails>
                     <RelativesPersonalDetails data={data.personalDetails} onChange={handlePersonalDetailsChange}
                         errors={personDetailErrors} />
@@ -124,21 +128,19 @@ const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps)
             <ErrorOrHelperText errorText={personalDetailsErrorMessage} sx={{
                 paddingLeft: "24px",
                 marginBottom: "8px"
-
             }} />
             <Accordion expanded={expandedPanel === 'medical-history'} onChange={panelChangeHandlerFactory('medical-history')}>
-                <AccordionSummary> <Typography variant="h4">Medical history</Typography> </AccordionSummary>
+                <AccordionSummary> <Typography variant="h4">{t("Medical history")}</Typography> </AccordionSummary>
                 <AccordionDetails>
                     <CancerDiagnoseInput data={data.medicalHistory} onChange={handleMedicalHistoryChange} />
                 </AccordionDetails>
             </Accordion>
             <Accordion expanded={expandedPanel === 'genetic-testing-history'} onChange={panelChangeHandlerFactory('genetic-testing-history')}>
-                <AccordionSummary > <Typography variant="h4">Genetic testing history</Typography> </AccordionSummary>
+                <AccordionSummary > <Typography variant="h4">{t("Genetic testing history")}</Typography> </AccordionSummary>
                 <AccordionDetails>
                     <GeneticTestingHistory data={data.geneticTestingHistory} onChange={handleGeneticTestingHistoryChange} />
                 </AccordionDetails>
             </Accordion>
-
         </Box>
     )
 }

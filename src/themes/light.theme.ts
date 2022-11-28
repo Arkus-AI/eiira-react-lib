@@ -164,6 +164,7 @@ export const lightTheme = createTheme({
     MuiInputBase: {
       styleOverrides: {
         root: {
+          marginTop: "4px",
           border: `1px solid ${palette.neutral?.field}`,
           padding: "8px",
           borderRadius: "4px",
@@ -202,9 +203,6 @@ export const lightTheme = createTheme({
     },
     MuiAutocomplete: {
       styleOverrides: {
-        root: {
-          marginTop: "4px",
-        },
         popper: {
           ">div": {
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",

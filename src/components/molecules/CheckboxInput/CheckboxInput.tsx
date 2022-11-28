@@ -2,6 +2,7 @@ import * as React from "react";
 import FormControlWrapper from "../FormControlWrapper";
 import { FormGroup, FormControlLabel, Checkbox } from "@mui/material";
 import { useTheme } from "@mui/material";
+import { FormFieldProps } from "../FormControlWrapper/FormControlWrapper";
 
 interface CheckboxInputOption {
     label: string;
@@ -13,11 +14,7 @@ export interface CheckboxInputValues {
     [key: string]: boolean;
 }
 
-export interface CheckboxInputProps {
-    /**
-     * The label for the radio input
-     */
-    label: string;
+export interface CheckboxInputProps extends FormFieldProps {
     /**
      * Options for the radio input
      */
@@ -30,22 +27,6 @@ export interface CheckboxInputProps {
      * onChange handler
      */
     onChange: (event: CheckboxInputValues) => void;
-    /**
-     * Error message to display
-     */
-    errorText?: string;
-    /**
-     * Helper text to display
-     */
-    helperText?: string;
-    /**
-     * Tooltip text to display
-     */
-    tooltipText?: string;
-    /**
-     * Is required
-     */
-    required?: boolean;
     /**
      * Display the checkboxes on a row
      */

@@ -8,10 +8,6 @@ import Icon from "../../atoms/Icon";
 
 export interface IAutocompleteInputProps extends FormFieldProps {
     /**
-     * Label
-     */
-    label: string;
-    /**
      * Options
      */
     options: string[];
