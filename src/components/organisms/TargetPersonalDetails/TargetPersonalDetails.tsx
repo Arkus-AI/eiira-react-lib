@@ -8,7 +8,7 @@ import countryOptions from "./countries.json";
 import AlcoholConsumptionInput, { IAlcoholConsumptionData } from "../../molecules/AlcoholConsumptionInput/AlcoholConsumptionInput";
 import TextInput from "../../molecules/TextInput";
 
-interface ITargetPersonalDetailsData {
+export interface ITargetPersonalDetailsData {
     /** 
      * * Persons sex
      */

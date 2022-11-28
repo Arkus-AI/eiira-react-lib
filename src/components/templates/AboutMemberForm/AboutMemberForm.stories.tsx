@@ -6,7 +6,7 @@ import AboutMemberForm from './AboutMemberForm';
 import { Paper } from '@mui/material';
 
 export default {
-    title: 'Organisms/AboutMemberForm',
+    title: 'Templates/AboutMemberForm',
     component: AboutMemberForm,
     args: {
         data: {

@@ -1,5 +1,5 @@
-import AboutMemberForm from "./components/organisms/AboutMemberForm";
-import { IAboutMemberFormProps } from "./components/organisms/AboutMemberForm/AboutMemberForm";
+import AboutMemberForm from "./components/templates/AboutMemberForm";
+import { IAboutMemberFormProps } from "./components/templates/AboutMemberForm/AboutMemberForm";
 
 import { lightTheme } from "./themes/light.theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";

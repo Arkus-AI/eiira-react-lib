@@ -12,9 +12,9 @@ import { useTranslation } from "react-i18next";
 import Icon from "../../atoms/Icon";
 import RelativesPersonalDetails,
 { IRelativesPersonalDetailsData, IRelativesPersonalDetailsErrors }
-    from "../RelativesPersonalDetails/RelativesPersonalDetails";
-import GeneticTestingHistory, { IGeneticTestingHistoryData } from "../GeneticTestingHistory/GeneticTestingHistory";
-import CancerDiagnoseInput, { ICancerDiagnoseInputData } from "../CancerDiagnoseInput/CancerDignoseInput";
+    from "../../organisms/RelativesPersonalDetails/RelativesPersonalDetails";
+import GeneticTestingHistory, { IGeneticTestingHistoryData } from "../../organisms/GeneticTestingHistory/GeneticTestingHistory";
+import CancerDiagnoseInput, { ICancerDiagnoseInputData } from "../../organisms/CancerDiagnoseInput/CancerDignoseInput";
 import ErrorOrHelperText from "../../atoms/ErrorOrHelperText";
 
 const Accordion = styled((props: AccordionProps) => (

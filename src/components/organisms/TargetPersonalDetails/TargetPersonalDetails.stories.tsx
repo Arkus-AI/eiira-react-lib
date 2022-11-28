@@ -22,8 +22,6 @@ export default {
                 alcopop: 0,
                 shotOfSpirit: 0,
             },
-
-
         }
     },
 } as ComponentMeta<typeof TargetPersonalDetails>;
@@ -37,9 +35,5 @@ const Template: ComponentStory<typeof TargetPersonalDetails> = (args) => {
 
 export const Default = Template.bind({});
 Default.args = {};
-// export const Story = Template.bind({});
-// Story.args = {};
-// export const Story = Template.bind({});
-// Story.args = {};
 // export const Story = Template.bind({});
 // Story.args = {};

@@ -6,6 +6,7 @@ declare module '@mui/material/styles' {
     main: string;
     dark?: string;
     field?: string;
+    containers?: string
     contrastText?: string;
   }
 
@@ -19,9 +20,11 @@ declare module '@mui/material/styles' {
   }
   interface PaletteColor {
     field?: string;
+    containers?: string
   }
   interface SimplePaletteColorOptions {
     field?: string;
+    containers?: string
   }
 }
 
@@ -54,7 +57,8 @@ const palette: PaletteOptions = {
   },
   neutral: {
     main: "#F9EEE5", // This is some random color
-    field: "rgba(35, 55, 73, 0.55)"
+    field: "rgba(35, 55, 73, 0.55)",
+    containers: "rgba(35, 55, 73, 0.25)"
   },
 }
 
@@ -243,8 +247,6 @@ export const lightTheme = createTheme({
     MuiAccordion: {
       styleOverrides: {
         root: {
-          // border: `1px solid ${palette.secondary?.main}`,
-          // borderTop: 'none',
           marginBottom: 8,
           '&:before': {
             display: 'none',
