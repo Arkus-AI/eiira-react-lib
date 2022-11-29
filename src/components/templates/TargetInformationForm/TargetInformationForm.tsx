@@ -16,6 +16,7 @@ import TargetPersonalDetails, {
     ITargetPersonalDetailsData,
     ITargetPersonalDetailsErrors
 } from "../../organisms/TargetPersonalDetails/TargetPersonalDetails";
+import ErrorOrHelperText from "../../atoms/ErrorOrHelperText";
 
 const Accordion = styled((props: AccordionProps) => (
     <MuiAccordion disableGutters elevation={0} {...props} />
@@ -58,35 +59,69 @@ interface ITargetData {
 export interface ITargetInformationFormProps {
     data: ITargetData;
     onChange: (data: ITargetData) => void;
-    errors?: ITargetPersonalDetailsErrors;
-    setErrors?: (error: ITargetPersonalDetailsErrors) => void;
 }
 
-const TargetInformationForm = ({ data, onChange, errors, setErrors }: ITargetInformationFormProps) => {
+const validateAndGetErrors = (data: ITargetData) => {
+    let errors = { sexError: "", hasAshkenaziJewishBackgroundError: "" }
+    if (data.personalDetails.sex === null)
+        errors.sexError = "Required";
+    if (data.personalDetails.hasAshkenaziJewishBackground === null)
+        errors.hasAshkenaziJewishBackgroundError = "Required";
+    return errors;
+}
+
+const TargetInformationForm = ({ data, onChange }: ITargetInformationFormProps) => {
+    const { t } = useTranslation();
     const { personalDetails, medicalHistory, geneticTestingHistory } = data;
 
-    const onPersonalDetailsChangeHandler = (personalDetailsData: ITargetPersonalDetailsData) =>
-        onChange({ ...data, personalDetails: personalDetailsData });
-
-    const onMedicalHistoryChangeHandler = (cancerInputData: ICancerDiagnoseInputData) =>
-        onChange({ ...data, medicalHistory: cancerInputData });
-
-    const onGeneticTestingHistoryChangeHandler = (geneticTestingData: IGeneticTestingHistoryData) =>
-        onChange({ ...data, geneticTestingHistory: geneticTestingData });
-
-    const { t } = useTranslation();
+    const [errors, setErrors] = React.useState<ITargetPersonalDetailsErrors>(
+        { sexError: "", hasAshkenaziJewishBackgroundError: "" });
 
     const [expandedPanel, setExpandedPanel] = React.useState<
         "personal-details" | "medical-history" |
         "genetic-testing-history" | "">("");
 
+    const previousData = React.useRef<ITargetData>();
+    const previousExpandedPanel = React.useRef<string>(expandedPanel);
+
+    const onChangeFactory = (key: keyof ITargetData) => (value: any) => {
+        console.log("onChangeFactory", key, value);
+        previousData.current = data;
+        const newData = { ...data, [key]: value };
+        onChange(newData);
+    }
+
     const panelChangeHandlerFactory =
         (panel: "personal-details" | "medical-history" | "genetic-testing-history") =>
             (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+                previousExpandedPanel.current = expandedPanel;
                 setExpandedPanel(isExpanded ? panel : "");
             };
 
+    /**
+     * 1. Validating while the user fills out the form. Would it be possible to check the answer 
+     * to Question 1 and/or 2 as soon as the user interacts with any other questions or closes the accordion?
+     * 2. When the "Personal details" accordion is closed and answers to Question 1 and/or 2 are 
+     * missing, let's show the error text below the accordion
+     */
+
     React.useEffect(() => {
+        const previousSex = previousData.current?.personalDetails.sex
+        const previousHasAshkenaziJewishBackground = previousData.current?.personalDetails.hasAshkenaziJewishBackground
+        const currentSex = data.personalDetails.sex
+        const currentHasAshkenaziJewishBackground = data.personalDetails.hasAshkenaziJewishBackground
+
+        if ((previousExpandedPanel.current === "personal-details" && expandedPanel !== "personal-details") ||
+            (JSON.stringify(previousData.current) !== JSON.stringify(data) &&
+                previousSex === currentSex &&
+                previousHasAshkenaziJewishBackground === currentHasAshkenaziJewishBackground)) {
+            const errors = validateAndGetErrors(data);
+            setErrors(errors);
+        }
+    }, [expandedPanel, data]);
+
+    React.useEffect(() => {
+        // Cleaning errors when values are filled
         const tmpErrors = { ...errors };
         if (errors?.sexError !== "" && data.personalDetails.sex !== null) tmpErrors.sexError = "";
         if (errors?.hasAshkenaziJewishBackgroundError !== "" && data.personalDetails.hasAshkenaziJewishBackground !== null)
@@ -94,24 +129,33 @@ const TargetInformationForm = ({ data, onChange, errors, setErrors }: ITargetInf
         setErrors?.(tmpErrors);
     }, [data.personalDetails.sex, data.personalDetails.hasAshkenaziJewishBackground])
 
+    const personalDetailsErrorMessage =
+        ((errors.sexError !== "" || errors.hasAshkenaziJewishBackgroundError !== "") &&
+            expandedPanel !== "personal-details") ?
+            t("Please fix errors in Personal details") : "";
+
     return (
         <Box>
             <Accordion expanded={expandedPanel === 'personal-details'} onChange={panelChangeHandlerFactory('personal-details')}>
                 <AccordionSummary > <Typography variant="h4">{t("Personal details")}</Typography> </AccordionSummary>
                 <AccordionDetails>
-                    <TargetPersonalDetails data={personalDetails} onChange={onPersonalDetailsChangeHandler} errors={errors} />
+                    <TargetPersonalDetails data={personalDetails} onChange={onChangeFactory('personalDetails')} errors={errors} />
                 </AccordionDetails>
             </Accordion>
+            <ErrorOrHelperText errorText={personalDetailsErrorMessage} sx={{
+                paddingLeft: "24px",
+                marginBottom: "8px"
+            }} />
             <Accordion expanded={expandedPanel === 'medical-history'} onChange={panelChangeHandlerFactory('medical-history')}>
                 <AccordionSummary> <Typography variant="h4">{t("Medical history")}</Typography> </AccordionSummary>
                 <AccordionDetails>
-                    <CancerDiagnoseInput data={medicalHistory} onChange={onMedicalHistoryChangeHandler} forTarget />
+                    <CancerDiagnoseInput data={medicalHistory} onChange={onChangeFactory('medicalHistory')} forTarget />
                 </AccordionDetails>
             </Accordion>
             <Accordion expanded={expandedPanel === 'genetic-testing-history'} onChange={panelChangeHandlerFactory('genetic-testing-history')}>
                 <AccordionSummary > <Typography variant="h4">{t("Genetic testing history")}</Typography> </AccordionSummary>
                 <AccordionDetails>
-                    <GeneticTestingHistory data={geneticTestingHistory} onChange={onGeneticTestingHistoryChangeHandler} forTarget />
+                    <GeneticTestingHistory data={geneticTestingHistory} onChange={onChangeFactory('geneticTestingHistory')} forTarget />
                 </AccordionDetails>
             </Accordion>
         </Box>

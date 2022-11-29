@@ -133,6 +133,9 @@ export const lightTheme = createTheme({
         root: {
           lineHeight: "24px",
           color: palette.text?.primary
+        },
+        asterisk: {
+          color: palette.error?.main
         }
       }
     },
@@ -148,9 +151,6 @@ export const lightTheme = createTheme({
     MuiTextField: {
       styleOverrides: {
         root: {
-          "::placeholder": {
-            color: palette.text?.secondary,
-          },
           '& .MuiOutlinedInput-root': {
             '& fieldset': {
               borderWidth: 0,
@@ -162,7 +162,7 @@ export const lightTheme = createTheme({
               borderWidth: 0,
             },
           },
-        }
+        },
       }
     },
     MuiInputBase: {
@@ -192,7 +192,11 @@ export const lightTheme = createTheme({
           }
         },
         input: {
-          padding: 0
+          padding: 0,
+          "&::placeholder": {
+            color: palette.text?.secondary,
+            opacity: 1,
+          },
         }
 
       }

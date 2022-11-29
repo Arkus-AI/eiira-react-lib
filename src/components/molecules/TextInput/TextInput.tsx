@@ -71,7 +71,6 @@ export const UIntFormat = React.forwardRef<
     return <NumericFormat
         {...other}
         getInputRef={ref}
-        onFocus={event => event.target.select()}
         onValueChange={(values) => {
             onChange({ target: { name: props.name, value: values.value, }, });
         }}

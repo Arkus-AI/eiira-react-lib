@@ -47,11 +47,12 @@ export interface IAlcoholConsumptionInputProps {
     label: string;
 }
 
+// TODO: this needs translation
 const LABEL_DICT: { [key: string]: string; } = {
-    "wine": "number of glasses of wine (150ml)",
-    "beer": "number of bottles of beer (330ml)",
-    "alcopop": "number of cans of alcopop drinks (275ml)",
-    "shotOfSpirit": "number of shots of spirits (25ml)"
+    "wine": "glasses of wine (150ml)",
+    "beer": "bottles of beer (330ml)",
+    "alcopop": "cans of alcopop drinks (275ml)",
+    "shotOfSpirit": "shots of spirits (25ml)"
 }
 
 const StyledFormControlLabelForTextField = styled(FormControlLabel)(() => ({
@@ -91,9 +92,10 @@ function AlcoholConsumptionInput({
                     {Object.keys(data).map((key) => {
                         const value = data[key as keyof IAlcoholConsumptionData];
                         return <AlcoholConsumptionLine
+                            key={key}
                             name={key}
                             value={value.toString()}
-                            onChange={(value) => onChange({ ...data, [key]: parseInt(value) })} />
+                            onChange={(value) => onChange({ ...data, [key]: value.length ? parseInt(value) : 0 })} />
                     })}
                 </Stack>
             </FormGroup>

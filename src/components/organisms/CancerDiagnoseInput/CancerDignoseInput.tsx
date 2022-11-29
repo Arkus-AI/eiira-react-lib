@@ -34,30 +34,25 @@ export interface ICancerDiagnoseInputProps {
 }
 
 const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagnoseInputProps) => {
-    function addFirstEmptyCancerDiagnose() {
-        onChange({
-            ...data,
-            cancerDiagnoses: [{
-                cancerType: "",
-                ageAtDiagnosis: ""
-            }]
-        });
-    }
 
     // When user selects no we clear the cancer diagnoses
     // Is user selects yes we add a new empty cancer diagnosis
     React.useEffect(() => {
-        if (!data.hasCancerDiagnosis || data.hasCancerDiagnosis === null) {
+        if ((!data.hasCancerDiagnosis || data.hasCancerDiagnosis === null) && data.cancerDiagnoses.length > 0) {
             onChange({
                 ...data,
                 cancerDiagnoses: []
             });
-        } else {
-            addFirstEmptyCancerDiagnose();
+        } else if (data.hasCancerDiagnosis && data.cancerDiagnoses.length === 0) {
+            onChange({
+                ...data,
+                cancerDiagnoses: [{
+                    cancerType: "",
+                    ageAtDiagnosis: ""
+                }]
+            });
         }
     }, [data.hasCancerDiagnosis]);
-
-    React.useEffect(() => { if (data.hasCancerDiagnosis) addFirstEmptyCancerDiagnose(); }, []);
 
     const onCancerDiagnoseChangeFactory = (index: number) => (cancerDiagnose: ISingleCancerDiagnoseData) => {
         const newCancerDiagnoses = [...data.cancerDiagnoses];

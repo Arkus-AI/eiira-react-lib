@@ -45,29 +45,10 @@ export default {
 
 const Template: ComponentStory<typeof TargetInformationForm> = (args) => {
 
-    const [{ data }, updateArgs] = useArgs();
+    const [{ }, updateArgs] = useArgs();
     const onChange = (data: any) => updateArgs({ data });
-    const onSubmit = () => {
-        let errors = {
-            sexError: "",
-            hasAshkenaziJewishBackgroundError: ""
-        }
-        if (data.personalDetails.sex === null)
-            errors.sexError = "Required";
-        if (data.personalDetails.hasAshkenaziJewishBackground === null)
-            errors.hasAshkenaziJewishBackgroundError = "Required";
-        updateArgs({ errors });
-    }
-    const setErrors = (errors: any) => updateArgs({ errors });
 
-    return (
-        <Stack gap={3}>
-            <TargetInformationForm {...args} onChange={onChange} setErrors={setErrors} />
-            <Box sx={{ textAlign: "right" }}>
-                <Button variant="contained" onClick={onSubmit}>Submit</Button>
-            </Box>
-        </Stack>
-    )
+    return (<TargetInformationForm {...args} onChange={onChange} />)
 }
 
 // export const Default = Template.bind({});

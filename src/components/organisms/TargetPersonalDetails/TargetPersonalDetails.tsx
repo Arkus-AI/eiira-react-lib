@@ -78,7 +78,7 @@ const ethnicityOptions = [
     "European",
     "Jewish",
     "Latino / Hispanic",
-    "Pacifick",
+    "Pacific",
 ]
 
 const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetailsProps) => {
@@ -106,6 +106,7 @@ const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetail
             <AutocompleteInput label={t("Your ethnicity")} value={data.ethnicity}
                 onChange={onChangeFactory("ethnicity")}
                 options={ethnicityOptions} placeholder="Choose or add one" freeSolo
+                tooltipText={t("Your biological ancestry is one of the important factors when assessing genetic risk factors for common diseases.")}
             />
             <AutocompleteInput label={t("Your country of birth")} value={data.countryOfBirth}
                 onChange={onChangeFactory("countryOfBirth")}
@@ -113,7 +114,7 @@ const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetail
             />
             <TextInput label={t("How tall are you? (cm)")} value={data.height}
                 onChange={onChangeFactory("height")} format="uint" />
-            <TextInput label={t("What is your weigh? (kg)")} value={data.weight}
+            <TextInput label={t("What is your weight? (kg)")} value={data.weight}
                 onChange={onChangeFactory("weight")} format="uint" />
             <RadioInput label={t("Do you smoke?")}
                 value={data.isSmoking} onChange={onChangeFactory("isSmoking")} options={[
