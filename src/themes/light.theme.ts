@@ -56,6 +56,8 @@ const palette: PaletteOptions = {
     light: "#EBF1FB",
   },
   neutral: {
+
+    dark: "rgba(35, 55, 73, 0.7)",
     main: "#F9EEE5", // This is some random color
     field: "rgba(35, 55, 73, 0.55)",
     containers: "rgba(35, 55, 73, 0.25)"
@@ -104,7 +106,7 @@ export const lightTheme = createTheme({
           textTransform: "revert",
           padding: "8px 24px",
           fontSize: "16px",
-          lineHeight: "24px"
+          lineHeight: "24px",
         },
         outlinedPrimary: {
           borderColor: palette.primary?.main,
@@ -299,6 +301,45 @@ export const lightTheme = createTheme({
           }
         }
       }
-    }
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: "8px",
+          padding: "0px",
+        },
+        paperWidthSm: {
+          maxWidth: "550px"
+        }
+      }
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          padding: "36px",
+          paddingBottom: "24px",
+          fontSize: "20px",
+          lineHeight: "24px",
+          fontWeight: 200
+        }
+      }
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          padding: "36px",
+          paddingTop: "0px",
+          paddingBottom: "44px",
+        }
+      }
+    },
+    MuiDialogActions: {
+      styleOverrides: {
+        root: {
+          padding: "36px",
+          paddingTop: "0px"
+        }
+      }
+    },
   }
 });

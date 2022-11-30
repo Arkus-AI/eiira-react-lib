@@ -59,6 +59,8 @@ interface ITargetData {
 export interface ITargetInformationFormProps {
     data: ITargetData;
     onChange: (data: ITargetData) => void;
+    errors: ITargetPersonalDetailsErrors;
+    setErrors: (errors: ITargetPersonalDetailsErrors) => void;
 }
 
 const validateAndGetErrors = (data: ITargetData) => {
@@ -70,12 +72,12 @@ const validateAndGetErrors = (data: ITargetData) => {
     return errors;
 }
 
-const TargetInformationForm = ({ data, onChange }: ITargetInformationFormProps) => {
+const TargetInformationForm = ({ data, onChange, errors, setErrors }: ITargetInformationFormProps) => {
     const { t } = useTranslation();
     const { personalDetails, medicalHistory, geneticTestingHistory } = data;
 
-    const [errors, setErrors] = React.useState<ITargetPersonalDetailsErrors>(
-        { sexError: "", hasAshkenaziJewishBackgroundError: "" });
+    // const [errors, setErrors] = React.useState<ITargetPersonalDetailsErrors>(
+    //     { sexError: "", hasAshkenaziJewishBackgroundError: "" });
 
     const [expandedPanel, setExpandedPanel] = React.useState<
         "personal-details" | "medical-history" |
@@ -85,7 +87,6 @@ const TargetInformationForm = ({ data, onChange }: ITargetInformationFormProps) 
     const previousExpandedPanel = React.useRef<string>(expandedPanel);
 
     const onChangeFactory = (key: keyof ITargetData) => (value: any) => {
-        console.log("onChangeFactory", key, value);
         previousData.current = data;
         const newData = { ...data, [key]: value };
         onChange(newData);
@@ -129,10 +130,9 @@ const TargetInformationForm = ({ data, onChange }: ITargetInformationFormProps) 
         setErrors?.(tmpErrors);
     }, [data.personalDetails.sex, data.personalDetails.hasAshkenaziJewishBackground])
 
+    const hasErrors = errors.sexError !== "" || errors.hasAshkenaziJewishBackgroundError !== ""
     const personalDetailsErrorMessage =
-        ((errors.sexError !== "" || errors.hasAshkenaziJewishBackgroundError !== "") &&
-            expandedPanel !== "personal-details") ?
-            t("Please fix errors in Personal details") : "";
+        (hasErrors && expandedPanel !== "personal-details") ? t("Please fix errors in Personal details") : "";
 
     return (
         <Box>
@@ -152,7 +152,8 @@ const TargetInformationForm = ({ data, onChange }: ITargetInformationFormProps) 
                     <CancerDiagnoseInput data={medicalHistory} onChange={onChangeFactory('medicalHistory')} forTarget />
                 </AccordionDetails>
             </Accordion>
-            <Accordion expanded={expandedPanel === 'genetic-testing-history'} onChange={panelChangeHandlerFactory('genetic-testing-history')}>
+            <Accordion expanded={expandedPanel === 'genetic-testing-history'} onChange={panelChangeHandlerFactory('genetic-testing-history')}
+                sx={{ marginBottom: 0 }}>
                 <AccordionSummary > <Typography variant="h4">{t("Genetic testing history")}</Typography> </AccordionSummary>
                 <AccordionDetails>
                     <GeneticTestingHistory data={geneticTestingHistory} onChange={onChangeFactory('geneticTestingHistory')} forTarget />
