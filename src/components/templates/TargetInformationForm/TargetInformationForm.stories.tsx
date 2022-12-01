@@ -41,17 +41,24 @@ export default {
     },
 } as ComponentMeta<typeof TargetInformationForm>;
 
+
 const Template: ComponentStory<typeof TargetInformationForm> = (args) => {
 
-    const [{ }, updateArgs] = useArgs();
+    const [{ data, errors }, updateArgs] = useArgs();
     const onChange = (data: any) => updateArgs({ data });
-    const onSetErrors = (errors: any) => updateArgs({ errors });
 
-    return (
-        <>
-            <TargetInformationForm {...args} onChange={onChange} setErrors={onSetErrors} />
-        </>
-    )
+    const runValidation = () => {
+        const tmpErrors = { ...errors };
+        if (data.personalDetails.sex === null) tmpErrors.sexError = "Required";
+        if (data.personalDetails.hasAshkenaziJewishBackground === null)
+            tmpErrors.hasAshkenaziJewishBackgroundError = "Required";
+
+        updateArgs({ errors: tmpErrors });
+    };
+
+    const setErrors = (errors: any) => updateArgs({ errors });
+
+    return (<TargetInformationForm {...args} onChange={onChange} runValidation={runValidation} setErrors={setErrors} />)
 }
 
 // export const Default = Template.bind({});

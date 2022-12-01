@@ -33,5 +33,8 @@ const Template: ComponentStory<typeof ConfirmationDialog> = (args) => {
     </>
 }
 
-export const Story = Template.bind({});
-Story.args = {};
+export const Default = Template.bind({});
+Default.args = {};
+
+// export const Story = Template.bind({});
+// Story.args = {};

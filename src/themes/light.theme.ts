@@ -9,7 +9,6 @@ declare module '@mui/material/styles' {
     containers?: string
     contrastText?: string;
   }
-
   interface Palette {
     hover: Palette['primary'];
     neutral: Palette['primary'];
@@ -107,26 +106,28 @@ export const lightTheme = createTheme({
           padding: "8px 24px",
           fontSize: "16px",
           lineHeight: "24px",
+          '@media (hover: hover)': {
+            "&:hover": {
+              backgroundColor: palette.hover?.main,
+            }
+          }
         },
         outlinedPrimary: {
           borderColor: palette.primary?.main,
-        }
-      },
-    },
-    MuiButtonBase: {
-      styleOverrides: {
-        root: {
-          "&:hover": {
-            backgroundColor: "#EBF1FB"
+          '@media (hover: hover)': {
+            "&:hover": {
+              backgroundColor: palette.hover?.light,
+            }
           }
         }
-      }
+      },
     },
     MuiInputLabel: {
       styleOverrides: {
         root: {
           lineHeight: "24px",
-          color: palette.text?.primary
+          color: palette.text?.primary,
+          whiteSpace: "normal"
         }
       }
     },
@@ -157,8 +158,10 @@ export const lightTheme = createTheme({
             '& fieldset': {
               borderWidth: 0,
             },
-            '&:hover fieldset': {
-              borderWidth: 0,
+            '@media (hover: hover)': {
+              '&:hover fieldset': {
+                borderWidth: 0,
+              },
             },
             '&.Mui-focused fieldset': {
               borderWidth: 0,
@@ -175,8 +178,10 @@ export const lightTheme = createTheme({
           padding: "8px",
           borderRadius: "4px",
           boxSizing: "border-box",
-          "&:hover": {
-            borderColor: palette.primary?.main
+          '@media (hover: hover)': {
+            "&:hover": {
+              borderColor: palette.primary?.main
+            }
           },
           "&.Mui-focused": {
             borderColor: palette.primary?.main,
@@ -185,8 +190,10 @@ export const lightTheme = createTheme({
           },
           "&.Mui-error": {
             borderColor: palette.error?.main,
-            "&:hover": {
-              borderColor: palette.error?.dark
+            '@media (hover: hover)': {
+              "&:hover": {
+                borderColor: palette.error?.dark
+              }
             },
             "&.Mui-focused": {
               borderColor: palette.error?.main,
@@ -275,8 +282,10 @@ export const lightTheme = createTheme({
           ".MuiAccordionSummary-content": {
             margin: 0,
           },
-          ":hover": {
-            backgroundColor: palette.secondary?.dark,
+          '@media (hover: hover)': {
+            ":hover": {
+              backgroundColor: palette.secondary?.dark,
+            }
           }
         }
       }
@@ -296,8 +305,10 @@ export const lightTheme = createTheme({
         deleteIcon: {
           color: palette.neutral?.field,
           fontSize: "20px",
-          ":hover": {
-            color: palette.primary?.main,
+          '@media (hover: hover)': {
+            ":hover": {
+              color: palette.primary?.main,
+            }
           }
         }
       }
@@ -341,5 +352,12 @@ export const lightTheme = createTheme({
         }
       }
     },
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: palette.neutral?.dark,
+        }
+      }
+    }
   }
 });

@@ -1,8 +1,10 @@
 import AboutMemberForm from "./components/templates/AboutMemberForm";
 import TargetInformationForm from "./components/templates/TargetInformationForm";
 import ConfirmationDialog from "./components/templates/ConfirmationDialog";
+import Icon from "./components/atoms/Icon";
 import { IAboutMemberFormProps } from "./components/templates/AboutMemberForm/AboutMemberForm";
-import { Button } from "@mui/material"
+import { Button, Typography } from "@mui/material"
+import { LoadingButton } from "@mui/lab"
 
 import { lightTheme } from "./themes/light.theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
@@ -17,7 +19,7 @@ export const EiiraThemeWrapper = ({ children }: { children: React.ReactNode }) =
     );
 };
 
-export { TargetInformationForm, Button, ConfirmationDialog };
+export { TargetInformationForm, Button, ConfirmationDialog, Icon, Typography, LoadingButton };
 
 export const ThemedAboutMemberForm = (props: IAboutMemberFormProps) => {
     return (

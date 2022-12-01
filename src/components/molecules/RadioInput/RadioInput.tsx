@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormControlLabel, Radio, RadioGroup, useTheme, } from "@mui/material";
+import { FormControlLabel, Radio, RadioGroup, useTheme, useMediaQuery } from "@mui/material";
 import FormControlWrapper from "../FormControlWrapper";
 import { FormFieldProps } from "../FormControlWrapper/FormControlWrapper";
 
@@ -38,8 +38,9 @@ const isBoleanString = (value: string | boolean): value is string => {
     return typeof value === 'string' && (value === 'true' || value === 'false');
 }
 
-const RadioInput = ({ label, options, value, onChange, errorText = "", helperText = "", tooltipText = "", required = false, row = false }: RadioInputProps) => {
+const RadioInput = ({ label, options, value, onChange, errorText = "", helperText = "", tooltipText = "", required = false, row = true }: RadioInputProps) => {
     const theme = useTheme()
+    const onMobile = useMediaQuery(theme.breakpoints.down('sm'))
     const error = errorText !== "";
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const val = event.target.value;
@@ -62,7 +63,7 @@ const RadioInput = ({ label, options, value, onChange, errorText = "", helperTex
 
     return (
         <FormControlWrapper label={label} tooltipText={tooltipText} required={required} errorText={errorText} helperText={helperText}>
-            <RadioGroup value={value} onChange={handleChange} row={row}>
+            <RadioGroup value={value} onChange={handleChange} row={onMobile ? false : row}>
                 {options.map((option) => (
                     <FormControlLabel
                         key={isBoolean(option.value) ? option.value.toString() : option.value}

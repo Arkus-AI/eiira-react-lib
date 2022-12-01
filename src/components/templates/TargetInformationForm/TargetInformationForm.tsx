@@ -61,27 +61,20 @@ export interface ITargetInformationFormProps {
     onChange: (data: ITargetData) => void;
     errors: ITargetPersonalDetailsErrors;
     setErrors: (errors: ITargetPersonalDetailsErrors) => void;
+    /** 
+     * Run validation callback
+     */
+    runValidation: () => void;
 }
 
-const validateAndGetErrors = (data: ITargetData) => {
-    let errors = { sexError: "", hasAshkenaziJewishBackgroundError: "" }
-    if (data.personalDetails.sex === null)
-        errors.sexError = "Required";
-    if (data.personalDetails.hasAshkenaziJewishBackground === null)
-        errors.hasAshkenaziJewishBackgroundError = "Required";
-    return errors;
-}
 
-const TargetInformationForm = ({ data, onChange, errors, setErrors }: ITargetInformationFormProps) => {
+const TargetInformationForm = ({ data, onChange, errors, runValidation, setErrors }: ITargetInformationFormProps) => {
     const { t } = useTranslation();
     const { personalDetails, medicalHistory, geneticTestingHistory } = data;
 
-    // const [errors, setErrors] = React.useState<ITargetPersonalDetailsErrors>(
-    //     { sexError: "", hasAshkenaziJewishBackgroundError: "" });
-
     const [expandedPanel, setExpandedPanel] = React.useState<
         "personal-details" | "medical-history" |
-        "genetic-testing-history" | "">("");
+        "genetic-testing-history" | "">("personal-details");
 
     const previousData = React.useRef<ITargetData>();
     const previousExpandedPanel = React.useRef<string>(expandedPanel);
@@ -116,8 +109,7 @@ const TargetInformationForm = ({ data, onChange, errors, setErrors }: ITargetInf
             (JSON.stringify(previousData.current) !== JSON.stringify(data) &&
                 previousSex === currentSex &&
                 previousHasAshkenaziJewishBackground === currentHasAshkenaziJewishBackground)) {
-            const errors = validateAndGetErrors(data);
-            setErrors(errors);
+            runValidation();
         }
     }, [expandedPanel, data]);
 
