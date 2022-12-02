@@ -1,13 +1,16 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo, faTriangleExclamation, faMale, faFemale, faTrashCan, faCaretDown, faXmark, faCircleXmark } from '@fortawesome/free-solid-svg-icons'
+import {
+    faCircleInfo, faTriangleExclamation, faMale, faFemale,
+    faTrashCan, faCaretDown, faXmark, faCircleXmark, faUsers
+} from '@fortawesome/free-solid-svg-icons'
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
 export interface IconProps extends SvgIconProps {
     /**
      * Icon to display
      */
-    iconType: "help" | "exclamation-triangle" | "male" | "female" | "waste-basket" | "caret-down" | "xmark" | "circle-xmark";
+    iconType: "help" | "exclamation-triangle" | "male" | "female" | "waste-basket" | "caret-down" | "xmark" | "circle-xmark" | "users";
     /**
      * Color of icon
      */
@@ -22,7 +25,8 @@ export const ICONS = {
     "waste-basket": faTrashCan,
     "caret-down": faCaretDown,
     "xmark": faXmark,
-    "circle-xmark": faCircleXmark
+    "circle-xmark": faCircleXmark,
+    "users": faUsers
 }
 
 export default function Icon({ iconType, color, ...props }: IconProps) {

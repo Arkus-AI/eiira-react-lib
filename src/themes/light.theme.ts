@@ -55,7 +55,6 @@ const palette: PaletteOptions = {
     light: "#EBF1FB",
   },
   neutral: {
-
     dark: "rgba(35, 55, 73, 0.7)",
     main: "#F9EEE5", // This is some random color
     field: "rgba(35, 55, 73, 0.55)",
@@ -97,6 +96,10 @@ export const lightTheme = createTheme({
       lineHeight: "20px",
       fontWeight: "bold",
     },
+    caption: {
+      lineHeight: "16px",
+      color: palette.neutral?.dark
+    }
   },
   components: {
     MuiButton: {
