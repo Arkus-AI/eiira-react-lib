@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { List, ListItem, Typography, Paper, Button, ListItemText } from '@mui/material';
-import React, { useCallback } from 'react';
+import { List, ListItem, Typography, Paper, Button, Box } from '@mui/material';
+import React from 'react';
 
 import OnbordingCard from './OnbordingCard';
 
@@ -8,7 +8,7 @@ export default {
     title: 'Templates/OnbordingCard',
     component: OnbordingCard,
     args: {
-        title: 'Addind details',
+        title: 'Adding details',
         stepIndicator: '1/2',
     },
 } as ComponentMeta<typeof OnbordingCard>;
@@ -41,10 +41,12 @@ const Template: ComponentStory<typeof OnbordingCard> = (args) => {
     )
 
     return (
-        <div>
-            <Paper sx={{ height: "100px", width: "110px", margin: "0 auto", padding: "10px" }} ref={setAnchorElAndOpen}> Some anchor component </Paper>
-            <OnbordingCard {...args} message={message} open={open} anchorEl={anchorEl} actions={actions} />
-        </div >
+        <Box sx={{ backgroundColor: "gray", width: "750px", height: "750px", overflow: "scroll" }}>
+            <Box sx={{ width: "1500px", height: "1500px" }}>
+                <Paper sx={{ height: "100px", width: "110px", margin: "auto", marginTop: "750px", padding: "10px" }} ref={setAnchorElAndOpen}> Some anchor component </Paper>
+                <OnbordingCard {...args} message={message} open={open} anchorEl={anchorEl} actions={actions} />
+            </Box>
+        </Box >
     );
 }
 
@@ -56,5 +58,6 @@ LeftStart.args = { placement: "left-start" };
 
 export const RightStart = Template.bind({});
 RightStart.args = { placement: "right-start" };
-// export const Story = Template.bind({});
-// Story.args = {};
+
+export const TopStart = Template.bind({});
+TopStart.args = { placement: "top-start" };
