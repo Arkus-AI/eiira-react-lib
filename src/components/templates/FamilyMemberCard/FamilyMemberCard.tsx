@@ -43,11 +43,11 @@ export interface IMemberCardProps {
     /**
      * Is selectDisabled
      */
-    isSelectDisabled: boolean;
+    isSelectDisabled?: boolean;
     /**
      * isAddDisabled
      */
-    isAddDisabled: boolean;
+    isAddDisabled?: boolean;
     /**
      * onCardClick
      */
@@ -55,7 +55,7 @@ export interface IMemberCardProps {
     /**
      * onAddClick
      */
-    onAddClick: () => void;
+    onAddClick: (event: any) => void;
 }
 
 const StyledListItem = styled(({ children, ...props }: ListItemProps) =>
@@ -66,7 +66,7 @@ const StyledListItem = styled(({ children, ...props }: ListItemProps) =>
 
 
 const FamilyMemberCard = ({ sex, relation, name, infoIsAdded, hasCancerDiagnose,
-    isDead, isSelected, hasErrors, isSelectDisabled, isAddDisabled, onCardClick, onAddClick }: IMemberCardProps) => {
+    isDead = false, isSelected, hasErrors, isSelectDisabled = false, isAddDisabled = false, onCardClick, onAddClick }: IMemberCardProps) => {
     const theme = useTheme();
     let content = <Typography variant="caption" color="primary">Click to add details</Typography>
     if (infoIsAdded) {
@@ -125,6 +125,7 @@ const FamilyMemberCard = ({ sex, relation, name, infoIsAdded, hasCancerDiagnose,
                 }}
             >
                 <CardActionArea sx={{
+                    height: "100%",
                     ":hover": {
                         backgroundColor: "inherit",
                         ".MuiCardActionArea-focusHighlight": {
@@ -133,8 +134,7 @@ const FamilyMemberCard = ({ sex, relation, name, infoIsAdded, hasCancerDiagnose,
                     },
                 }} onClick={onCardClick} disabled={isSelected || isSelectDisabled}>
                     <Stack direction="row" gap={.5}
-                        sx={{
-                        }}>
+                        sx={{ height: "100%" }}>
                         <Icon iconType={sex} color="primary" sx={{ fontSize: "20px", lineHeight: "20px" }} />
                         <Stack gap={1}>
                             <Typography variant="h5">{relation}</Typography>
