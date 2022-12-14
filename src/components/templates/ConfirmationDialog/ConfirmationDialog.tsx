@@ -1,4 +1,4 @@
-import { Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogActions, useTheme, useMediaQuery } from "@mui/material";
 import * as React from "react";
 
 export interface IConfirmationDialogProps {
@@ -16,7 +16,20 @@ const ConfirmationDialog: React.FC<IConfirmationDialogProps> = ({
     isOpen,
     onClose,
 }) => {
-    const Actions = actions ? <DialogActions>{actions}</DialogActions> : <></>;
+
+    const theme = useTheme();
+    const onMobile = useMediaQuery(theme.breakpoints.down('sm'))
+
+    let actionsSx = {}
+    if (onMobile) {
+        actionsSx = {
+            flexDirection: 'column',
+            gap: "8px",
+            alignItems: "stretch",
+        }
+    }
+
+    const Actions = actions ? <DialogActions disableSpacing={onMobile} sx={actionsSx}>{actions}</DialogActions> : <></>;
 
     return (
         <Dialog
