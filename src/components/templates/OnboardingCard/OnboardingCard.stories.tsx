@@ -2,18 +2,18 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { List, ListItem, Typography, Paper, Button, Box } from '@mui/material';
 import React from 'react';
 
-import OnbordingCard from './OnbordingCard';
+import OnboardingCard from './OnboardingCard';
 
 export default {
-    title: 'Templates/OnbordingCard',
-    component: OnbordingCard,
+    title: 'Templates/OnboardingCard',
+    component: OnboardingCard,
     args: {
         title: 'Adding details',
         stepIndicator: '1/2',
     },
-} as ComponentMeta<typeof OnbordingCard>;
+} as ComponentMeta<typeof OnboardingCard>;
 
-const Template: ComponentStory<typeof OnbordingCard> = (args) => {
+const Template: ComponentStory<typeof OnboardingCard> = (args) => {
     const [open, setOpen] = React.useState(false);
     const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
     const setAnchorElAndOpen = React.useCallback((node: HTMLElement | null) => {
@@ -44,7 +44,7 @@ const Template: ComponentStory<typeof OnbordingCard> = (args) => {
         <Box sx={{ backgroundColor: "gray", width: "750px", height: "750px", overflow: "scroll" }}>
             <Box sx={{ width: "1500px", height: "1500px" }}>
                 <Paper sx={{ height: "100px", width: "110px", margin: "auto", marginTop: "750px", padding: "10px" }} ref={setAnchorElAndOpen}> Some anchor component </Paper>
-                <OnbordingCard {...args} message={message} open={open} anchorEl={anchorEl} actions={actions} />
+                <OnboardingCard {...args} message={message} open={open} anchorEl={anchorEl} actions={actions} />
             </Box>
         </Box >
     );

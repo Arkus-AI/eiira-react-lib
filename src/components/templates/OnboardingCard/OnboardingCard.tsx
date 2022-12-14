@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
     CardContent, CardHeader, Card,
-    CardActions, Popper, PopperProps, 
+    CardActions, Popper, PopperProps,
 } from '@mui/material';
 import { Box } from '@mui/system';
 import { useTheme } from "@mui/material/styles";
@@ -62,9 +62,12 @@ export default function OnboardingCard({ title, stepIndicator, message, actions,
     const [arrowRef, setArrowRef] = React.useState<HTMLElement | null>(null);
     const theme = useTheme();
 
+    const { sx, ...rest } = popperProps;
+
     return (
-        <Popper {...popperProps}
+        <Popper {...rest}
             sx={{
+                ...sx,
                 "&[data-popper-placement^='top'] > #arrow": {
                     bottom: `-${ARROW_OFFSET}px`,
                     "::before": { transform: "rotate(180deg)" }
