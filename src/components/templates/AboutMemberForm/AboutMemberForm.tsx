@@ -69,6 +69,11 @@ const errorsObjHasError = (errors: IRelativesPersonalDetailsErrors) => {
     return Object.values(errors).some(error => error !== "");
 }
 
+const MemoizedBox = React.memo(Box);
+const MemoizedAccordion = React.memo(Accordion);
+const MemoizedAccordionSummary = React.memo(AccordionSummary);
+const MemoizedAccordionDetails = React.memo(AccordionDetails);
+
 const MemoizedRelativesPersonalDetails = React.memo(RelativesPersonalDetails);
 const MemoizedCancerDiagnoseInput = React.memo(CancerDiagnoseInput);
 const MemoizedGeneticTestingHistory = React.memo(GeneticTestingHistory);
@@ -110,43 +115,50 @@ const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps)
 
     const panelChangeHandlerFactory =
         (panel: "personal-details" | "medical-history" | "genetic-testing-history") =>
-            (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
+            React.useCallback((event: React.ChangeEvent<{}>, isExpanded: boolean) => {
                 setExpandedPanel(isExpanded ? panel : "");
-            };
+            }, [panel]);
 
-    const handlePersonalDetailsChange = (personalDetails: IRelativesPersonalDetailsData) => onChange({ ...data, personalDetails });
+    const handlePersonalDetailsChange = React.useCallback(
+        (personalDetails: IRelativesPersonalDetailsData) => onChange({ ...data, personalDetails }),
+        [onChange]);
 
-    const handleMedicalHistoryChange = (medicalHistory: ICancerDiagnoseInputData) => onChange({ ...data, medicalHistory });
+    const handleMedicalHistoryChange = React.useCallback((medicalHistory: ICancerDiagnoseInputData) => onChange({ ...data, medicalHistory }),
+        [onChange]);
 
-    const handleGeneticTestingHistoryChange = (geneticTestingHistory: IGeneticTestingHistoryData) => onChange({ ...data, geneticTestingHistory });
+    const handleGeneticTestingHistoryChange = React.useCallback(
+        (geneticTestingHistory: IGeneticTestingHistoryData) => onChange({ ...data, geneticTestingHistory }),
+        [onChange]);
 
 
     return (
-        <Box>
-            <Accordion expanded={expandedPanel === 'personal-details'} onChange={panelChangeHandlerFactory('personal-details')}>
-                <AccordionSummary > <Typography variant="h4">{t("Personal details")}</Typography> </AccordionSummary>
-                <AccordionDetails>
-                    <MemoizedRelativesPersonalDetails data={data.personalDetails} onChange={handlePersonalDetailsChange}
+        <MemoizedBox>
+            <MemoizedAccordion expanded={expandedPanel === 'personal-details'} onChange={panelChangeHandlerFactory('personal-details')}>
+                <MemoizedAccordionSummary > <Typography variant="h4">{t("Personal details")}</Typography> </MemoizedAccordionSummary>
+                <MemoizedAccordionDetails>
+                    <MemoizedRelativesPersonalDetails
+                        data={data.personalDetails}
+                        onChange={handlePersonalDetailsChange}
                         errors={personDetailErrors} />
-                </AccordionDetails>
-            </Accordion>
+                </MemoizedAccordionDetails>
+            </MemoizedAccordion>
             <ErrorOrHelperText errorText={personalDetailsErrorMessage} sx={{
                 paddingLeft: "24px",
                 marginBottom: "8px"
             }} />
-            <Accordion expanded={expandedPanel === 'medical-history'} onChange={panelChangeHandlerFactory('medical-history')}>
-                <AccordionSummary> <Typography variant="h4">{t("Medical history")}</Typography> </AccordionSummary>
-                <AccordionDetails>
+            <MemoizedAccordion expanded={expandedPanel === 'medical-history'} onChange={panelChangeHandlerFactory('medical-history')}>
+                <MemoizedAccordionSummary> <Typography variant="h4">{t("Medical history")}</Typography> </MemoizedAccordionSummary>
+                <MemoizedAccordionDetails>
                     <MemoizedCancerDiagnoseInput data={data.medicalHistory} onChange={handleMedicalHistoryChange} />
-                </AccordionDetails>
-            </Accordion>
-            <Accordion expanded={expandedPanel === 'genetic-testing-history'} onChange={panelChangeHandlerFactory('genetic-testing-history')}>
-                <AccordionSummary > <Typography variant="h4">{t("Genetic testing history")}</Typography> </AccordionSummary>
-                <AccordionDetails>
+                </MemoizedAccordionDetails>
+            </MemoizedAccordion>
+            <MemoizedAccordion expanded={expandedPanel === 'genetic-testing-history'} onChange={panelChangeHandlerFactory('genetic-testing-history')}>
+                <MemoizedAccordionSummary > <Typography variant="h4">{t("Genetic testing history")}</Typography> </MemoizedAccordionSummary>
+                <MemoizedAccordionDetails>
                     <MemoizedGeneticTestingHistory data={data.geneticTestingHistory} onChange={handleGeneticTestingHistoryChange} />
-                </AccordionDetails>
-            </Accordion>
-        </Box>
+                </MemoizedAccordionDetails>
+            </MemoizedAccordion>
+        </MemoizedBox>
     )
 }
 
