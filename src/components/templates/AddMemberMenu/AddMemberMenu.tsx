@@ -31,38 +31,42 @@ export interface IAddMemberMenuProps extends PopperProps {
 
 const OptionButton = ({ option, onOptionClick }: { option: IAddMemberMenuOption, onOptionClick: (optionValue: string) => void }) => {
     const theme = useTheme()
+    const divider = (option.value === "delete" || option.value === "deleteMember") ? <Divider /> : null;
     return (
-        <ListItemButton onClick={() => onOptionClick(option.value)}
-            sx={{
-                padding: "6px 8px", paddingRight: "16px",
-                ":hover": {
-                    backgroundColor: theme.palette?.hover.light,
-                }
-            }}>
-            <ListItemIcon sx={{ minWidth: "unset", marginRight: "8px" }}>
-                <Icon iconType={option.iconType} sx={{
-                    fontSize: "12px", lineHeight: "12px",
-                    color: theme.palette?.text.primary
-                }} />
-            </ListItemIcon>
-            <Typography> {option.label} </Typography>
-        </ListItemButton>
+        <>
+            {divider}
+            <ListItemButton onClick={() => onOptionClick(option.value)}
+                key={option.value}
+                sx={{
+                    padding: "6px 8px", paddingRight: "16px",
+                    ":hover": {
+                        backgroundColor: theme.palette?.hover.light,
+                    }
+                }}>
+                <ListItemIcon sx={{ minWidth: "unset", marginRight: "8px" }}>
+                    <Icon iconType={option.iconType} sx={{
+                        fontSize: "12px", lineHeight: "12px",
+                        color: theme.palette?.text.primary
+                    }} />
+                </ListItemIcon>
+                <Typography> {option.label} </Typography>
+            </ListItemButton>
+        </>
     )
 }
 
 const AddMemberMenu = ({ options, onOptionClick, ...popperProps }: IAddMemberMenuProps) => {
-    return (<Popper {...popperProps}>
-        <Paper>
+    return (<Popper {...popperProps} modifiers={
+        [{
+            name: 'offset',
+            options: {
+                offset: [0, 4],
+            }
+        }]
+    }>
+        <Paper elevation={8}>
             <List>
                 {options.map((option, index) => {
-                    if (option.value === "delete") {
-                        return (
-                            <>
-                                <Divider />
-                                <OptionButton key={index} option={option} onOptionClick={onOptionClick} />
-                            </>
-                        )
-                    }
                     return <OptionButton key={index} option={option} onOptionClick={onOptionClick} />
                 })}
             </List>

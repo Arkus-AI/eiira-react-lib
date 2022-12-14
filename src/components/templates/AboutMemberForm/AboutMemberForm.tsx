@@ -69,6 +69,11 @@ const errorsObjHasError = (errors: IRelativesPersonalDetailsErrors) => {
     return Object.values(errors).some(error => error !== "");
 }
 
+const MemoizedRelativesPersonalDetails = React.memo(RelativesPersonalDetails);
+const MemoizedCancerDiagnoseInput = React.memo(CancerDiagnoseInput);
+const MemoizedGeneticTestingHistory = React.memo(GeneticTestingHistory);
+
+
 const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps) => {
     const { t } = useTranslation();
 
@@ -121,7 +126,7 @@ const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps)
             <Accordion expanded={expandedPanel === 'personal-details'} onChange={panelChangeHandlerFactory('personal-details')}>
                 <AccordionSummary > <Typography variant="h4">{t("Personal details")}</Typography> </AccordionSummary>
                 <AccordionDetails>
-                    <RelativesPersonalDetails data={data.personalDetails} onChange={handlePersonalDetailsChange}
+                    <MemoizedRelativesPersonalDetails data={data.personalDetails} onChange={handlePersonalDetailsChange}
                         errors={personDetailErrors} />
                 </AccordionDetails>
             </Accordion>
@@ -132,13 +137,13 @@ const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps)
             <Accordion expanded={expandedPanel === 'medical-history'} onChange={panelChangeHandlerFactory('medical-history')}>
                 <AccordionSummary> <Typography variant="h4">{t("Medical history")}</Typography> </AccordionSummary>
                 <AccordionDetails>
-                    <CancerDiagnoseInput data={data.medicalHistory} onChange={handleMedicalHistoryChange} />
+                    <MemoizedCancerDiagnoseInput data={data.medicalHistory} onChange={handleMedicalHistoryChange} />
                 </AccordionDetails>
             </Accordion>
             <Accordion expanded={expandedPanel === 'genetic-testing-history'} onChange={panelChangeHandlerFactory('genetic-testing-history')}>
                 <AccordionSummary > <Typography variant="h4">{t("Genetic testing history")}</Typography> </AccordionSummary>
                 <AccordionDetails>
-                    <GeneticTestingHistory data={data.geneticTestingHistory} onChange={handleGeneticTestingHistoryChange} />
+                    <MemoizedGeneticTestingHistory data={data.geneticTestingHistory} onChange={handleGeneticTestingHistoryChange} />
                 </AccordionDetails>
             </Accordion>
         </Box>

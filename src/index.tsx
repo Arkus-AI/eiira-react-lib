@@ -1,13 +1,20 @@
-import AboutMemberForm from "./components/templates/AboutMemberForm";
-import TargetInformationForm from "./components/templates/TargetInformationForm";
-import ConfirmationDialog from "./components/templates/ConfirmationDialog";
-import Icon from "./components/atoms/Icon";
-import { IAboutMemberFormProps } from "./components/templates/AboutMemberForm/AboutMemberForm";
 import { Button, Typography } from "@mui/material"
 import { LoadingButton } from "@mui/lab"
+import { CssBaseline, ThemeProvider } from "@mui/material";
+
+import Icon from "./components/atoms/Icon";
+
+import AboutMemberForm from "./components/templates/AboutMemberForm";
+import AddMemberMenu from "./components/templates/AddMemberMenu/AddMemberMenu";
+import ConfirmationDialog from "./components/templates/ConfirmationDialog";
+import FamilyMemberCard from "./components/templates/FamilyMemberCard/FamilyMemberCard";
+import TargetInformationForm from "./components/templates/TargetInformationForm";
+import PrePedigreeForm from "./components/templates/PrePedigreeForm/PrePedigreeForm";
+import OnboardingCard from "./components/templates/OnboardingCard/OnboardingCard";
+
 
 import { lightTheme } from "./themes/light.theme";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+
 import React from "react";
 
 export const EiiraThemeWrapper = ({ children }: { children: React.ReactNode }) => {
@@ -19,13 +26,10 @@ export const EiiraThemeWrapper = ({ children }: { children: React.ReactNode }) =
     );
 };
 
-export { TargetInformationForm, Button, ConfirmationDialog, Icon, Typography, LoadingButton };
+export {
+    Button, Typography, LoadingButton,
+    Icon,
+    AboutMemberForm, AddMemberMenu, ConfirmationDialog, FamilyMemberCard,
+    TargetInformationForm, PrePedigreeForm, OnboardingCard
+};
 
-export const ThemedAboutMemberForm = (props: IAboutMemberFormProps) => {
-    return (
-        <ThemeProvider theme={lightTheme}>
-            <CssBaseline />
-            <AboutMemberForm {...props} />
-        </ThemeProvider>
-    )
-}

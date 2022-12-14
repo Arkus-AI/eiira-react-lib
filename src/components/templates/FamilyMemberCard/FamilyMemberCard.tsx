@@ -66,12 +66,13 @@ const StyledListItem = styled(({ children, ...props }: ListItemProps) =>
 
 
 const FamilyMemberCard = ({ sex, relation, name, infoIsAdded, hasCancerDiagnose,
-    isDead = false, isSelected, hasErrors, isSelectDisabled = false, isAddDisabled = false, onCardClick, onAddClick }: IMemberCardProps) => {
+    isDead = false, isSelected, hasErrors, isSelectDisabled = false,
+    isAddDisabled = false, onCardClick, onAddClick }: IMemberCardProps) => {
     const theme = useTheme();
     let content = <Typography variant="caption" color="primary">Click to add details</Typography>
     if (infoIsAdded) {
         content = (
-            <List>
+            <List sx={{ padding: 0 }}>
                 {name && <StyledListItem>{name}</StyledListItem>}
                 {isDead && <StyledListItem>Deceased</StyledListItem>}
                 {hasCancerDiagnose && <StyledListItem>Cancer history</StyledListItem>}
@@ -104,7 +105,7 @@ const FamilyMemberCard = ({ sex, relation, name, infoIsAdded, hasCancerDiagnose,
     if (hasErrors && !isSelected) cardHoverStyles = { cursor: "pointer", border: `2px solid ${theme.palette?.error.dark}`, padding: "6px 2px" }
     if (hasCancerDiagnose) cardHoverStyles = { ...cardHoverStyles, backgroundColor: theme.palette?.secondary.dark }
 
-    if (isSelected) cardHoverStyles = { cursor: "default", backgroundColor: hasCancerDiagnose ? theme.palette?.secondary.light : "white" }
+    if (isSelected) cardHoverStyles = { cursor: "default", backgroundColor: hasCancerDiagnose ? theme.palette?.secondary.main : "white" }
 
     if (isSelectDisabled) {
         cardStyes = { ...cardStyes, boxShadow: "none", border: `1px solid ${theme.palette?.neutral.containers}` }
