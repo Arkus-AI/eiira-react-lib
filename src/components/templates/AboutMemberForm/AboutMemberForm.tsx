@@ -83,13 +83,21 @@ const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps)
     const { t } = useTranslation();
 
     const getValidationErrorMessages = (data: IRelativesPersonalDetailsData): IRelativesPersonalDetailsErrors => {
-        const { yearOfBirth, yearOfDeath } = data
-        let yearOfBirthError: string, yearOfDeathError: string;
+        const { yearOfBirth, yearOfDeath, ageAtDeath } = data
+        let yearOfBirthError: string, yearOfDeathError: string,
+            ageAtDeathError: string = "";
+
+        if (yearOfBirth.length === 4 && yearOfDeath.length === 4 &&
+            ageAtDeath.length !== 0){
+                if(Math.abs(parseInt(yearOfBirth) + parseInt(ageAtDeath) - parseInt(yearOfDeath)) > 1){
+                    ageAtDeathError = t("Not consistent with year of birth and year of death");
+                }
+            }
         yearOfBirthError = yearInFuture(yearOfBirth) ? t("Cannot be in the future") : "";
         yearOfDeathError = yearInFuture(yearOfDeath) ? t("Cannot be in the future") : "";
         if (yearOfBirthAfterYearOfDeath(yearOfBirth, yearOfDeath))
             yearOfDeathError = t("Must be after birth");
-        return { yearOfBirthError, yearOfDeathError };
+        return { yearOfBirthError, yearOfDeathError, ageAtDeathError };
     }
 
     const [personDetailErrors, setPersonDetailErrors] =

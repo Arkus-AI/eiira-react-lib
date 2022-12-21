@@ -2,7 +2,8 @@ import { Stack } from "@mui/system";
 import * as React from "react";
 import TextInput from "../../molecules/TextInput";
 import RadioInput from "../../molecules/RadioInput";
-import {useId} from "../../hooks";
+import { useId } from "../../hooks";
+import { Typography } from "@mui/material";
 
 export interface IRelativesPersonalDetailsData {
     /**
@@ -18,6 +19,10 @@ export interface IRelativesPersonalDetailsData {
      */
     yearOfDeath: string;
     /**
+     * Age at death
+     */
+    ageAtDeath: string;
+    /**
      * Is dead
      */
     isDead: boolean | null;
@@ -32,6 +37,10 @@ export interface IRelativesPersonalDetailsErrors {
      * year of death error message
      */
     yearOfDeathError?: string;
+    /**
+     * age at death error message
+     */
+    ageAtDeathError?: string;
 }
 
 
@@ -68,11 +77,22 @@ const RelativesPersonalDetails = ({ data, onChange, errors }: RelativesPersonalD
                 { label: "Yes, living", value: false },
                 { label: "No, deceased", value: true },
             ]} row id={`${id}-living`} />
-            {data.isDead && <TextInput label="Year of death" value={data.yearOfDeath}
-                onChange={onChangeFactory('yearOfDeath')} format="year" placeholder="YYYY"
-                errorText={errors?.yearOfDeathError}
-                id={`${id}-yearOfDeath`}
-            />}
+            {data.isDead && (<>
+                <Stack direction="row" gap={3} alignItems="flex-start">
+                    <TextInput label="Year of death" value={data.yearOfDeath}
+                        onChange={onChangeFactory('yearOfDeath')} format="year" placeholder="YYYY"
+                        errorText={errors?.yearOfDeathError}
+                        id={`${id}-yearOfDeath`}
+                    />
+                    <Typography variant="h5" pt={4}>or</Typography>
+                    <TextInput label="Age at death" value={data.ageAtDeath}
+                        onChange={onChangeFactory('ageAtDeath')} format="age" placeholder="Age in years"
+                        errorText={errors?.ageAtDeathError}
+                        id={`${id}-ageAtDeath`}
+                    />
+                </Stack>
+            </>)
+            }
         </Stack>
     )
 }

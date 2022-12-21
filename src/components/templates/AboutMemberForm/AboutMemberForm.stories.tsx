@@ -15,6 +15,7 @@ export default {
                 yearOfBirth: "",
                 isDead: null,
                 yearOfDeath: "",
+                ageAtDeath: "",
             },
             medicalHistory: {
                 hasCancerDiagnosis: null,
@@ -54,6 +55,7 @@ WithErrors.args = {
             yearOfBirth: "2045",
             isDead: true,
             yearOfDeath: "2014",
+            ageAtDeath: "31",
         },
         medicalHistory: {
             hasCancerDiagnosis: null,
