@@ -94,7 +94,8 @@ const GeneticTestingHistory = ({ data, onChange, forTarget = false }: IGeneticTe
                         <AutocompleteInput label="Which gene(s) had pathogenic mutations?"
                             options={geneOptions} value={data.pathogenicGeneMutations}
                             onChange={handleGeneMutationAutocompleteChange}
-                            multiple freeSolo id={`${id}-pathogenicGeneMutations`} />
+                            multiple freeSolo id={`${id}-pathogenicGeneMutations`}
+                            placeholder="Choose from the list or type here" />
                     )}
                 </>
             )}

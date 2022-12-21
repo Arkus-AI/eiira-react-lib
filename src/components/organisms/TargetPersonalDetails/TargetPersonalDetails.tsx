@@ -108,13 +108,13 @@ const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetail
             />
             <AutocompleteInput label={t("Your ethnicity")} value={data.ethnicity}
                 onChange={onChangeFactory("ethnicity")}
-                options={ethnicityOptions} placeholder="Choose or add one" freeSolo
+                options={ethnicityOptions} placeholder="Choose from the list or type here" freeSolo
                 tooltipText={t("Your biological ancestry is one of the important factors when assessing genetic risk factors for common diseases.")}
                 id={`${id}-ethnicity`}
             />
             <AutocompleteInput label={t("Your country of birth")} value={data.countryOfBirth}
                 onChange={onChangeFactory("countryOfBirth")}
-                options={countryOptions} placeholder="Choose or add one" freeSolo
+                options={countryOptions} placeholder="Choose from the list or type here" freeSolo
                 id={`${id}-countryOfBirth`}
             />
             <TextInput label={t("How tall are you? (cm)")} value={data.height}

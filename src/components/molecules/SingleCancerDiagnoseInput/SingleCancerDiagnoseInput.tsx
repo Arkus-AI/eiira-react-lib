@@ -54,7 +54,7 @@ const SingleCancerDiagnoseInput = ({ data, onChange, forTarget = false, id = "" 
     return (
         <Stack gap={1.5}>
             <AutocompleteInput label="Which cancer was diagnosed?" options={cancerOptions} value={data.cancerType}
-                onChange={handleCancerTypeChange} freeSolo id={`${id}-cancerType`} />
+                onChange={handleCancerTypeChange} freeSolo id={`${id}-cancerType`} placeholder="Choose from the list or type here"/>
             <TextInput label={ageLabel} value={data.ageAtDiagnosis}
                 onChange={handleAgeAtDiagnosisChange} format="age" id={`${id}-ageAtDiagnosis`} />
 
