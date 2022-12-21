@@ -29,9 +29,13 @@ export interface ISingleCancerDiagnoseInputProps {
      * For target
      */
     forTarget?: boolean;
+    /**
+     * Id
+     */
+    id?: string;
 }
 
-const SingleCancerDiagnoseInput = ({ data, onChange, forTarget = false }: ISingleCancerDiagnoseInputProps) => {
+const SingleCancerDiagnoseInput = ({ data, onChange, forTarget = false, id = "" }: ISingleCancerDiagnoseInputProps) => {
     const handleCancerTypeChange = (cancerType: any) => {
         onChange({
             ...data,
@@ -50,9 +54,9 @@ const SingleCancerDiagnoseInput = ({ data, onChange, forTarget = false }: ISingl
     return (
         <Stack gap={1.5}>
             <AutocompleteInput label="Which cancer was diagnosed?" options={cancerOptions} value={data.cancerType}
-                onChange={handleCancerTypeChange} freeSolo />
+                onChange={handleCancerTypeChange} freeSolo id={`${id}-cancerType`} />
             <TextInput label={ageLabel} value={data.ageAtDiagnosis}
-                onChange={handleAgeAtDiagnosisChange} format="age" />
+                onChange={handleAgeAtDiagnosisChange} format="age" id={`${id}-ageAtDiagnosis`} />
 
         </Stack>
     );

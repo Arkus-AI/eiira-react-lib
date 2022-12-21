@@ -72,6 +72,7 @@ const TargetInformationForm = ({ data, onChange, errors, runValidation, setError
     const { t } = useTranslation();
     const { personalDetails, medicalHistory, geneticTestingHistory } = data;
 
+
     const [expandedPanel, setExpandedPanel] = React.useState<
         "personal-details" | "medical-history" |
         "genetic-testing-history" | "">("personal-details");

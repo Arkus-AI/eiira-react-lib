@@ -68,13 +68,15 @@ const StyledFormControlLabelForTextField = styled(FormControlLabel)(() => ({
     }
 }))
 
-function AlcoholConsumptionLine({ name, value, onChange }: { name: string, value: string, onChange: (value: string) => void }) {
+function AlcoholConsumptionLine({ name, value, onChange, id }:
+    { name: string, value: string, onChange: (value: string) => void, id: string }) {
     return <StyledFormControlLabelForTextField label={LABEL_DICT[name]} control={
         <InputBase
             value={value}
             onChange={(e) => onChange(e.target.value)}
             sx={{ width: "44px" }}
             inputComponent={UIntFormat as any}
+            id={id}
         />}
     />
 }
@@ -84,6 +86,7 @@ function AlcoholConsumptionInput({
     onChange,
     label
 }: IAlcoholConsumptionInputProps) {
+    const id = React.useId();
     return (
         <div>
             <FormLabel>{label}</FormLabel>
@@ -95,7 +98,9 @@ function AlcoholConsumptionInput({
                             key={key}
                             name={key}
                             value={value.toString()}
-                            onChange={(value) => onChange({ ...data, [key]: value.length ? parseInt(value) : 0 })} />
+                            onChange={(value) => onChange({ ...data, [key]: value.length ? parseInt(value) : 0 })}
+                            id={`${id}-${key}`}
+                        />
                     })}
                 </Stack>
             </FormGroup>

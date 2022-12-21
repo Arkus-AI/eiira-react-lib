@@ -77,14 +77,20 @@ const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagn
 
     const hasCancerDiagnosisLabel = forTarget ? "Have you ever been diagnosed with cancer?" : "Have they ever been diagnosed with cancer?"
 
+    const id = React.useId();
+
     return (
         <Stack gap={3}>
             <RadioInput label={hasCancerDiagnosisLabel} value={data.hasCancerDiagnosis}
                 onChange={(value: string | boolean | null) => onChange({ ...data, hasCancerDiagnosis: value })}
-                options={[{ label: "Yes", value: true }, { label: "No", value: false }]} row />
+                options={[{ label: "Yes", value: true }, { label: "No", value: false }]} row
+                id={`${id}-hasCancerDiagnosis`}
+            />
             {data.hasCancerDiagnosis && Array.isArray(data.cancerDiagnoses) && (
                 data.cancerDiagnoses?.map((cancerDiagnose, index) => (
-                    <SingleCancerDiagnoseInput key={index} data={cancerDiagnose} onChange={onCancerDiagnoseChangeFactory(index)} forTarget={forTarget} />
+                    <SingleCancerDiagnoseInput key={index} data={cancerDiagnose}
+                        onChange={onCancerDiagnoseChangeFactory(index)} forTarget={forTarget}
+                        id={`${id}-${index}`} />
                 )))}
             {data.hasCancerDiagnosis && (
                 <Box>

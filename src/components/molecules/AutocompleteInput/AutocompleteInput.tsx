@@ -31,15 +31,20 @@ export interface IAutocompleteInputProps extends FormFieldProps {
      * freeSolo input
      */
     freeSolo?: boolean;
+    /**
+     * id
+     */
+    id?: string;
 }
 
 const AutocompleteInput = (props: IAutocompleteInputProps) => {
-    const { label, tooltipText, errorText, helperText, required, onChange, options, value, placeholder, ...rest } = props;
+    const { label, tooltipText, errorText, helperText, required, onChange, options, value, placeholder, id, ...rest } = props;
 
     const autocompleteProps: any = {
         options,
         renderInput: (params: any) => <TextField {...params} placeholder={placeholder} />,
         clearIcon: <Icon iconType="xmark" fontSize="inherit" />,
+        id,
         ...rest
     }
 
@@ -65,7 +70,7 @@ const AutocompleteInput = (props: IAutocompleteInputProps) => {
     return (<FormControlWrapper {...{
         label, tooltipText, errorText,
         helperText, required
-    }} >
+    }} formLabelProps={{ htmlFor: id }}>
         <Autocomplete {...autocompleteProps} />
     </FormControlWrapper>
     );

@@ -75,16 +75,26 @@ const GeneticTestingHistory = ({ data, onChange, forTarget = false }: IGeneticTe
     ]
     if (!forTarget) radioInputOptions.push({ label: "Not sure", value: "unsure" });
 
+    const id = React.useId();
+
     return (
         <Stack gap={3}>
-            <RadioInput label={doneGeneticTestingLabel} value={data.hasDoneGeneticTesting} onChange={handleDoneGeneticTestingChange} options={radioInputOptions} row />
+            <RadioInput label={doneGeneticTestingLabel} value={data.hasDoneGeneticTesting}
+                onChange={handleDoneGeneticTestingChange} options={radioInputOptions} row
+                id={`${id}-hasDoneGeneticTesting`}
+            />
             {data.hasDoneGeneticTesting && data.hasDoneGeneticTesting !== "unsure" && (
                 <>
                     <RadioInput label="Were any pathogenic mutations found in the genes?"
-                        value={data.foundPathogenicMutations} onChange={handleFoundPathogenicMutationsChange} options={radioInputOptions} row />
+                        value={data.foundPathogenicMutations}
+                        onChange={handleFoundPathogenicMutationsChange}
+                        options={radioInputOptions} row
+                        id={`${id}-foundPathogenicMutations`} />
                     {data.foundPathogenicMutations && data.foundPathogenicMutations !== "unsure" && (
-                        <AutocompleteInput label="Which gene(s) had pathogenic mutations?" options={geneOptions} value={data.pathogenicGeneMutations}
-                            onChange={handleGeneMutationAutocompleteChange} multiple freeSolo />
+                        <AutocompleteInput label="Which gene(s) had pathogenic mutations?"
+                            options={geneOptions} value={data.pathogenicGeneMutations}
+                            onChange={handleGeneMutationAutocompleteChange}
+                            multiple freeSolo id={`${id}-pathogenicGeneMutations`} />
                     )}
                 </>
             )}

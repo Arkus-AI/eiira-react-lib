@@ -86,6 +86,7 @@ const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetail
     const onChangeFactory = (key: keyof ITargetPersonalDetailsData) => (value: any) => {
         onChange({ ...data, [key]: value });
     }
+    const id = React.useId();
 
     return (
         <Stack gap={3}>
@@ -93,7 +94,7 @@ const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetail
                 value={data.sex} onChange={onChangeFactory("sex")} options={[
                     { label: t("Female"), value: "female" },
                     { label: t("Male"), value: "male" }
-                ]} errorText={errors?.sexError} row
+                ]} errorText={errors?.sexError} row id={`${id}-sex`}
             />
             <RadioInput label={t("Do you have any Ashkenazi Jewish ancestors?")} required
                 value={data.hasAshkenaziJewishBackground} onChange={onChangeFactory("hasAshkenaziJewishBackground")} options={[
@@ -102,25 +103,33 @@ const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetail
                     { label: t("Unsure"), value: "unsure" },
                 ]} errorText={errors?.hasAshkenaziJewishBackgroundError} row
                 tooltipText={t("Ashkenazi Jewish ancestry has a specific impact on the genetic risk factors. We're asking this information to ensure the accuracy of your risk assessment.")}
+                id={`${id}-hasAshkenaziJewishBackground`}
             />
             <AutocompleteInput label={t("Your ethnicity")} value={data.ethnicity}
                 onChange={onChangeFactory("ethnicity")}
                 options={ethnicityOptions} placeholder="Choose or add one" freeSolo
                 tooltipText={t("Your biological ancestry is one of the important factors when assessing genetic risk factors for common diseases.")}
+                id={`${id}-ethnicity`}
             />
             <AutocompleteInput label={t("Your country of birth")} value={data.countryOfBirth}
                 onChange={onChangeFactory("countryOfBirth")}
                 options={countryOptions} placeholder="Choose or add one" freeSolo
+                id={`${id}-countryOfBirth`}
             />
             <TextInput label={t("How tall are you? (cm)")} value={data.height}
-                onChange={onChangeFactory("height")} format="uint" />
+                onChange={onChangeFactory("height")} format="uint"
+                id={`${id}-height`}
+            />
             <TextInput label={t("What is your weight? (kg)")} value={data.weight}
-                onChange={onChangeFactory("weight")} format="uint" />
+                onChange={onChangeFactory("weight")} format="uint"
+                id={`${id}-weight`}
+            />
             <RadioInput label={t("Do you smoke?")}
                 value={data.isSmoking} onChange={onChangeFactory("isSmoking")} options={[
                     { label: t("Yes"), value: true },
                     { label: t("No"), value: false },
                 ]} row
+                id={`${id}-isSmoking`}
             />
             <AlcoholConsumptionInput label={t("If you drink alcohol, how much of the following do you usually consume per week?")}
                 data={data.alcoholConsumption} onChange={onChangeFactory("alcoholConsumption")}

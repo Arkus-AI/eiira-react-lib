@@ -27,6 +27,10 @@ export interface RadioInputProps extends FormFieldProps {
      * show on a row
      */
     row?: boolean;
+    /**
+     * id
+     */
+    id?: string;
 }
 
 const isBoolean = (value: string | boolean): value is boolean => {
@@ -38,7 +42,7 @@ const isBoleanString = (value: string | boolean): value is string => {
     return typeof value === 'string' && (value === 'true' || value === 'false');
 }
 
-const RadioInput = ({ label, options, value, onChange, errorText = "", helperText = "", tooltipText = "", required = false, row = true }: RadioInputProps) => {
+const RadioInput = ({ label, options, value, onChange, errorText = "", helperText = "", tooltipText = "", required = false, row = true, id="" }: RadioInputProps) => {
     const theme = useTheme()
     const onMobile = useMediaQuery(theme.breakpoints.down('sm'))
     const error = errorText !== "";
@@ -62,8 +66,11 @@ const RadioInput = ({ label, options, value, onChange, errorText = "", helperTex
     if (error) RadioSx["color"] = "error.main";
 
     return (
-        <FormControlWrapper label={label} tooltipText={tooltipText} required={required} errorText={errorText} helperText={helperText}>
-            <RadioGroup value={value} onChange={handleChange} row={onMobile ? false : row}>
+        <FormControlWrapper label={label} tooltipText={tooltipText}
+            required={required} errorText={errorText} helperText={helperText}
+            formLabelProps={{ id: id }}>
+            <RadioGroup value={value} onChange={handleChange}
+                row={onMobile ? false : row} aria-labelledby={id}>
                 {options.map((option) => (
                     <FormControlLabel
                         key={isBoolean(option.value) ? option.value.toString() : option.value}

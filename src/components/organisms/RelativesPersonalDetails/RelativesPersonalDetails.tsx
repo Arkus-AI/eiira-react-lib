@@ -54,19 +54,24 @@ const RelativesPersonalDetails = ({ data, onChange, errors }: RelativesPersonalD
     const onChangeFactory = (key: keyof IRelativesPersonalDetailsData) => (value: string | boolean | null) => {
         onChange({ ...data, [key]: value });
     }
+    const id = React.useId();
 
     return (
         <Stack gap={3}>
-            <TextInput label="Full name" value={data.fullName} onChange={onChangeFactory('fullName')} />
+            <TextInput label="Full name" value={data.fullName}
+                onChange={onChangeFactory('fullName')} id={`${id}-fullName`} />
             <TextInput label="Year of birth" value={data.yearOfBirth} onChange={onChangeFactory('yearOfBirth')}
-                format="year" placeholder="YYYY" errorText={errors?.yearOfBirthError} />
+                format="year" placeholder="YYYY" errorText={errors?.yearOfBirthError}
+                id={`${id}-yearOfBirth`} />
             <RadioInput label="Living?" value={data.isDead} onChange={onChangeFactory('isDead')} options={[
                 { label: "Yes, living", value: false },
                 { label: "No, deceased", value: true },
-            ]} row />
+            ]} row id={`${id}-living`} />
             {data.isDead && <TextInput label="Year of death" value={data.yearOfDeath}
                 onChange={onChangeFactory('yearOfDeath')} format="year" placeholder="YYYY"
-                errorText={errors?.yearOfDeathError} />}
+                errorText={errors?.yearOfDeathError}
+                id={`${id}-yearOfDeath`}
+            />}
         </Stack>
     )
 }

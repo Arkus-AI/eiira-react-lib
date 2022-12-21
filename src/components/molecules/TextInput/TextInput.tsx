@@ -98,18 +98,22 @@ export interface TextInputProps extends FormFieldProps {
      * placeholder
      */
     placeholder?: string;
+    /**
+     * input id
+     */
+    id?: string;
 }
 
 export default function TextInput({ label, errorText = "", tooltipText = "",
     helperText = "", onChange, value, required, format = "default",
-    placeholder = "" }: TextInputProps) {
+    placeholder = "", id = "" }: TextInputProps) {
     const error = errorText.length > 0;
     const inputLabelProps = {
         disableAnimation: true,
         shrink: true,
         focused: false,
         error: false,
-        htmlFor: "bootstrap-input",
+        htmlFor: id,
         sx: {
             position: "relative", transformOrigin: "unset", transform: "unset",
             ".MuiInputLabel-asterisk": {
@@ -123,7 +127,7 @@ export default function TextInput({ label, errorText = "", tooltipText = "",
     }
 
     const inputProps: InputBaseProps = {
-        id: "bootstrap-input",
+        id,
         value, onChange: handleChange, placeholder,
         inputComponent: FORMATS[format]
     }
