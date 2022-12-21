@@ -2,6 +2,7 @@ import { Stack } from "@mui/system";
 import * as React from "react";
 import TextInput from "../../molecules/TextInput";
 import RadioInput from "../../molecules/RadioInput";
+import {useId} from "../../hooks";
 
 export interface IRelativesPersonalDetailsData {
     /**
@@ -54,7 +55,7 @@ const RelativesPersonalDetails = ({ data, onChange, errors }: RelativesPersonalD
     const onChangeFactory = (key: keyof IRelativesPersonalDetailsData) => (value: string | boolean | null) => {
         onChange({ ...data, [key]: value });
     }
-    const id = React.useId();
+    const id = useId();
 
     return (
         <Stack gap={3}>

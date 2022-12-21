@@ -5,7 +5,7 @@ import AutocompleteInput from "../../molecules/AutocompleteInput";
 import RadioInput from "../../molecules/RadioInput";
 import { RadioInputOptions } from "../../molecules/RadioInput/RadioInput";
 import geneOptions from "./geneOptions.json";
-
+import { useId } from "../../hooks";
 
 
 export interface IGeneticTestingHistoryData {
@@ -75,7 +75,7 @@ const GeneticTestingHistory = ({ data, onChange, forTarget = false }: IGeneticTe
     ]
     if (!forTarget) radioInputOptions.push({ label: "Not sure", value: "unsure" });
 
-    const id = React.useId();
+    const id = useId();
 
     return (
         <Stack gap={3}>

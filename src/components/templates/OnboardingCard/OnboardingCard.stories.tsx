@@ -15,11 +15,11 @@ export default {
 
 const Template: ComponentStory<typeof OnboardingCard> = (args) => {
     const [open, setOpen] = React.useState(false);
-    const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
-    const setAnchorElAndOpen = React.useCallback((node: HTMLElement | null) => {
-        setAnchorEl(node);
-        setOpen(true);
-    }, [setAnchorEl, setOpen])
+    // const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+    // const setAnchorElAndOpen = React.useCallback((node: HTMLElement | null) => {
+    //     setAnchorEl(node);
+    //     setOpen(true);
+    // }, [setAnchorEl, setOpen])
 
     const message = (
         <>
@@ -40,24 +40,12 @@ const Template: ComponentStory<typeof OnboardingCard> = (args) => {
         </>
     )
 
-    return (
-        <Box sx={{ backgroundColor: "gray", width: "750px", height: "750px", overflow: "scroll" }}>
-            <Box sx={{ width: "1500px", height: "1500px" }}>
-                <Paper sx={{ height: "100px", width: "110px", margin: "auto", marginTop: "750px", padding: "10px" }} ref={setAnchorElAndOpen}> Some anchor component </Paper>
-                <OnboardingCard {...args} message={message} open={open} anchorEl={anchorEl} actions={actions} />
-            </Box>
-        </Box >
+    return (<>
+        <Button onClick={() => setOpen(true)}>Open</Button>
+        <OnboardingCard {...args} message={message} open={open} actions={actions} />
+    </>
     );
 }
 
-export const BottomEnd = Template.bind({});
-BottomEnd.args = { placement: 'bottom-end' };
-
-export const LeftStart = Template.bind({});
-LeftStart.args = { placement: "left-start" };
-
-export const RightStart = Template.bind({});
-RightStart.args = { placement: "right-start" };
-
-export const TopStart = Template.bind({});
-TopStart.args = { placement: "top-start" };
+export const Default = Template.bind({});
+Default.args = {};
