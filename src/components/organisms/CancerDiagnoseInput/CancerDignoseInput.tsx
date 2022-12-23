@@ -5,7 +5,7 @@ import RadioInput from "../../molecules/RadioInput";
 import { ISingleCancerDiagnoseData } from "../../molecules/SingleCancerDiagnoseInput/SingleCancerDiagnoseInput";
 import SingleCancerDiagnoseInput from "../../molecules/SingleCancerDiagnoseInput";
 import { Box, Button } from "@mui/material";
-import { useId } from "../../hooks/useId";
+import { useHtmlId } from "../../hooks/useHtmlId";
 
 export interface ICancerDiagnoseInputData {
     /**
@@ -78,7 +78,7 @@ const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagn
 
     const hasCancerDiagnosisLabel = forTarget ? "Have you ever been diagnosed with cancer?" : "Have they ever been diagnosed with cancer?"
 
-    const id = useId();
+    const id = useHtmlId();
 
     return (
         <Stack gap={3}>

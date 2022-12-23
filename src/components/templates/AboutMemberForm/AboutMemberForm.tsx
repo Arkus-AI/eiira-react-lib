@@ -88,11 +88,11 @@ const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps)
             ageAtDeathError: string = "";
 
         if (yearOfBirth.length === 4 && yearOfDeath.length === 4 &&
-            ageAtDeath.length !== 0){
-                if(Math.abs(parseInt(yearOfBirth) + parseInt(ageAtDeath) - parseInt(yearOfDeath)) > 1){
-                    ageAtDeathError = t("Not consistent with year of birth and year of death");
-                }
+            ageAtDeath.length !== 0) {
+            if (Math.abs(parseInt(yearOfBirth) + parseInt(ageAtDeath) - parseInt(yearOfDeath)) > 1) {
+                ageAtDeathError = t("Not consistent with year of birth and year of death");
             }
+        }
         yearOfBirthError = yearInFuture(yearOfBirth) ? t("Cannot be in the future") : "";
         yearOfDeathError = yearInFuture(yearOfDeath) ? t("Cannot be in the future") : "";
         if (yearOfBirthAfterYearOfDeath(yearOfBirth, yearOfDeath))

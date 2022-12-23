@@ -3,7 +3,7 @@ import { InputBase, FormControlLabel, FormGroup, FormLabel } from "@mui/material
 import { Stack } from "@mui/system";
 import { styled } from '@mui/material/styles';
 import { UIntFormat } from "../TextInput/TextInput";
-import { useId } from "../../hooks/useId";
+import { useHtmlId } from "../../hooks/useHtmlId";
 
 
 export interface IAlcoholConsumptionData {
@@ -87,7 +87,7 @@ function AlcoholConsumptionInput({
     onChange,
     label
 }: IAlcoholConsumptionInputProps) {
-    const id = useId();
+    const id = useHtmlId();
     return (
         <div>
             <FormLabel>{label}</FormLabel>

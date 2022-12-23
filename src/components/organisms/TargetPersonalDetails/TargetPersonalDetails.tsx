@@ -7,7 +7,7 @@ import AutocompleteInput from "../../molecules/AutocompleteInput";
 import countryOptions from "./countries.json";
 import AlcoholConsumptionInput, { IAlcoholConsumptionData } from "../../molecules/AlcoholConsumptionInput/AlcoholConsumptionInput";
 import TextInput from "../../molecules/TextInput";
-import { useId } from "../../hooks/useId";
+import { useHtmlId } from "../../hooks/useHtmlId";
 
 export interface ITargetPersonalDetailsData {
     /** 
@@ -87,7 +87,7 @@ const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetail
     const onChangeFactory = (key: keyof ITargetPersonalDetailsData) => (value: any) => {
         onChange({ ...data, [key]: value });
     }
-    const id = useId();
+    const id = useHtmlId();
 
     return (
         <Stack gap={3}>
