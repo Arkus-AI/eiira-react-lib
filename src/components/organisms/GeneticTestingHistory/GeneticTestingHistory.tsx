@@ -5,7 +5,7 @@ import AutocompleteInput from "../../molecules/AutocompleteInput";
 import RadioInput from "../../molecules/RadioInput";
 import { RadioInputOptions } from "../../molecules/RadioInput/RadioInput";
 import geneOptions from "./geneOptions.json";
-import { useId } from "../../hooks";
+import { useId } from "../../hooks/useId";
 
 
 export interface IGeneticTestingHistoryData {

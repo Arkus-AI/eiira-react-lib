@@ -5,7 +5,7 @@ import RadioInput from "../../molecules/RadioInput";
 import { ISingleCancerDiagnoseData } from "../../molecules/SingleCancerDiagnoseInput/SingleCancerDiagnoseInput";
 import SingleCancerDiagnoseInput from "../../molecules/SingleCancerDiagnoseInput";
 import { Box, Button } from "@mui/material";
-import {useId} from "../../hooks";
+import { useId } from "../../hooks/useId";
 
 export interface ICancerDiagnoseInputData {
     /**
@@ -95,7 +95,7 @@ const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagn
                 )))}
             {data.hasCancerDiagnosis && (
                 <Box>
-                    <Button onClick={onAddCancerDiagnose} variant="outlined">Add another diagnosis</Button>
+                    <Button onClick={onAddCancerDiagnose} variant="outlined">Add another cancer diagnosis</Button>
                 </Box>
             )}
 

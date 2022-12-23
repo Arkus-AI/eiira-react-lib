@@ -7,7 +7,7 @@ import AutocompleteInput from "../../molecules/AutocompleteInput";
 import countryOptions from "./countries.json";
 import AlcoholConsumptionInput, { IAlcoholConsumptionData } from "../../molecules/AlcoholConsumptionInput/AlcoholConsumptionInput";
 import TextInput from "../../molecules/TextInput";
-import { useId } from "../../hooks";
+import { useId } from "../../hooks/useId";
 
 export interface ITargetPersonalDetailsData {
     /** 

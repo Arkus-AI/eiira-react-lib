@@ -3,7 +3,7 @@ import { InputBase, FormControlLabel, FormGroup, FormLabel } from "@mui/material
 import { Stack } from "@mui/system";
 import { styled } from '@mui/material/styles';
 import { UIntFormat } from "../TextInput/TextInput";
-import { useId } from "../../hooks";
+import { useId } from "../../hooks/useId";
 
 
 export interface IAlcoholConsumptionData {

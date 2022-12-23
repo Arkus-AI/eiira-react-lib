@@ -2,7 +2,7 @@ import { Stack } from "@mui/system";
 import * as React from "react";
 import TextInput from "../../molecules/TextInput";
 import RadioInput from "../../molecules/RadioInput";
-import { useId } from "../../hooks";
+import { useId } from "../../hooks/useId";
 import { Typography } from "@mui/material";
 
 export interface IRelativesPersonalDetailsData {
