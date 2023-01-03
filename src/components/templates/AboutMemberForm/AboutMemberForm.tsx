@@ -129,14 +129,14 @@ const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps)
 
     const handlePersonalDetailsChange = React.useCallback(
         (personalDetails: IRelativesPersonalDetailsData) => onChange({ ...data, personalDetails }),
-        [onChange]);
+        [data, onChange]);
 
     const handleMedicalHistoryChange = React.useCallback((medicalHistory: ICancerDiagnoseInputData) => onChange({ ...data, medicalHistory }),
-        [onChange]);
+        [data, onChange]);
 
     const handleGeneticTestingHistoryChange = React.useCallback(
         (geneticTestingHistory: IGeneticTestingHistoryData) => onChange({ ...data, geneticTestingHistory }),
-        [onChange]);
+        [data, onChange]);
 
 
     return (
