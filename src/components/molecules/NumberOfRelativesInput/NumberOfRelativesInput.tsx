@@ -28,7 +28,7 @@ interface ISingleLineNumberOfRelativesInputProps {
 
 const SingleLineNumberOfRelativesInput: React.FC<ISingleLineNumberOfRelativesInputProps> = ({ relativeKey, relativeCount, onChange }) => {
     const { t } = useTranslation();
-    return <FormControlLabel label={t(`memberCount.biologicalRelativesoptions.${relativeKey}`)}
+    return <FormControlLabel label={t(`memberCount.biologicalRelatives.options.${relativeKey}`)}
         sx={{ marginLeft: 0, marginRight: 0, gap: "12px" }}
         control={
             <InputBase
