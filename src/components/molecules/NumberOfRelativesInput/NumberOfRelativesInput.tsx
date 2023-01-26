@@ -1,8 +1,8 @@
 import { Stack } from "@mui/system";
 import * as React from "react";
-import { InputBase, FormControlLabel, FormGroup, FormLabel } from "@mui/material";
-import { styled } from "@mui/system";
+import { InputBase, FormControlLabel } from "@mui/material";
 import { UIntFormat } from "../TextInput/TextInput";
+import { useTranslation } from "react-i18next";
 
 export interface INumberOfRelatives {
     brothers: number;
@@ -26,19 +26,9 @@ interface ISingleLineNumberOfRelativesInputProps {
     onChange: (relativeCount: number) => void;
 }
 
-const LABEL_DICT = {
-    brothers: "Brothers",
-    sisters: "Sisters",
-    sons: "Sons",
-    daughters: "Daughters",
-    maternalUncles: "Maternal uncles (mother's brothers)",
-    maternalAunts: "Maternal aunts (mother's sisters)",
-    paternalUncles: "Paternal uncles (father's brothers)",
-    paternalAunts: "Paternal aunts (father's sisters)",
-}
-
 const SingleLineNumberOfRelativesInput: React.FC<ISingleLineNumberOfRelativesInputProps> = ({ relativeKey, relativeCount, onChange }) => {
-    return <FormControlLabel label={LABEL_DICT[relativeKey]}
+    const { t } = useTranslation();
+    return <FormControlLabel label={t(`memberCount.biologicalRelativesoptions.${relativeKey}`)}
         sx={{ marginLeft: 0, marginRight: 0, gap: "12px" }}
         control={
             <InputBase

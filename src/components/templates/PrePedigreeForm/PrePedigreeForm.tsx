@@ -7,6 +7,7 @@ import Icon from "../../atoms/Icon";
 import NumberOfRelativesInput from "../../molecules/NumberOfRelativesInput";
 import { INumberOfRelatives } from "../../molecules/NumberOfRelativesInput/NumberOfRelativesInput";
 import RadioInput from "../../molecules/RadioInput";
+import { useTranslation } from "react-i18next";
 
 export interface IPrePedigreeFormProps {
    /** targets sex */
@@ -20,6 +21,7 @@ export interface IPrePedigreeFormProps {
 }
 
 const PrePedigreeForm: React.FC<IPrePedigreeFormProps> = ({ initialSex, onSubmit, isSubmitting }) => {
+   const { t } = useTranslation();
    const [sex, setSex] = React.useState<any>(initialSex);
    const [sexError, setSexError] = React.useState<string>("");
    const [numberOfRelatives, setNumberOfRelatives] = React.useState<INumberOfRelatives>({
@@ -35,7 +37,7 @@ const PrePedigreeForm: React.FC<IPrePedigreeFormProps> = ({ initialSex, onSubmit
 
    const onSubmitHandler = () => {
       if (sex === null)
-         setSexError("Required");
+         setSexError(t('memberCount.sexInput.errorMsg.required'));
       else {
          onSubmit({
             sex,
@@ -54,23 +56,23 @@ const PrePedigreeForm: React.FC<IPrePedigreeFormProps> = ({ initialSex, onSubmit
          <Stack spacing={3}>
             <Stack direction="row" spacing={1.5} alignItems="center">
                <Icon iconType="users" color="primary" sx={{ fontSize: "32px", lineHeight: "37px" }} />
-               <Typography variant="h4"> Create your family tree </Typography>
+               <Typography variant="h4"> {t("title")} </Typography>
             </Stack>
-            <RadioInput label="What is your biological sex?" required row
+            <RadioInput label={t("memberCount.sexInput.label")} required row
                options={[
-                  { label: "Female", value: "female" },
-                  { label: "Male", value: "male" }]}
+                  { label: t("memberCount.sexInput.options.female"), value: "female" },
+                  { label: t("memberCount.sexInput.options.male"), value: "male" }]}
                value={sex}
                onChange={setSex}
                errorText={sexError}
             />
             <Stack spacing={1}>
-               <Typography>How many of these biological relatives do you have?</Typography>
-               <Typography variant="caption">Fill in as much of the following information as you can. This data will be used to help us construct a family tree for you.</Typography>
+               <Typography>{t("memberCount.biologicalRelatives.title")}</Typography>
+               <Typography variant="caption">{t("memberCount.biologicalRelatives.description")}</Typography>
             </Stack>
             <NumberOfRelativesInput numberOfRelatives={numberOfRelatives} onChange={setNumberOfRelatives} />
             <Stack alignItems="center">
-               <LoadingButton variant="contained" onClick={onSubmitHandler} loading={isSubmitting}>Create family tree</LoadingButton>
+               <LoadingButton variant="contained" onClick={onSubmitHandler} loading={isSubmitting}>{t("memberCount.buttons.createFamilyTree")}</LoadingButton>
             </Stack>
          </Stack>
       </Paper >
