@@ -4,6 +4,7 @@ import TextInput from "../../molecules/TextInput";
 import RadioInput from "../../molecules/RadioInput";
 import { useHtmlId } from "../../hooks/useHtmlId";
 import { Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 export interface IRelativesPersonalDetailsData {
     /**
@@ -61,6 +62,8 @@ export interface RelativesPersonalDetailsProps {
 
 const RelativesPersonalDetails = ({ data, onChange, errors }: RelativesPersonalDetailsProps) => {
 
+    const { t } = useTranslation();
+
     const onChangeFactory = (key: keyof IRelativesPersonalDetailsData) => (value: string | boolean | null) => {
         onChange({ ...data, [key]: value });
     }
@@ -68,25 +71,31 @@ const RelativesPersonalDetails = ({ data, onChange, errors }: RelativesPersonalD
 
     return (
         <Stack gap={3}>
-            <TextInput label="Full name" value={data.fullName}
+            <TextInput label={t('about.personalDetails.input.fullName.label')}
+                value={data.fullName}
                 onChange={onChangeFactory('fullName')} id={`${id}-fullName`} />
-            <TextInput label="Year of birth" value={data.yearOfBirth} onChange={onChangeFactory('yearOfBirth')}
+            <TextInput label={t('about.personalDetails.input.yearOfBirth.label')}
+                value={data.yearOfBirth} onChange={onChangeFactory('yearOfBirth')}
                 format="year" placeholder="YYYY" errorText={errors?.yearOfBirthError}
                 id={`${id}-yearOfBirth`} />
-            <RadioInput label="Living?" value={data.isDead} onChange={onChangeFactory('isDead')} options={[
-                { label: "Yes, living", value: false },
-                { label: "No, deceased", value: true },
-            ]} row id={`${id}-living`} />
+            <RadioInput label={t('about.personalDetails.input.isAlive.label')}
+                value={data.isDead} onChange={onChangeFactory('isDead')} options={[
+                    { label: t('about.personalDetails.input.isAlive.options.yes'), value: false },
+                    { label: t('about.personalDetails.input.isAlive.options.no'), value: true },
+                ]} row id={`${id}-living`} />
             {data.isDead && (<>
                 <Stack direction="row" gap={3} alignItems="flex-start">
-                    <TextInput label="Year of death" value={data.yearOfDeath}
-                        onChange={onChangeFactory('yearOfDeath')} format="year" placeholder="YYYY"
+                    <TextInput label={t('about.personalDetails.input.yearOfDeath.label')}
+                        value={data.yearOfDeath} onChange={onChangeFactory('yearOfDeath')}
+                        format="year" placeholder="YYYY"
                         errorText={errors?.yearOfDeathError}
                         id={`${id}-yearOfDeath`}
                     />
-                    <Typography variant="h5" pt={4}>or</Typography>
-                    <TextInput label="Age at death" value={data.ageAtDeath}
-                        onChange={onChangeFactory('ageAtDeath')} format="age" placeholder="Age in years"
+                    <Typography variant="h5" pt={4}>{t('about.personalDetails.or')}</Typography>
+                    <TextInput label={t('about.personalDetails.input.ageAtDeath.label')}
+                        value={data.ageAtDeath}
+                        onChange={onChangeFactory('ageAtDeath')} format="age"
+                        placeholder={t('about.personalDetails.input.ageAtDeath.placeholder')}
                         errorText={errors?.ageAtDeathError}
                         id={`${id}-ageAtDeath`}
                     />

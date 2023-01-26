@@ -4,6 +4,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/system';
 import * as React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Icon from '../../atoms/Icon';
 
@@ -68,14 +69,15 @@ const StyledListItem = styled(({ children, ...props }: ListItemProps) =>
 const FamilyMemberCard = ({ sex, relation, name, infoIsAdded, hasCancerDiagnose,
     isDead = false, isSelected, hasErrors, isSelectDisabled = false,
     isAddDisabled = false, onCardClick, onAddClick }: IMemberCardProps) => {
+    const { t } = useTranslation();
     const theme = useTheme();
-    let content = <Typography variant="caption" color="primary">Click to add details</Typography>
+    let content = <Typography variant="caption" color="primary">{t('memberNode.addDetails')}</Typography>
     if (infoIsAdded) {
         content = (
             <List sx={{ padding: 0 }}>
                 {name && <StyledListItem>{name}</StyledListItem>}
-                {isDead && <StyledListItem>Deceased</StyledListItem>}
-                {hasCancerDiagnose && <StyledListItem>Cancer history</StyledListItem>}
+                {isDead && <StyledListItem>{t('memberNode.deceased')}</StyledListItem>}
+                {hasCancerDiagnose && <StyledListItem>{t('memberNode.cancerHistory')}</StyledListItem>}
             </List>
         )
     }

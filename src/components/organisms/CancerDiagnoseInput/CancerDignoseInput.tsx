@@ -6,6 +6,7 @@ import { ISingleCancerDiagnoseData } from "../../molecules/SingleCancerDiagnoseI
 import SingleCancerDiagnoseInput from "../../molecules/SingleCancerDiagnoseInput";
 import { Box, Button } from "@mui/material";
 import { useHtmlId } from "../../hooks/useHtmlId";
+import { useTranslation } from "react-i18next";
 
 export interface ICancerDiagnoseInputData {
     /**
@@ -35,6 +36,7 @@ export interface ICancerDiagnoseInputProps {
 }
 
 const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagnoseInputProps) => {
+    const { t } = useTranslation();
 
     // When user selects no we clear the cancer diagnoses
     // Is user selects yes we add a new empty cancer diagnosis
@@ -76,7 +78,9 @@ const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagn
         })
     }
 
-    const hasCancerDiagnosisLabel = forTarget ? "Have you ever been diagnosed with cancer?" : "Have they ever been diagnosed with cancer?"
+    const hasCancerDiagnosisLabel = t('about.medicalHistory.input.hasCancerDiagnosis.label',
+        { subject: forTarget ? t('subject.you') : t('subject.they')})
+
 
     const id = useHtmlId();
 
@@ -84,7 +88,7 @@ const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagn
         <Stack gap={3}>
             <RadioInput label={hasCancerDiagnosisLabel} value={data.hasCancerDiagnosis}
                 onChange={(value: string | boolean | null) => onChange({ ...data, hasCancerDiagnosis: value })}
-                options={[{ label: "Yes", value: true }, { label: "No", value: false }]} row
+                options={[{ label: t('general.input.options.yes'), value: true }, { label: t('general.input.options.no'), value: false }]} row
                 id={`${id}-hasCancerDiagnosis`}
             />
             {data.hasCancerDiagnosis && Array.isArray(data.cancerDiagnoses) && (
@@ -95,7 +99,7 @@ const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagn
                 )))}
             {data.hasCancerDiagnosis && (
                 <Box>
-                    <Button onClick={onAddCancerDiagnose} variant="outlined">Add another cancer diagnosis</Button>
+                    <Button onClick={onAddCancerDiagnose} variant="outlined">{t('about.medicalHistory.button.addAnother')}</Button>
                 </Box>
             )}
 

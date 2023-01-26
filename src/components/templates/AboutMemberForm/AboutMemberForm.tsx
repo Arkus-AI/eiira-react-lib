@@ -90,13 +90,13 @@ const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps)
         if (yearOfBirth.length === 4 && yearOfDeath.length === 4 &&
             ageAtDeath.length !== 0) {
             if (Math.abs(parseInt(yearOfBirth) + parseInt(ageAtDeath) - parseInt(yearOfDeath)) > 1) {
-                ageAtDeathError = t("Not consistent with year of birth and year of death");
+                ageAtDeathError =t('about.error.notConsistent');
             }
         }
-        yearOfBirthError = yearInFuture(yearOfBirth) ? t("Cannot be in the future") : "";
-        yearOfDeathError = yearInFuture(yearOfDeath) ? t("Cannot be in the future") : "";
+        yearOfBirthError = yearInFuture(yearOfBirth) ? t('about.error.notInFuture'): "";
+        yearOfDeathError = yearInFuture(yearOfDeath) ? t('about.error.notInFuture'): "";
         if (yearOfBirthAfterYearOfDeath(yearOfBirth, yearOfDeath))
-            yearOfDeathError = t("Must be after birth");
+            yearOfDeathError =t('about.error.mustBeAfterBirth');
         return { yearOfBirthError, yearOfDeathError, ageAtDeathError };
     }
 
@@ -112,7 +112,7 @@ const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps)
         const errors = getValidationErrorMessages(data.personalDetails)
         const hasError = errorsObjHasError(errors)
         if (hasError && expandedPanel !== "personal-details") {
-            setPersonalDetailsErrorMessage(t("Please fix errors in Personal details"));
+            setPersonalDetailsErrorMessage(t('about.error.fixErrorsInPersonalDetails'));
         } else {
             setPersonalDetailsErrorMessage("");
         }
@@ -142,7 +142,7 @@ const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps)
     return (
         <MemoizedBox>
             <MemoizedAccordion expanded={expandedPanel === 'personal-details'} onChange={panelChangeHandlerFactory('personal-details')}>
-                <MemoizedAccordionSummary > <Typography variant="h4">{t("Personal details")}</Typography> </MemoizedAccordionSummary>
+                <MemoizedAccordionSummary > <Typography variant="h4">{t('about.personalDetails.title')}</Typography> </MemoizedAccordionSummary>
                 <MemoizedAccordionDetails>
                     <MemoizedRelativesPersonalDetails
                         data={data.personalDetails}
@@ -155,13 +155,13 @@ const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps)
                 marginBottom: "8px"
             }} />
             <MemoizedAccordion expanded={expandedPanel === 'medical-history'} onChange={panelChangeHandlerFactory('medical-history')}>
-                <MemoizedAccordionSummary> <Typography variant="h4">{t("Medical history")}</Typography> </MemoizedAccordionSummary>
+                <MemoizedAccordionSummary> <Typography variant="h4">{t('about.medicalHistory.title')}</Typography> </MemoizedAccordionSummary>
                 <MemoizedAccordionDetails>
                     <MemoizedCancerDiagnoseInput data={data.medicalHistory} onChange={handleMedicalHistoryChange} />
                 </MemoizedAccordionDetails>
             </MemoizedAccordion>
             <MemoizedAccordion expanded={expandedPanel === 'genetic-testing-history'} onChange={panelChangeHandlerFactory('genetic-testing-history')}>
-                <MemoizedAccordionSummary > <Typography variant="h4">{t("Genetic testing history")}</Typography> </MemoizedAccordionSummary>
+                <MemoizedAccordionSummary > <Typography variant="h4">{t('about.geneticTestingHistory.title')}</Typography> </MemoizedAccordionSummary>
                 <MemoizedAccordionDetails>
                     <MemoizedGeneticTestingHistory data={data.geneticTestingHistory} onChange={handleGeneticTestingHistoryChange} />
                 </MemoizedAccordionDetails>
