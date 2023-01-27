@@ -42,7 +42,7 @@ export interface IGeneticTestingHistoryProps {
 const GeneticTestingHistory = ({ data, onChange, forTarget = false }: IGeneticTestingHistoryProps) => {
     const { t } = useTranslation();
 
-    const doneGeneticTestingLabel = t('about.geneticTestingHistory.input.hasDoneGeneticTesting.label', {
+    const doneGeneticTestingLabel = t('geneticTestingHistory.input.hasDoneGeneticTesting.label', {
         subject: forTarget ? t('subject.you') : t('subject.they')
     })
 
@@ -88,17 +88,17 @@ const GeneticTestingHistory = ({ data, onChange, forTarget = false }: IGeneticTe
             />
             {data.hasDoneGeneticTesting && data.hasDoneGeneticTesting !== "unsure" && (
                 <>
-                    <RadioInput label={t('about.geneticTestingHistory.input.fountPathogenicMutations.label')}
+                    <RadioInput label={t('geneticTestingHistory.input.fountPathogenicMutations.label')}
                         value={data.foundPathogenicMutations}
                         onChange={handleFoundPathogenicMutationsChange}
                         options={radioInputOptions} row
                         id={`${id}-foundPathogenicMutations`} />
                     {data.foundPathogenicMutations && data.foundPathogenicMutations !== "unsure" && (
-                        <AutocompleteInput label={t('about.geneticTestingHistory.input.pathogenicGeneMutations.label')}
+                        <AutocompleteInput label={t('geneticTestingHistory.input.pathogenicGeneMutations.label')}
                             options={geneOptions} value={data.pathogenicGeneMutations}
                             onChange={handleGeneMutationAutocompleteChange}
                             multiple freeSolo id={`${id}-pathogenicGeneMutations`}
-                            placeholder={t('about.geneticTestingHistory.input.pathogenicGeneMutations.placeholder')} />
+                            placeholder={t('geneticTestingHistory.input.pathogenicGeneMutations.placeholder')} />
                     )}
                 </>
             )

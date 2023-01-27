@@ -37,7 +37,7 @@ const PrePedigreeForm: React.FC<IPrePedigreeFormProps> = ({ initialSex, onSubmit
 
    const onSubmitHandler = () => {
       if (sex === null)
-         setSexError(t('memberCount.sexInput.errorMsg.required'));
+         setSexError(t('pedigree.memberCount.sexInput.errorMsg.required'));
       else {
          onSubmit({
             sex,
@@ -56,23 +56,23 @@ const PrePedigreeForm: React.FC<IPrePedigreeFormProps> = ({ initialSex, onSubmit
          <Stack spacing={3}>
             <Stack direction="row" spacing={1.5} alignItems="center">
                <Icon iconType="users" color="primary" sx={{ fontSize: "32px", lineHeight: "37px" }} />
-               <Typography variant="h4"> {t("title")} </Typography>
+               <Typography variant="h4"> {t("pedigree.title")} </Typography>
             </Stack>
-            <RadioInput label={t("memberCount.sexInput.label")} required row
+            <RadioInput label={t("pedigree.memberCount.sexInput.label")} required row
                options={[
-                  { label: t("memberCount.sexInput.options.female"), value: "female" },
-                  { label: t("memberCount.sexInput.options.male"), value: "male" }]}
+                  { label: t("pedigree.memberCount.sexInput.options.female"), value: "female" },
+                  { label: t("pedigree.memberCount.sexInput.options.male"), value: "male" }]}
                value={sex}
                onChange={setSex}
                errorText={sexError}
             />
             <Stack spacing={1}>
-               <Typography>{t("memberCount.biologicalRelatives.title")}</Typography>
-               <Typography variant="caption">{t("memberCount.biologicalRelatives.description")}</Typography>
+               <Typography>{t("pedigree.memberCount.biologicalRelatives.title")}</Typography>
+               <Typography variant="caption">{t("pedigree.memberCount.biologicalRelatives.description")}</Typography>
             </Stack>
             <NumberOfRelativesInput numberOfRelatives={numberOfRelatives} onChange={setNumberOfRelatives} />
             <Stack alignItems="center">
-               <LoadingButton variant="contained" onClick={onSubmitHandler} loading={isSubmitting}>{t("memberCount.buttons.createFamilyTree")}</LoadingButton>
+               <LoadingButton variant="contained" onClick={onSubmitHandler} loading={isSubmitting}>{t("pedigree.memberCount.buttons.createFamilyTree")}</LoadingButton>
             </Stack>
          </Stack>
       </Paper >

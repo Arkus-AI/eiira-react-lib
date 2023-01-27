@@ -78,8 +78,8 @@ const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagn
         })
     }
 
-    const hasCancerDiagnosisLabel = t('about.medicalHistory.input.hasCancerDiagnosis.label',
-        { subject: forTarget ? t('subject.you') : t('subject.they')})
+    const hasCancerDiagnosisLabel = t('medicalHistory.input.hasCancerDiagnosis.label',
+        { subject: forTarget ? t('subject.you') : t('subject.they') })
 
 
     const id = useHtmlId();
@@ -99,7 +99,7 @@ const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagn
                 )))}
             {data.hasCancerDiagnosis && (
                 <Box>
-                    <Button onClick={onAddCancerDiagnose} variant="outlined">{t('about.medicalHistory.button.addAnother')}</Button>
+                    <Button onClick={onAddCancerDiagnose} variant="outlined">{t('medicalHistory.button.addAnother')}</Button>
                 </Box>
             )}
 

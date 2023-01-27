@@ -59,16 +59,16 @@ const SingleCancerDiagnoseInput = ({ data, onChange, forTarget = false, id = "" 
         });
     }
 
-    const ageLabel = t('about.medicalHistory.input.ageAtDiagnosis.label',
+    const ageLabel = t('medicalHistory.input.ageAtDiagnosis.label',
         { subject: forTarget ? t('subject.you') : t('subject.they') })
 
     return (
         <Stack gap={1.5}>
-            <AutocompleteInput label={t('about.medicalHistory.input.cancerType.label')}
+            <AutocompleteInput label={t('medicalHistory.input.cancerType.label')}
                 options={cancerOptions} value={data.cancerType}
                 onChange={handleCancerTypeChange} freeSolo
                 id={`${id}-cancerType`}
-                placeholder={t('about.medicalHistory.input.cancerType.placeholder')} />
+                placeholder={t('medicalHistory.input.cancerType.placeholder')} />
             <TextInput label={ageLabel} value={data.ageAtDiagnosis}
                 onChange={handleAgeAtDiagnosisChange} format="age" id={`${id}-ageAtDiagnosis`} />
 

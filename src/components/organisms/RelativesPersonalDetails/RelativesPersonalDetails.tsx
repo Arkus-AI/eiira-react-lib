@@ -71,31 +71,31 @@ const RelativesPersonalDetails = ({ data, onChange, errors }: RelativesPersonalD
 
     return (
         <Stack gap={3}>
-            <TextInput label={t('about.personalDetails.input.fullName.label')}
+            <TextInput label={t('personalDetails.input.fullName.label')}
                 value={data.fullName}
                 onChange={onChangeFactory('fullName')} id={`${id}-fullName`} />
-            <TextInput label={t('about.personalDetails.input.yearOfBirth.label')}
+            <TextInput label={t('personalDetails.input.yearOfBirth.label')}
                 value={data.yearOfBirth} onChange={onChangeFactory('yearOfBirth')}
                 format="year" placeholder="YYYY" errorText={errors?.yearOfBirthError}
                 id={`${id}-yearOfBirth`} />
-            <RadioInput label={t('about.personalDetails.input.isAlive.label')}
+            <RadioInput label={t('personalDetails.input.isAlive.label')}
                 value={data.isDead} onChange={onChangeFactory('isDead')} options={[
-                    { label: t('about.personalDetails.input.isAlive.options.yes'), value: false },
-                    { label: t('about.personalDetails.input.isAlive.options.no'), value: true },
+                    { label: t('personalDetails.input.isAlive.options.yes'), value: false },
+                    { label: t('personalDetails.input.isAlive.options.no'), value: true },
                 ]} row id={`${id}-living`} />
             {data.isDead && (<>
                 <Stack direction="row" gap={3} alignItems="flex-start">
-                    <TextInput label={t('about.personalDetails.input.yearOfDeath.label')}
+                    <TextInput label={t('personalDetails.input.yearOfDeath.label')}
                         value={data.yearOfDeath} onChange={onChangeFactory('yearOfDeath')}
                         format="year" placeholder="YYYY"
                         errorText={errors?.yearOfDeathError}
                         id={`${id}-yearOfDeath`}
                     />
-                    <Typography variant="h5" pt={4}>{t('about.personalDetails.or')}</Typography>
-                    <TextInput label={t('about.personalDetails.input.ageAtDeath.label')}
+                    <Typography variant="h5" pt={4}>{t('personalDetails.or')}</Typography>
+                    <TextInput label={t('personalDetails.input.ageAtDeath.label')}
                         value={data.ageAtDeath}
                         onChange={onChangeFactory('ageAtDeath')} format="age"
-                        placeholder={t('about.personalDetails.input.ageAtDeath.placeholder')}
+                        placeholder={t('personalDetails.input.ageAtDeath.placeholder')}
                         errorText={errors?.ageAtDeathError}
                         id={`${id}-ageAtDeath`}
                     />

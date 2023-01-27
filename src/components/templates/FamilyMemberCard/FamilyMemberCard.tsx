@@ -71,13 +71,13 @@ const FamilyMemberCard = ({ sex, relation, name, infoIsAdded, hasCancerDiagnose,
     isAddDisabled = false, onCardClick, onAddClick }: IMemberCardProps) => {
     const { t } = useTranslation();
     const theme = useTheme();
-    let content = <Typography variant="caption" color="primary">{t('memberNode.addDetails')}</Typography>
+    let content = <Typography variant="caption" color="primary">{t('pedigree.memberNode.addDetails')}</Typography>
     if (infoIsAdded) {
         content = (
             <List sx={{ padding: 0 }}>
                 {name && <StyledListItem>{name}</StyledListItem>}
-                {isDead && <StyledListItem>{t('memberNode.deceased')}</StyledListItem>}
-                {hasCancerDiagnose && <StyledListItem>{t('memberNode.cancerHistory')}</StyledListItem>}
+                {isDead && <StyledListItem>{t('pedigree.memberNode.deceased')}</StyledListItem>}
+                {hasCancerDiagnose && <StyledListItem>{t('pedigree.memberNode.cancerHistory')}</StyledListItem>}
             </List>
         )
     }
