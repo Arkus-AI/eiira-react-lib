@@ -1,16 +1,12 @@
 import * as React from "react";
-import { Autocomplete, TextField } from "@mui/material";
-import { styled } from '@mui/material/styles';
+import { Autocomplete, Chip, TextField } from "@mui/material";
 
 import FormControlWrapper from "../FormControlWrapper";
 import { FormFieldProps } from "../FormControlWrapper/FormControlWrapper";
+import Icon from "../../atoms/Icon";
 
 
 export interface IAutocompleteInputProps extends FormFieldProps {
-    /**
-     * Label
-     */
-    label: string;
     /**
      * Options
      */
@@ -35,14 +31,20 @@ export interface IAutocompleteInputProps extends FormFieldProps {
      * freeSolo input
      */
     freeSolo?: boolean;
+    /**
+     * id
+     */
+    id?: string;
 }
 
 const AutocompleteInput = (props: IAutocompleteInputProps) => {
-    const { label, tooltipText, errorText, helperText, required, onChange, options, value, placeholder, ...rest } = props;
+    const { label, tooltipText, errorText, helperText, required, onChange, options, value, placeholder, id, ...rest } = props;
 
     const autocompleteProps: any = {
         options,
         renderInput: (params: any) => <TextField {...params} placeholder={placeholder} />,
+        clearIcon: <Icon iconType="xmark" fontSize="inherit" />,
+        id,
         ...rest
     }
 
@@ -57,11 +59,18 @@ const AutocompleteInput = (props: IAutocompleteInputProps) => {
         }
         autocompleteProps.value = value || []
     }
+    if (props.multiple)
+        autocompleteProps.renderTags = (value: readonly string[], getTagProps: any) =>
+            value.map((option, index) => (
+                <Chip variant="outlined" label={option} clickable={false} {...getTagProps({ index })}
+                    sx={{ ":hover": { backgroundColor: "unset", } }}
+                    deleteIcon={<Icon iconType="circle-xmark" fontSize="inherit" />} />
+            ));
 
     return (<FormControlWrapper {...{
         label, tooltipText, errorText,
         helperText, required
-    }} >
+    }} formLabelProps={{ htmlFor: id }}>
         <Autocomplete {...autocompleteProps} />
     </FormControlWrapper>
     );

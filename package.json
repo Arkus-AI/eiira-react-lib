@@ -11,13 +11,8 @@
   "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.20.2",
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "@fortawesome/fontawesome-svg-core": "^6.2.1",
-    "@fortawesome/free-solid-svg-icons": "^6.2.1",
-    "@fortawesome/react-fontawesome": "^0.2.0",
-    "@mui/material": "^5.10.14",
     "@rollup/plugin-commonjs": "^23.0.2",
+    "@rollup/plugin-json": "^5.0.1",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@storybook/addon-actions": "^6.5.13",
     "@storybook/addon-essentials": "^6.5.13",
@@ -42,8 +37,16 @@
     "react-number-format": "^5.1.2"
   },
   "peerDependencies": {
+    "i18next": "^22.0.6",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-i18next": "^12.0.0",
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
+    "@fortawesome/fontawesome-svg-core": "^6.2.1",
+    "@fortawesome/free-solid-svg-icons": "^6.2.1",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/material": "^5.10.14"
   },
   "scripts": {
     "storybook": "start-storybook -p 6006",
@@ -51,7 +54,8 @@
     "predeploy": "npm run build-storybook",
     "deploy-storybook": "gh-pages -d storybook-static",
     "chromatic": "npx chromatic --project-token=5f1856e814d8",
-    "build": "rollup -c --bundleConfigAsCjs"
+    "build": "rollup -c --bundleConfigAsCjs",
+    "buildWatch": "rollup --watch -c --bundleConfigAsCjs"
   },
   "readme": "ERROR: No README data found!",
   "_id": "eiira-react-lib@1.0.0"

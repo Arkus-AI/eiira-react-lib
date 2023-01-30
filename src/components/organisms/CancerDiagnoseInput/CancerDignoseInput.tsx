@@ -5,6 +5,8 @@ import RadioInput from "../../molecules/RadioInput";
 import { ISingleCancerDiagnoseData } from "../../molecules/SingleCancerDiagnoseInput/SingleCancerDiagnoseInput";
 import SingleCancerDiagnoseInput from "../../molecules/SingleCancerDiagnoseInput";
 import { Box, Button } from "@mui/material";
+import { useHtmlId } from "../../hooks/useHtmlId";
+import { useTranslation } from "react-i18next";
 
 export interface ICancerDiagnoseInputData {
     /**
@@ -34,30 +36,26 @@ export interface ICancerDiagnoseInputProps {
 }
 
 const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagnoseInputProps) => {
-    function addFirstEmptyCancerDiagnose() {
-        onChange({
-            ...data,
-            cancerDiagnoses: [{
-                cancerType: "",
-                ageAtDiagnosis: ""
-            }]
-        });
-    }
+    const { t } = useTranslation();
 
     // When user selects no we clear the cancer diagnoses
     // Is user selects yes we add a new empty cancer diagnosis
     React.useEffect(() => {
-        if (!data.hasCancerDiagnosis || data.hasCancerDiagnosis === null) {
+        if ((!data.hasCancerDiagnosis || data.hasCancerDiagnosis === null) && data.cancerDiagnoses.length > 0) {
             onChange({
                 ...data,
                 cancerDiagnoses: []
             });
-        } else {
-            addFirstEmptyCancerDiagnose();
+        } else if (data.hasCancerDiagnosis && data.cancerDiagnoses.length === 0) {
+            onChange({
+                ...data,
+                cancerDiagnoses: [{
+                    cancerType: "",
+                    ageAtDiagnosis: ""
+                }]
+            });
         }
     }, [data.hasCancerDiagnosis]);
-
-    React.useEffect(() => { if (data.hasCancerDiagnosis) addFirstEmptyCancerDiagnose(); }, []);
 
     const onCancerDiagnoseChangeFactory = (index: number) => (cancerDiagnose: ISingleCancerDiagnoseData) => {
         const newCancerDiagnoses = [...data.cancerDiagnoses];
@@ -80,20 +78,28 @@ const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagn
         })
     }
 
-    const hasCancerDiagnosisLabel = forTarget ? "Have you ever been diagnosed with cancer?" : "Have they ever been diagnosed with cancer?"
+    const hasCancerDiagnosisLabel = t('medicalHistory.input.hasCancerDiagnosis.label',
+        { subject: forTarget ? t('subject.you') : t('subject.they') })
+
+
+    const id = useHtmlId();
 
     return (
         <Stack gap={3}>
             <RadioInput label={hasCancerDiagnosisLabel} value={data.hasCancerDiagnosis}
                 onChange={(value: string | boolean | null) => onChange({ ...data, hasCancerDiagnosis: value })}
-                options={[{ label: "Yes", value: true }, { label: "No", value: false }]} row />
+                options={[{ label: t('general.input.options.yes'), value: true }, { label: t('general.input.options.no'), value: false }]} row
+                id={`${id}-hasCancerDiagnosis`}
+            />
             {data.hasCancerDiagnosis && Array.isArray(data.cancerDiagnoses) && (
                 data.cancerDiagnoses?.map((cancerDiagnose, index) => (
-                    <SingleCancerDiagnoseInput key={index} data={cancerDiagnose} onChange={onCancerDiagnoseChangeFactory(index)} forTarget={forTarget} />
+                    <SingleCancerDiagnoseInput key={index} data={cancerDiagnose}
+                        onChange={onCancerDiagnoseChangeFactory(index)} forTarget={forTarget}
+                        id={`${id}-${index}`} />
                 )))}
             {data.hasCancerDiagnosis && (
                 <Box>
-                    <Button onClick={onAddCancerDiagnose} variant="outlined">Add another diagnosis</Button>
+                    <Button onClick={onAddCancerDiagnose} variant="outlined">{t('medicalHistory.button.addAnother')}</Button>
                 </Box>
             )}
 

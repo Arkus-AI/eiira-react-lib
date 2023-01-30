@@ -8,6 +8,9 @@ import { useArgs } from '@storybook/client-api';
 export default {
     title: "Molecules/TextInput",
     component: TextInput,
+    args: {
+        value: "",
+    }
 } as Meta;
 
 const Template: Story<TextInputProps> = (args) => {

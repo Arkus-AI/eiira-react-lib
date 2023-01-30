@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormControl, Stack, FormLabel } from '@mui/material';
+import { FormControl, Stack, FormLabel, FormLabelProps } from '@mui/material';
 import IconWithTooltip from '../../atoms/IconWithTooltip';
 import ErrorOrHelperText from '../../atoms/ErrorOrHelperText';
 
@@ -24,6 +24,10 @@ export interface FormFieldProps {
      * Is required
      */
     required?: boolean;
+    /**
+     * Form label props
+     */
+    formLabelProps?: FormLabelProps;
 }
 
 export interface FormControlWrapperProps extends FormFieldProps {
@@ -33,12 +37,16 @@ export interface FormControlWrapperProps extends FormFieldProps {
     children: React.ReactNode;
 }
 
-const FormControlWrapper = ({ children, label, tooltipText = "", required = false, errorText = "", helperText = "" }: FormControlWrapperProps) => {
+const FormControlWrapper = ({ children, label, tooltipText = "",
+    required = false, errorText = "", helperText = "",
+    formLabelProps = {} }: FormControlWrapperProps) => {
     const error = errorText !== "";
-    const formLabelProps = {
+    formLabelProps = {
+        ...formLabelProps,
         focused: false,
         error: false,
     }
+
     return (
         <FormControl required={required} error={error}>
             {tooltipText ? (

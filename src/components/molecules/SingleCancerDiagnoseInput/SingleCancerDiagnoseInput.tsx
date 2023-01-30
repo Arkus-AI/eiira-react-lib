@@ -1,9 +1,10 @@
 import { Stack } from "@mui/system";
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 
 import AutocompleteInput from "../AutocompleteInput/AutocompleteInput";
 import TextInput from "../TextInput";
-import cancerOptions from "./cancerOptions.json";
+import CANCER_OPTIONS from "./cancerOptions.json";
 
 export interface ISingleCancerDiagnoseData {
     /**
@@ -29,9 +30,21 @@ export interface ISingleCancerDiagnoseInputProps {
      * For target
      */
     forTarget?: boolean;
+    /**
+     * Id
+     */
+    id?: string;
 }
 
-const SingleCancerDiagnoseInput = ({ data, onChange, forTarget = false }: ISingleCancerDiagnoseInputProps) => {
+const useCancerOptions = () => {
+    const { t } = useTranslation("cancer");
+    return React.useMemo(() => CANCER_OPTIONS.map((option: string) =>
+        t(`${option}`)), [t]);
+}
+
+const SingleCancerDiagnoseInput = ({ data, onChange, forTarget = false, id = "" }: ISingleCancerDiagnoseInputProps) => {
+    const { t } = useTranslation();
+    const cancerOptions = useCancerOptions();
     const handleCancerTypeChange = (cancerType: any) => {
         onChange({
             ...data,
@@ -45,14 +58,19 @@ const SingleCancerDiagnoseInput = ({ data, onChange, forTarget = false }: ISingl
             ageAtDiagnosis
         });
     }
-    const ageLabel = forTarget ? "How old were you when it was first diagnosed?" : "How old were they when it was first diagnosed?"
+
+    const ageLabel = t('medicalHistory.input.ageAtDiagnosis.label',
+        { subject: forTarget ? t('subject.you') : t('subject.they') })
 
     return (
         <Stack gap={1.5}>
-            <AutocompleteInput label="Which cancer was diagnosed?" options={cancerOptions} value={data.cancerType}
-                onChange={handleCancerTypeChange} freeSolo />
+            <AutocompleteInput label={t('medicalHistory.input.cancerType.label')}
+                options={cancerOptions} value={data.cancerType}
+                onChange={handleCancerTypeChange} freeSolo
+                id={`${id}-cancerType`}
+                placeholder={t("general.input.placeholder.chooseFromListOrType")} />
             <TextInput label={ageLabel} value={data.ageAtDiagnosis}
-                onChange={handleAgeAtDiagnosisChange} format="age" />
+                onChange={handleAgeAtDiagnosisChange} format="age" id={`${id}-ageAtDiagnosis`} />
 
         </Stack>
     );

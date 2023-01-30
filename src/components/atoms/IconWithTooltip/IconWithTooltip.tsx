@@ -51,7 +51,6 @@ export interface IconWithTooltipProps {
 export default function IconWithTooltip({ tooltipType = "help", tooltipText, placement = "bottom" }: IconWithTooltipProps) {
     const [open, setOpen] = React.useState(false);
     const handleTooltipClose = () => {
-        console.log("handleTooltipClose called");
         setOpen(false);
     };
     const handleTooltipOpen = () => {

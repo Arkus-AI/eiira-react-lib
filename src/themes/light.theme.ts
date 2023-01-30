@@ -1,5 +1,4 @@
 import { createTheme, PaletteOptions } from "@mui/material";
-import MuiCssBaseline from "./cssBaseline";
 
 declare module '@mui/material/styles' {
   interface PaletteColorOptions {
@@ -7,9 +6,9 @@ declare module '@mui/material/styles' {
     main: string;
     dark?: string;
     field?: string;
+    containers?: string
     contrastText?: string;
   }
-
   interface Palette {
     hover: Palette['primary'];
     neutral: Palette['primary'];
@@ -20,9 +19,11 @@ declare module '@mui/material/styles' {
   }
   interface PaletteColor {
     field?: string;
+    containers?: string
   }
   interface SimplePaletteColorOptions {
     field?: string;
+    containers?: string
   }
 }
 
@@ -35,13 +36,15 @@ const palette: PaletteOptions = {
   },
   secondary: {
     main: "#F9EEE5",
+    dark: "#FAE2CF"
   },
   info: {
     main: "#EBF1FB"
   },
   error: {
     main: "#CA2B2B",
-    light: "#FFEBEE"
+    light: "#FFEBEE",
+    dark: "#910002"
   },
   text: {
     primary: "#233750",
@@ -52,8 +55,10 @@ const palette: PaletteOptions = {
     light: "#EBF1FB",
   },
   neutral: {
+    dark: "rgba(35, 55, 73, 0.7)",
     main: "#F9EEE5", // This is some random color
-    field: "rgba(35, 55, 73, 0.55)"
+    field: "rgba(35, 55, 73, 0.55)",
+    containers: "rgba(35, 55, 73, 0.25)"
   },
 }
 
@@ -61,36 +66,71 @@ export const lightTheme = createTheme({
   palette,
   typography: {
     fontFamily: "Manrope",
+    h1: {
+      fontSize: "36px",
+      lineHeight: "40px",
+      fontWeight: 200,
+    },
+    h2: {
+      fontSize: "28px",
+      lineHeight: "32px",
+      fontWeight: 200,
+    },
+    h3: {
+      fontSize: "24px",
+      lineHeight: "28px",
+      fontWeight: 200,
+    },
+    h4: {
+      fontSize: "20px",
+      lineHeight: "24px",
+      fontWeight: 200,
+    },
+    h5: {
+      fontSize: "16px",
+      lineHeight: "24px",
+      fontWeight: "bold",
+    },
+    h6: {
+      fontSize: "14px",
+      lineHeight: "20px",
+      fontWeight: "bold",
+    },
+    caption: {
+      lineHeight: "16px",
+      color: palette.neutral?.dark
+    }
   },
   components: {
-    MuiCssBaseline,
     MuiButton: {
       styleOverrides: {
         root: {
           textTransform: "revert",
           padding: "8px 24px",
           fontSize: "16px",
-          lineHeight: "24px"
+          lineHeight: "24px",
+          '@media (hover: hover)': {
+            "&:hover": {
+              backgroundColor: palette.hover?.main,
+            }
+          }
         },
         outlinedPrimary: {
           borderColor: palette.primary?.main,
-        }
-      },
-    },
-    MuiButtonBase: {
-      styleOverrides: {
-        root: {
-          "&:hover": {
-            backgroundColor: "#EBF1FB"
+          '@media (hover: hover)': {
+            "&:hover": {
+              backgroundColor: palette.hover?.light,
+            }
           }
         }
-      }
+      },
     },
     MuiInputLabel: {
       styleOverrides: {
         root: {
           lineHeight: "24px",
-          color: palette.text?.primary
+          color: palette.text?.primary,
+          whiteSpace: "normal"
         }
       }
     },
@@ -99,29 +139,78 @@ export const lightTheme = createTheme({
         root: {
           lineHeight: "24px",
           color: palette.text?.primary
+        },
+        asterisk: {
+          color: palette.error?.main
         }
+      }
+    },
+    MuiFormGroup: {
+      styleOverrides: {
+        row: {
+          ".MuiFormControlLabel-root": {
+            marginRight: "48px",
+          }
+        }
+      }
+    },
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            '& fieldset': {
+              borderWidth: 0,
+            },
+            '@media (hover: hover)': {
+              '&:hover fieldset': {
+                borderWidth: 0,
+              },
+            },
+            '&.Mui-focused fieldset': {
+              borderWidth: 0,
+            },
+          },
+        },
       }
     },
     MuiInputBase: {
       styleOverrides: {
-        input: {
-          "::placeholder": {
-            color: palette.text?.secondary,
+        root: {
+          marginTop: "4px",
+          border: `1px solid ${palette.neutral?.field}`,
+          padding: "8px",
+          borderRadius: "4px",
+          boxSizing: "border-box",
+          '@media (hover: hover)': {
+            "&:hover": {
+              borderColor: palette.primary?.main
+            }
           },
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: palette.neutral?.field,
+          "&.Mui-focused": {
+            borderColor: palette.primary?.main,
+            borderWidth: "2px",
+            padding: "7px",
+          },
+          "&.Mui-error": {
+            borderColor: palette.error?.main,
+            '@media (hover: hover)': {
+              "&:hover": {
+                borderColor: palette.error?.dark
+              }
             },
-            '&:hover fieldset': {
-              borderColor: palette.primary?.main,
-              borderWidth: "1px",
+            "&.Mui-focused": {
+              borderColor: palette.error?.main,
             },
-            '&.Mui-focused fieldset': {
-              borderColor: palette.primary?.main,
-              borderWidth: "2px",
-            },
+          }
+        },
+        input: {
+          padding: 0,
+          "&::placeholder": {
+            color: palette.text?.secondary,
+            opacity: 1,
           },
         }
+
       }
     },
     MuiFormHelperText: {
@@ -134,19 +223,8 @@ export const lightTheme = createTheme({
     },
     MuiAutocomplete: {
       styleOverrides: {
-        root: {
-          marginTop: "4px"
-        },
-        tag: {
-          ".MuiChip-deleteIcon": {
-            color: palette.primary?.main
-          }
-        },
         popper: {
           ">div": {
-            // borderWidth: "1px",
-            // borderStyle: "solid",
-            // borderColor: palette.primary?.main,
             boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
             borderRadius: "4px",
           },
@@ -158,9 +236,9 @@ export const lightTheme = createTheme({
           },
         },
         inputRoot: {
-          paddingTop: 0, paddingBottom: 0, paddingLeft: 0,
+          padding: "8px",
           ".MuiAutocomplete-input": {
-            padding: "9px 9px 9px 9px",
+            padding: "0px",
           }
         },
         listbox: {
@@ -176,8 +254,113 @@ export const lightTheme = createTheme({
             backgroundColor: palette.hover?.light,
             color: palette.hover?.contrastText,
           }
+        },
+        clearIndicator: {
+          fontSize: "20px"
         }
       }
     },
+    MuiAccordion: {
+      styleOverrides: {
+        root: {
+          marginBottom: 8,
+          '&:before': {
+            display: 'none',
+          },
+        }
+      }
+    },
+    MuiAccordionSummary: {
+      styleOverrides: {
+        root: {
+          backgroundColor: palette.secondary?.main,
+          boxSizing: "content-box",
+          padding: "12px 24px",
+          paddingRight: "12px",
+          minHeight: "unset",
+          ".MuiAccordionSummary-expandIconWrapper": {
+            color: palette.text?.primary,
+            fontSize: "20px",
+          },
+          ".MuiAccordionSummary-content": {
+            margin: 0,
+          },
+          '@media (hover: hover)': {
+            ":hover": {
+              backgroundColor: palette.secondary?.dark,
+            }
+          }
+        }
+      }
+    },
+    MuiAccordionDetails: {
+      styleOverrides: {
+        root: {
+          padding: "24px",
+        }
+      }
+    },
+    MuiChip: {
+      styleOverrides: {
+        outlined: {
+          borderColor: palette.neutral?.field,
+        },
+        deleteIcon: {
+          color: palette.neutral?.field,
+          fontSize: "20px",
+          '@media (hover: hover)': {
+            ":hover": {
+              color: palette.primary?.main,
+            }
+          }
+        }
+      }
+    },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          borderRadius: "8px",
+          padding: "0px",
+        },
+        paperWidthSm: {
+          maxWidth: "550px"
+        }
+      }
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          padding: "36px",
+          paddingBottom: "24px",
+          fontSize: "20px",
+          lineHeight: "24px",
+          fontWeight: 200
+        }
+      }
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          padding: "36px",
+          paddingTop: "0px",
+          paddingBottom: "44px",
+        }
+      }
+    },
+    MuiDialogActions: {
+      styleOverrides: {
+        root: {
+          padding: "36px",
+          paddingTop: "0px"
+        }
+      }
+    },
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: palette.neutral?.dark,
+        }
+      }
+    }
   }
 });

@@ -1,14 +1,15 @@
 import { Stack } from "@mui/system";
 import * as React from "react";
+import { useTranslation } from "react-i18next";
 
 import AutocompleteInput from "../../molecules/AutocompleteInput";
 import RadioInput from "../../molecules/RadioInput";
 import { RadioInputOptions } from "../../molecules/RadioInput/RadioInput";
 import geneOptions from "./geneOptions.json";
+import { useHtmlId } from "../../hooks/useHtmlId";
 
 
-
-interface IGeneticTestingHistoryData {
+export interface IGeneticTestingHistoryData {
     /**
      * Has done genetic testing
      */
@@ -39,9 +40,11 @@ export interface IGeneticTestingHistoryProps {
 }
 
 const GeneticTestingHistory = ({ data, onChange, forTarget = false }: IGeneticTestingHistoryProps) => {
-    const doneGeneticTestingLabel = forTarget ?
-        "Have you ever done health-related genetic tests?" :
-        "Have they ever done health-related genetic tests?";
+    const { t } = useTranslation();
+
+    const doneGeneticTestingLabel = t('geneticTestingHistory.input.hasDoneGeneticTesting.label', {
+        subject: forTarget ? t('subject.you') : t('subject.they')
+    })
 
 
     const handleDoneGeneticTestingChange = (hasDoneGeneticTesting: boolean | null | string) => {
@@ -70,25 +73,37 @@ const GeneticTestingHistory = ({ data, onChange, forTarget = false }: IGeneticTe
     }
 
     const radioInputOptions: RadioInputOptions = [
-        { label: "Yes", value: true },
-        { label: "No", value: false },
+        { label: t('general.input.options.yes'), value: true },
+        { label: t('general.input.options.no'), value: false },
     ]
-    if (!forTarget) radioInputOptions.push({ label: "Not sure", value: "unsure" });
+    if (!forTarget) radioInputOptions.push({ label: t('general.input.options.unsure'), value: "unsure" });
+
+    const id = useHtmlId();
 
     return (
-        <Stack gap={3}>
-            <RadioInput label={doneGeneticTestingLabel} value={data.hasDoneGeneticTesting} onChange={handleDoneGeneticTestingChange} options={radioInputOptions} row />
+        <Stack gap={3} >
+            <RadioInput label={doneGeneticTestingLabel} value={data.hasDoneGeneticTesting}
+                onChange={handleDoneGeneticTestingChange} options={radioInputOptions} row
+                id={`${id}-hasDoneGeneticTesting`}
+            />
             {data.hasDoneGeneticTesting && data.hasDoneGeneticTesting !== "unsure" && (
                 <>
-                    <RadioInput label="Were any pathogenic mutations found in the genes?"
-                        value={data.foundPathogenicMutations} onChange={handleFoundPathogenicMutationsChange} options={radioInputOptions} row />
+                    <RadioInput label={t('geneticTestingHistory.input.fountPathogenicMutations.label')}
+                        value={data.foundPathogenicMutations}
+                        onChange={handleFoundPathogenicMutationsChange}
+                        options={radioInputOptions} row
+                        id={`${id}-foundPathogenicMutations`} />
                     {data.foundPathogenicMutations && data.foundPathogenicMutations !== "unsure" && (
-                        <AutocompleteInput label="Which gene(s) had pathogenic mutations?" options={geneOptions} value={data.pathogenicGeneMutations}
-                            onChange={handleGeneMutationAutocompleteChange} multiple freeSolo />
+                        <AutocompleteInput label={t('geneticTestingHistory.input.pathogenicGeneMutations.label')}
+                            options={geneOptions} value={data.pathogenicGeneMutations}
+                            onChange={handleGeneMutationAutocompleteChange}
+                            multiple freeSolo id={`${id}-pathogenicGeneMutations`}
+                            placeholder={t('general.input.placeholder.chooseFromListOrType')} />
                     )}
                 </>
-            )}
-        </Stack>
+            )
+            }
+        </Stack >
     )
 }
 

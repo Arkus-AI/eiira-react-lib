@@ -5,45 +5,8 @@ import IconWithTooltip from '../../atoms/IconWithTooltip';
 import ErrorOrHelperText from '../../atoms/ErrorOrHelperText';
 import { PatternFormat } from 'react-number-format';
 import { NumericFormat, InputAttributes } from 'react-number-format';
+import { FormFieldProps } from '../FormControlWrapper/FormControlWrapper';
 
-export interface TextInputProps {
-    /**
-     * Label to display
-     */
-    label: string;
-    /**
-     * Error message to display
-     */
-    errorText?: string;
-    /**
-     * Tooltip text to display
-     */
-    tooltipText?: string;
-    /**
-     * Helper text to display
-     */
-    helperText?: string;
-    /**
-     * onChange handler
-     */
-    onChange: (value: string) => void;
-    /**
-     * Value
-     */
-    value: string | number | null;
-    /**
-     * Is required
-     */
-    required?: boolean;
-    /**
-     * Format
-     */
-    format?: "default" | "year" | "age";
-    /**
-     * placeholder
-     */
-    placeholder?: string;
-}
 
 interface CustomProps {
     onChange: (event: { target: { name: string; value: string } }) => void;
@@ -100,22 +63,57 @@ const AgeFormat = React.forwardRef<
     );
 });
 
+export const UIntFormat = React.forwardRef<
+    typeof NumericFormat<InputAttributes>,
+    CustomProps
+>(function NumberFormatCustom(props, ref) {
+    const { onChange, ...other } = props;
+    return <NumericFormat
+        {...other}
+        getInputRef={ref}
+        onValueChange={(values) => {
+            onChange({ target: { name: props.name, value: values.value, }, });
+        }}
+    />
+});
+
 const FORMATS = {
     year: YearFormat as any,
     age: AgeFormat as any,
+    uint: UIntFormat as any,
     default: 'input',
+}
+
+export interface TextInputProps extends FormFieldProps {
+    onChange: (value: string) => void;
+    /**
+     * Value
+     */
+    value: string | number | null;
+    /**
+     * Format
+     */
+    format?: 'year' | 'age' | 'uint' | 'default';
+    /**
+     * placeholder
+     */
+    placeholder?: string;
+    /**
+     * input id
+     */
+    id?: string;
 }
 
 export default function TextInput({ label, errorText = "", tooltipText = "",
     helperText = "", onChange, value, required, format = "default",
-    placeholder = "" }: TextInputProps) {
+    placeholder = "", id = "" }: TextInputProps) {
     const error = errorText.length > 0;
     const inputLabelProps = {
         disableAnimation: true,
         shrink: true,
         focused: false,
         error: false,
-        htmlFor: "bootstrap-input",
+        htmlFor: id,
         sx: {
             position: "relative", transformOrigin: "unset", transform: "unset",
             ".MuiInputLabel-asterisk": {
@@ -129,7 +127,7 @@ export default function TextInput({ label, errorText = "", tooltipText = "",
     }
 
     const inputProps: InputBaseProps = {
-        id: "bootstrap-input",
+        id,
         value, onChange: handleChange, placeholder,
         inputComponent: FORMATS[format]
     }
