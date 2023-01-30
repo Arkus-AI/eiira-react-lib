@@ -30,5 +30,6 @@ export default {
     postcss({
       extensions: ['.css']
     })
-  ]
+  ],
+  cache: true
 };

@@ -54,7 +54,8 @@
     "predeploy": "npm run build-storybook",
     "deploy-storybook": "gh-pages -d storybook-static",
     "chromatic": "npx chromatic --project-token=5f1856e814d8",
-    "build": "rollup -c --bundleConfigAsCjs"
+    "build": "rollup -c --bundleConfigAsCjs",
+    "buildWatch": "rollup --watch -c --bundleConfigAsCjs"
   },
   "readme": "ERROR: No README data found!",
   "_id": "eiira-react-lib@1.0.0"

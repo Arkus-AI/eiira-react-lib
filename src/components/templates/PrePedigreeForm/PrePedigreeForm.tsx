@@ -37,7 +37,7 @@ const PrePedigreeForm: React.FC<IPrePedigreeFormProps> = ({ initialSex, onSubmit
 
    const onSubmitHandler = () => {
       if (sex === null)
-         setSexError(t('pedigree.memberCount.sexInput.errorMsg.required'));
+         setSexError(t('general.input.sexInput.errorMsg.required'));
       else {
          onSubmit({
             sex,
@@ -58,10 +58,10 @@ const PrePedigreeForm: React.FC<IPrePedigreeFormProps> = ({ initialSex, onSubmit
                <Icon iconType="users" color="primary" sx={{ fontSize: "32px", lineHeight: "37px" }} />
                <Typography variant="h4"> {t("pedigree.title")} </Typography>
             </Stack>
-            <RadioInput label={t("pedigree.memberCount.sexInput.label")} required row
+            <RadioInput label={t("general.input.sexInput.label")} required row
                options={[
-                  { label: t("pedigree.memberCount.sexInput.options.female"), value: "female" },
-                  { label: t("pedigree.memberCount.sexInput.options.male"), value: "male" }]}
+                  { label: t("general.input.sexInput.options.female"), value: "female" },
+                  { label: t("general.input.sexInput.options.male"), value: "male" }]}
                value={sex}
                onChange={setSex}
                errorText={sexError}

@@ -125,12 +125,12 @@ const TargetInformationForm = ({ data, onChange, errors, runValidation, setError
 
     const hasErrors = errors.sexError !== "" || errors.hasAshkenaziJewishBackgroundError !== ""
     const personalDetailsErrorMessage =
-        (hasErrors && expandedPanel !== "personal-details") ? "Please fix errors in Personal details" : "";
+        (hasErrors && expandedPanel !== "personal-details") ? t('pedigree.about.error.fixErrorsInPersonalDetails') : "";
 
     return (
         <Box>
             <Accordion expanded={expandedPanel === 'personal-details'} onChange={panelChangeHandlerFactory('personal-details')}>
-                <AccordionSummary > <Typography variant="h4">Personal details</Typography> </AccordionSummary>
+                <AccordionSummary > <Typography variant="h4">{t('personalDetails.title')}</Typography> </AccordionSummary>
                 <AccordionDetails>
                     <TargetPersonalDetails data={personalDetails} onChange={onChangeFactory('personalDetails')} errors={errors} />
                 </AccordionDetails>
@@ -140,14 +140,14 @@ const TargetInformationForm = ({ data, onChange, errors, runValidation, setError
                 marginBottom: "8px"
             }} />
             <Accordion expanded={expandedPanel === 'medical-history'} onChange={panelChangeHandlerFactory('medical-history')}>
-                <AccordionSummary> <Typography variant="h4">{"Medical history"}</Typography> </AccordionSummary>
+                <AccordionSummary> <Typography variant="h4">{t('medicalHistory.title')}</Typography> </AccordionSummary>
                 <AccordionDetails>
                     <CancerDiagnoseInput data={medicalHistory} onChange={onChangeFactory('medicalHistory')} forTarget />
                 </AccordionDetails>
             </Accordion>
             <Accordion expanded={expandedPanel === 'genetic-testing-history'} onChange={panelChangeHandlerFactory('genetic-testing-history')}
                 sx={{ marginBottom: 0 }}>
-                <AccordionSummary > <Typography variant="h4">{"Genetic testing history"}</Typography> </AccordionSummary>
+                <AccordionSummary > <Typography variant="h4">{t('geneticTestingHistory.title')}</Typography> </AccordionSummary>
                 <AccordionDetails>
                     <GeneticTestingHistory data={geneticTestingHistory} onChange={onChangeFactory('geneticTestingHistory')} forTarget />
                 </AccordionDetails>

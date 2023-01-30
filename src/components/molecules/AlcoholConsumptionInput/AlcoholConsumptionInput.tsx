@@ -4,6 +4,7 @@ import { Stack } from "@mui/system";
 import { styled } from '@mui/material/styles';
 import { UIntFormat } from "../TextInput/TextInput";
 import { useHtmlId } from "../../hooks/useHtmlId";
+import { useTranslation } from "react-i18next";
 
 
 export interface IAlcoholConsumptionData {
@@ -71,7 +72,8 @@ const StyledFormControlLabelForTextField = styled(FormControlLabel)(() => ({
 
 function AlcoholConsumptionLine({ name, value, onChange, id }:
     { name: string, value: string, onChange: (value: string) => void, id: string }) {
-    return <StyledFormControlLabelForTextField label={LABEL_DICT[name]} control={
+    const { t } = useTranslation();
+    return <StyledFormControlLabelForTextField label={t(`personalDetails.input.alcoholConsumption.options.${name}.label`)} control={
         <InputBase
             value={value}
             onChange={(e) => onChange(e.target.value)}

@@ -68,7 +68,7 @@ const SingleCancerDiagnoseInput = ({ data, onChange, forTarget = false, id = "" 
                 options={cancerOptions} value={data.cancerType}
                 onChange={handleCancerTypeChange} freeSolo
                 id={`${id}-cancerType`}
-                placeholder={t('medicalHistory.input.cancerType.placeholder')} />
+                placeholder={t("general.input.placeholder.chooseFromListOrType")} />
             <TextInput label={ageLabel} value={data.ageAtDiagnosis}
                 onChange={handleAgeAtDiagnosisChange} format="age" id={`${id}-ageAtDiagnosis`} />
 

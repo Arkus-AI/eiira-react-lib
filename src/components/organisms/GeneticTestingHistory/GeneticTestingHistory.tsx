@@ -98,7 +98,7 @@ const GeneticTestingHistory = ({ data, onChange, forTarget = false }: IGeneticTe
                             options={geneOptions} value={data.pathogenicGeneMutations}
                             onChange={handleGeneMutationAutocompleteChange}
                             multiple freeSolo id={`${id}-pathogenicGeneMutations`}
-                            placeholder={t('geneticTestingHistory.input.pathogenicGeneMutations.placeholder')} />
+                            placeholder={t('general.input.placeholder.chooseFromListOrType')} />
                     )}
                 </>
             )
