@@ -68,6 +68,7 @@ const RelativesPersonalDetails = ({ data, onChange, errors }: RelativesPersonalD
         onChange({ ...data, [key]: value });
     }
     const id = useHtmlId();
+    if (!data) return null;
 
     return (
         <Stack gap={3}>

@@ -41,6 +41,7 @@ const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagn
     // When user selects no we clear the cancer diagnoses
     // Is user selects yes we add a new empty cancer diagnosis
     React.useEffect(() => {
+        if (!data) return;
         if ((!data.hasCancerDiagnosis || data.hasCancerDiagnosis === null) && data.cancerDiagnoses.length > 0) {
             onChange({
                 ...data,
@@ -55,7 +56,7 @@ const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagn
                 }]
             });
         }
-    }, [data.hasCancerDiagnosis]);
+    }, [data?.hasCancerDiagnosis]);
 
     const onCancerDiagnoseChangeFactory = (index: number) => (cancerDiagnose: ISingleCancerDiagnoseData) => {
         const newCancerDiagnoses = [...data.cancerDiagnoses];
@@ -83,6 +84,7 @@ const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagn
 
 
     const id = useHtmlId();
+    if (!data) return null;
 
     return (
         <Stack gap={3}>

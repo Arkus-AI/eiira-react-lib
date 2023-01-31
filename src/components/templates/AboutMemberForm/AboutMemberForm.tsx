@@ -83,6 +83,7 @@ const AboutMemberForm = ({ data, onChange, setHasError }: IAboutMemberFormProps)
     const { t } = useTranslation();
 
     const getValidationErrorMessages = (data: IRelativesPersonalDetailsData): IRelativesPersonalDetailsErrors => {
+        if (data === undefined) return { yearOfBirthError: "", yearOfDeathError: "", ageAtDeathError: "" };
         const { yearOfBirth, yearOfDeath, ageAtDeath } = data
         let yearOfBirthError: string, yearOfDeathError: string,
             ageAtDeathError: string = "";

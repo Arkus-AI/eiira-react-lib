@@ -79,6 +79,7 @@ const GeneticTestingHistory = ({ data, onChange, forTarget = false }: IGeneticTe
     if (!forTarget) radioInputOptions.push({ label: t('general.input.options.unsure'), value: "unsure" });
 
     const id = useHtmlId();
+    if (!data) return null;
 
     return (
         <Stack gap={3} >
