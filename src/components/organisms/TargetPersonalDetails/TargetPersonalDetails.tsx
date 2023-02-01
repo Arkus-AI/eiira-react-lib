@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 
 import RadioInput from "../../molecules/RadioInput";
 import AutocompleteInput from "../../molecules/AutocompleteInput";
-import countryOptions from "./countries.json";
+import countryAlpha3Codes from "./countryAlpha3Codes.json";
 import AlcoholConsumptionInput, { IAlcoholConsumptionData } from "../../molecules/AlcoholConsumptionInput/AlcoholConsumptionInput";
 import TextInput from "../../molecules/TextInput";
 import { useHtmlId } from "../../hooks/useHtmlId";
@@ -85,6 +85,12 @@ const useEthnicityOptions = () => {
     ]), [t])
 }
 
+const useCountriesOptions = () => {
+    const { t } = useTranslation("country");
+    return React.useMemo(() => countryAlpha3Codes.map(
+        (code: string) => t(code)
+    ), [t])
+}
 
 const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetailsProps) => {
     const { t } = useTranslation();
@@ -93,6 +99,7 @@ const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetail
     }
     const id = useHtmlId();
     const ethnicityOptions = useEthnicityOptions()
+    const countryOptions = useCountriesOptions()
 
     return (
         <Stack gap={3}>
@@ -125,7 +132,7 @@ const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetail
             <AutocompleteInput label={t('personalDetails.input.countryOfBirth.label')}
                 value={data.countryOfBirth}
                 onChange={onChangeFactory("countryOfBirth")}
-                options={countryOptions} // TODO translate
+                options={countryOptions}
                 placeholder={t('general.input.placeholder.chooseFromListOrType')}
                 freeSolo
                 id={`${id}-countryOfBirth`}
