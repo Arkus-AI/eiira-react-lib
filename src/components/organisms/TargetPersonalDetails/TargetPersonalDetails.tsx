@@ -72,10 +72,9 @@ export interface ITargetPersonalDetailsProps {
     errors?: ITargetPersonalDetailsErrors;
 }
 
-
-const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetailsProps) => {
-    const { t } = useTranslation();
-    const ethnicityOptions = [
+const useEthnicityOptions = () => {
+    const { t } = useTranslation("ethnicity");
+    return React.useMemo(() => ([
         t("African_African-American"),
         t("Asian"),
         t("Arab"),
@@ -83,11 +82,17 @@ const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetail
         t("Jewish"),
         t("Latino_Hispanic"),
         t("Pacific")
-    ]
+    ]), [t])
+}
+
+
+const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetailsProps) => {
+    const { t } = useTranslation();
     const onChangeFactory = (key: keyof ITargetPersonalDetailsData) => (value: any) => {
         onChange({ ...data, [key]: value });
     }
     const id = useHtmlId();
+    const ethnicityOptions = useEthnicityOptions()
 
     return (
         <Stack gap={3}>
