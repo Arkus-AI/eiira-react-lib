@@ -51,6 +51,8 @@ const PrePedigreeForm: React.FC<IPrePedigreeFormProps> = ({ initialSex, onSubmit
          setSexError("");
    }, [sex])
 
+   const id = React.useId();
+
    return (
       <Paper sx={{ padding: "24px", maxWidth: "428px" }}>
          <Stack spacing={3}>
@@ -65,6 +67,7 @@ const PrePedigreeForm: React.FC<IPrePedigreeFormProps> = ({ initialSex, onSubmit
                value={sex}
                onChange={setSex}
                errorText={sexError}
+               id={`${id}-sex`}
             />
             <Stack spacing={1}>
                <Typography>{t("pedigree.memberCount.biologicalRelatives.title")}</Typography>
