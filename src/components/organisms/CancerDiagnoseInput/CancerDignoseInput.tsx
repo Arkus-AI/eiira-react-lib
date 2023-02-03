@@ -79,8 +79,9 @@ const CancerDiagnoseInput = ({ data, onChange, forTarget = false }: ICancerDiagn
         })
     }
 
-    const hasCancerDiagnosisLabel = t('medicalHistory.input.hasCancerDiagnosis.label',
-        { subject: forTarget ? t('subject.you') : t('subject.they') })
+    const hasCancerDiagnosisLabel = forTarget ?
+        t('medicalHistory.input.hasCancerDiagnosis.label.you') :
+        t('medicalHistory.input.hasCancerDiagnosis.label.they')
 
 
     const id = useHtmlId();
