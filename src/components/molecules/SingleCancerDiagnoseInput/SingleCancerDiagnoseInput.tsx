@@ -60,7 +60,7 @@ const SingleCancerDiagnoseInput = ({ data, onChange, forTarget = false, id = "" 
     }
 
     const ageLabel = t('medicalHistory.input.ageAtDiagnosis.label',
-        { subject: forTarget ? t('subject.you') : t('subject.they') })
+        { subject: forTarget ? t('subject.you') : t('subject.member') })
 
     return (
         <Stack gap={1.5}>

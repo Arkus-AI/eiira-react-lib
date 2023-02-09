@@ -43,7 +43,7 @@ const GeneticTestingHistory = ({ data, onChange, forTarget = false }: IGeneticTe
     const { t } = useTranslation();
 
     const doneGeneticTestingLabel = t('geneticTestingHistory.input.hasDoneGeneticTesting.label', {
-        subject: forTarget ? t('subject.you') : t('subject.they')
+        subject: forTarget ? t('subject.you') : t('subject.member')
     })
 
 
