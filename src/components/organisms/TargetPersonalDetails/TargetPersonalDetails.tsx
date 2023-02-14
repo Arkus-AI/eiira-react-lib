@@ -7,13 +7,16 @@ import AutocompleteInput from "../../molecules/AutocompleteInput";
 import countryAlpha3Codes from "./countryAlpha3Codes.json";
 import AlcoholConsumptionInput, { IAlcoholConsumptionData } from "../../molecules/AlcoholConsumptionInput/AlcoholConsumptionInput";
 import TextInput from "../../molecules/TextInput";
-import { useHtmlId } from "../../hooks/useHtmlId";
 
 export interface ITargetPersonalDetailsData {
     /** 
      * * Persons sex
      */
     sex: "male" | "female" | null;
+    /**
+     * Personal Number
+     */
+    personalNumber: string;
     /**
      * Has Ashkenazi Jewish background
      */
@@ -55,6 +58,10 @@ export interface ITargetPersonalDetailsErrors {
      * @default ""
      */
     hasAshkenaziJewishBackgroundError?: string;
+    /**
+     * personalNumber error message
+     */
+    personalNumberError?: string;
 }
 
 export interface ITargetPersonalDetailsProps {
@@ -97,7 +104,7 @@ const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetail
     const onChangeFactory = (key: keyof ITargetPersonalDetailsData) => (value: any) => {
         onChange({ ...data, [key]: value });
     }
-    const id = useHtmlId();
+    const id = React.useId();
     const ethnicityOptions = useEthnicityOptions()
     const countryOptions = useCountriesOptions()
 
@@ -108,6 +115,14 @@ const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetail
                     { label: t('general.input.sexInput.options.female'), value: "female" },
                     { label: t('general.input.sexInput.options.male'), value: "male" }
                 ]} errorText={errors?.sexError} row id={`${id}-sex`}
+            />
+            <TextInput label={t('personalDetails.input.personalNumber.label')}
+                value={data.personalNumber}
+                onChange={onChangeFactory("personalNumber")}
+                format="personalNumber"
+                id={`${id}-personalNumber`}
+                required
+                errorText={errors?.personalNumberError}
             />
             <RadioInput label={t('personalDetails.input.hasAshkenaziJewishBackground.label')} required
                 value={data.hasAshkenaziJewishBackground}

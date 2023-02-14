@@ -11,6 +11,7 @@ export default {
         data: {
             personalDetails: {
                 sex: null,
+                personalNumber: "",
                 hasAshkenaziJewishBackground: null,
                 ethnicity: null,
                 countryOfBirth: null,

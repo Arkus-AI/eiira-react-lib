@@ -10,6 +10,7 @@ export default {
     args: {
         data: {
             sex: null,
+            personalNumber: "",
             hasAshkenaziJewishBackground: null,
             ethnicity: null,
             countryOfBirth: null,
