@@ -61,8 +61,14 @@ WithAHelper.args = { label: "Some kind of label", helperText: "Some kind of help
 export const WithAHelperAndAnError = Template.bind({});
 WithAHelperAndAnError.args = { label: "Some kind of label", helperText: "Some kind of helper text here", errorText: "Some kind of error" };
 
+export const AgeInput = Template.bind({});
+AgeInput.args = { label: "Age input", format: "age" };
+
 export const YearInput = Template.bind({});
 YearInput.args = { label: "Year input", format: "year" };
+
+export const PersonalNumberInput = Template.bind({});
+PersonalNumberInput.args = { label: "Personal number input", format: "personalNumber" };
 
 // export const StoryTemplate = Template.bind({});
 // StoryTemplate.args = {iconType: "", color: ""};

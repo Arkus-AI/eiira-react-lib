@@ -9,7 +9,7 @@ import { FormFieldProps } from '../FormControlWrapper/FormControlWrapper';
 
 
 interface CustomProps {
-    onChange: (event: { target: { name: string; value: string } }) => void;
+    onChange: (event: { target: { name: string; value: string, formattedValue?: string } }) => void;
     name: string;
 }
 
@@ -28,9 +28,11 @@ const YearFormat = React.forwardRef<
                     target: {
                         name: props.name,
                         value: values.value,
+                        formattedValue: values.formattedValue
                     },
                 });
             }}
+            allowEmptyFormatting
             format="####"
             mask="Y"
         />
@@ -52,6 +54,7 @@ const AgeFormat = React.forwardRef<
                     target: {
                         name: props.name,
                         value: values.value,
+                        formattedValue: values.formattedValue
                     },
                 });
             }}
@@ -59,6 +62,32 @@ const AgeFormat = React.forwardRef<
                 const { value } = values;
                 return Number(value) < 200;
             }}
+        />
+    );
+});
+
+const PersonalNumberFormat = React.forwardRef<
+    typeof PatternFormat<InputAttributes>,
+    CustomProps
+>(function NumberFormatCustom(props, ref) {
+    const { onChange, ...other } = props;
+
+    return (
+        <PatternFormat
+            {...other}
+            getInputRef={ref}
+            onValueChange={(values) => {
+                onChange({
+                    target: {
+                        name: props.name,
+                        value: values.value,
+                        formattedValue: values.formattedValue
+                    },
+                });
+            }}
+            allowEmptyFormatting
+            format="########-####"
+            mask={["Y", "Y", "Y", "Y", "M", "M", "D", "D", "X", "X", "X", "X"]}
         />
     );
 });
@@ -81,6 +110,7 @@ const FORMATS = {
     year: YearFormat as any,
     age: AgeFormat as any,
     uint: UIntFormat as any,
+    personalNumber: PersonalNumberFormat as any,
     default: 'input',
 }
 
@@ -93,7 +123,7 @@ export interface TextInputProps extends FormFieldProps {
     /**
      * Format
      */
-    format?: 'year' | 'age' | 'uint' | 'default';
+    format?: 'year' | 'age' | 'uint' | 'personalNumber' | 'default';
     /**
      * placeholder
      */
@@ -122,13 +152,20 @@ export default function TextInput({ label, errorText = "", tooltipText = "",
         }
     }
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const [internalValue, setInternalValue] = React.useState(value);
+
+    const handleChange = (event: any) => {
         onChange(event.target.value);
+        if (event.target.formattedValue) {
+            setInternalValue(event.target.formattedValue);
+        } else {
+            setInternalValue(event.target.value);
+        }
     }
 
     const inputProps: InputBaseProps = {
         id,
-        value, onChange: handleChange, placeholder,
+        value: internalValue, onChange: handleChange, placeholder,
         inputComponent: FORMATS[format]
     }
 
