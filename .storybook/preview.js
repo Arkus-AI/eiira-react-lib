@@ -3,6 +3,8 @@ import { useMemo } from "react";
 import { darkTheme } from "../src/themes/dark.theme";
 import { lightTheme } from "../src/themes/light.theme";
 import MuiCssBaseline from "../src/themes/cssBaseline";
+import { I18nextProvider } from "react-i18next";
+import i18n from "eiira-i18next";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -20,7 +22,7 @@ const THEMES = {
   dark: darkTheme,
 };
 
-export const withMuiTheme = (Story, context) => {
+export const withMuiThemeAndI18n = (Story, context) => {
   // The theme global we just declared
   const { theme: themeKey } = context.globals;
 
@@ -29,14 +31,16 @@ export const withMuiTheme = (Story, context) => {
   theme.components.MuiCssBaseline = MuiCssBaseline;
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Story />
-    </ThemeProvider>
+    <I18nextProvider i18n={i18n}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Story />
+      </ThemeProvider>
+    </I18nextProvider>
   );
 };
 
-export const decorators = [withMuiTheme];
+export const decorators = [withMuiThemeAndI18n];
 
 export const globalTypes = {
   theme: {
