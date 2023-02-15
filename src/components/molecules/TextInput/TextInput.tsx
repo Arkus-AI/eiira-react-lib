@@ -132,11 +132,16 @@ export interface TextInputProps extends FormFieldProps {
      * input id
      */
     id?: string;
+    /**
+     * Name of the field
+     */
+    name?: string;
 }
 
 export default function TextInput({ label, errorText = "", tooltipText = "",
     helperText = "", onChange, value, required, format = "default",
-    placeholder = "", id = "" }: TextInputProps) {
+    placeholder = "", id = "", name = "" }: TextInputProps) {
+
     const error = errorText.length > 0;
     const inputLabelProps = {
         disableAnimation: true,
@@ -153,6 +158,11 @@ export default function TextInput({ label, errorText = "", tooltipText = "",
     }
 
     const [internalValue, setInternalValue] = React.useState(value);
+    React.useEffect(() => {
+        if (value === "")
+            setInternalValue("");
+    }, [value])
+
 
     const handleChange = (event: any) => {
         onChange(event.target.value);
@@ -163,10 +173,21 @@ export default function TextInput({ label, errorText = "", tooltipText = "",
         }
     }
 
+
     const inputProps: InputBaseProps = {
         id,
         value: internalValue, onChange: handleChange, placeholder,
-        inputComponent: FORMATS[format]
+        inputComponent: FORMATS[format],
+        name,
+        onBlur: (event) => {
+            const validationEvent = new CustomEvent('validation', {
+                detail: {
+                    name: event.target.name,
+                    value: event.target.value,
+                }
+            });
+            window.dispatchEvent(validationEvent);
+        }
     }
 
     return (
@@ -180,7 +201,7 @@ export default function TextInput({ label, errorText = "", tooltipText = "",
                 <InputLabel {...inputLabelProps}> {label} </InputLabel>
             }
             <InputBase {...inputProps} />
-            <ErrorOrHelperText errorText={errorText} helperText={helperText} />
+            <ErrorOrHelperText errorText={errorText} helperText={helperText} name={name} />
         </FormControl>
     )
 }

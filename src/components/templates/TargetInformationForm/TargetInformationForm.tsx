@@ -77,11 +77,29 @@ const TargetInformationForm = ({ data, onChange, errors, runValidation, setError
         "personal-details" | "medical-history" |
         "genetic-testing-history" | "">("personal-details");
 
-    const previousData = React.useRef<ITargetData>();
-    const previousExpandedPanel = React.useRef<string>(expandedPanel);
+    const [toRunValidation, setToRunValidation] = React.useState<boolean>(false);
+
+    const cleanError = (key: keyof ITargetPersonalDetailsErrors) => {
+        const tmpErrors = { ...errors };
+        tmpErrors[key] = "";
+        setErrors?.(tmpErrors);
+    }
 
     const onChangeFactory = (key: keyof ITargetData) => (value: any) => {
-        previousData.current = data;
+
+        if (key === 'personalDetails') {
+            const sexIsSame = value.sex === data.personalDetails.sex
+            const hasAshkenaziJewishBackgroundIsSame = value.hasAshkenaziJewishBackground === data.personalDetails.hasAshkenaziJewishBackground
+            const personalNumberIsSame = value.personalNumber === data.personalDetails.personalNumber
+            if (sexIsSame && hasAshkenaziJewishBackgroundIsSame && personalNumberIsSame) {
+                // Means something else changed, so we run validation
+                setToRunValidation(true);
+            }
+            if(!personalNumberIsSame){
+                // If personal number is changing we clean the error
+                cleanError('personalNumberError');
+            }
+        }
         const newData = { ...data, [key]: value };
         onChange(newData);
     }
@@ -89,9 +107,17 @@ const TargetInformationForm = ({ data, onChange, errors, runValidation, setError
     const panelChangeHandlerFactory =
         (panel: "personal-details" | "medical-history" | "genetic-testing-history") =>
             (event: React.ChangeEvent<{}>, isExpanded: boolean) => {
-                previousExpandedPanel.current = expandedPanel;
+                if (isExpanded && panel !== 'personal-details')
+                    setToRunValidation(true);
                 setExpandedPanel(isExpanded ? panel : "");
             };
+
+    React.useEffect(() => {
+        if (toRunValidation) {
+            runValidation();
+            setToRunValidation(false);
+        }
+    }, [toRunValidation, setToRunValidation, runValidation])
 
     /**
      * 1. Validating while the user fills out the form. Would it be possible to check the answer 
@@ -101,20 +127,6 @@ const TargetInformationForm = ({ data, onChange, errors, runValidation, setError
      */
 
     React.useEffect(() => {
-        const previousSex = previousData.current?.personalDetails.sex
-        const previousHasAshkenaziJewishBackground = previousData.current?.personalDetails.hasAshkenaziJewishBackground
-        const currentSex = data.personalDetails.sex
-        const currentHasAshkenaziJewishBackground = data.personalDetails.hasAshkenaziJewishBackground
-
-        if ((previousExpandedPanel.current === "personal-details" && expandedPanel !== "personal-details") ||
-            (JSON.stringify(previousData.current) !== JSON.stringify(data) &&
-                previousSex === currentSex &&
-                previousHasAshkenaziJewishBackground === currentHasAshkenaziJewishBackground)) {
-            runValidation();
-        }
-    }, [expandedPanel, data]);
-
-    React.useEffect(() => {
         // Cleaning errors when values are filled
         const tmpErrors = { ...errors };
         if (errors?.sexError !== "" && data.personalDetails.sex !== null) tmpErrors.sexError = "";
@@ -122,6 +134,12 @@ const TargetInformationForm = ({ data, onChange, errors, runValidation, setError
             tmpErrors.hasAshkenaziJewishBackgroundError = "";
         setErrors?.(tmpErrors);
     }, [data.personalDetails.sex, data.personalDetails.hasAshkenaziJewishBackground])
+
+    React.useEffect(() => {
+        const tmpErrors = { ...errors };
+        if (errors?.personalNumberError !== "") tmpErrors.personalNumberError = "";
+        setErrors?.(tmpErrors);
+    }, [data.personalDetails.personalNumber])
 
     const hasErrors = errors.sexError !== "" || errors.hasAshkenaziJewishBackgroundError !== ""
     const personalDetailsErrorMessage =

@@ -15,9 +15,13 @@ export interface ErrorOrHelperTextProps {
      * Styles object
      */
     sx?: any;
+    /**
+     * Name of the field
+     */
+    name?: string;
 }
 
-const ErrorOrHelperText = ({ errorText = "", helperText = "", sx = {} }: ErrorOrHelperTextProps) => {
+const ErrorOrHelperText = ({ errorText = "", helperText = "", sx = {}, name = "" }: ErrorOrHelperTextProps) => {
     const error = errorText !== "";
     if (errorText === "" && helperText === "") return null;
     return (
@@ -27,6 +31,7 @@ const ErrorOrHelperText = ({ errorText = "", helperText = "", sx = {} }: ErrorOr
                 marginTop: "5px",
                 ...sx
             }}
+            data-testid={`${name}-error-or-helper-text`}
         >
             {error ? (<>
                 <Icon iconType="exclamation-triangle" color="inherit" fontSize='inherit' sx={{ transform: "translateY(1px)", marginRight: .5 }} />

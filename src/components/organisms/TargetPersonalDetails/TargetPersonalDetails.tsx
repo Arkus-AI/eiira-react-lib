@@ -120,6 +120,7 @@ const TargetPersonalDetails = ({ data, onChange, errors }: ITargetPersonalDetail
                 value={data.personalNumber}
                 onChange={onChangeFactory("personalNumber")}
                 format="personalNumber"
+                name="personalNumber"
                 id={`${id}-personalNumber`}
                 required
                 errorText={errors?.personalNumberError}
