@@ -34,7 +34,8 @@
     "typescript": "^4.9.3"
   },
   "dependencies": {
-    "react-number-format": "^5.1.2"
+    "react-number-format": "^5.1.2",
+    "eiira-i18n": "1.0.0"
   },
   "peerDependencies": {
     "i18next": "^22.0.6",

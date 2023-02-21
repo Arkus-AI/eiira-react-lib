@@ -4,7 +4,7 @@ import { darkTheme } from "../src/themes/dark.theme";
 import { lightTheme } from "../src/themes/light.theme";
 import MuiCssBaseline from "../src/themes/cssBaseline";
 import { I18nextProvider } from "react-i18next";
-import i18n from "eiira-i18next";
+import i18n from "eiira-i18n";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
