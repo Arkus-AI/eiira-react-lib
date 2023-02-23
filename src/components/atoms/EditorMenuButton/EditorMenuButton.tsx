@@ -8,12 +8,23 @@ export interface EditorMenuButtonProps extends IconButtonProps {
      * The icon to display
      */
     icon: IconProps["iconType"];
+    /**
+     * Selected state
+     */
+    selected?: boolean;
 }
 
 const EditorMenuButton = (props: EditorMenuButtonProps) => {
-    const { icon, ...buttonProps } = props;
+    const { icon, selected, ...buttonProps } = props;
     return (
-        <IconButton {...buttonProps} >
+        <IconButton {...buttonProps}
+            className={`editor-menu-button ${selected ? "selected" : ""}`}
+            style={{
+                padding: "4px",
+                borderRadius: "4px",
+                height: "32px",
+            }}
+        >
             <Icon iconType={icon} />
         </IconButton>
     );

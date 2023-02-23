@@ -8,6 +8,7 @@ declare module '@mui/material/styles' {
     field?: string;
     containers?: string
     contrastText?: string;
+    disabled?: string;
   }
   interface Palette {
     hover: Palette['primary'];
@@ -47,8 +48,9 @@ const palette: PaletteOptions = {
     dark: "#910002"
   },
   text: {
-    primary: "#233750",
+    primary: "#233749",
     secondary: "rgba(35, 55, 73, 0.7)",
+    disabled: "rgba(35, 55, 73, 0.35)",
   },
   hover: {
     main: "#0046C3",
@@ -109,6 +111,7 @@ export const lightTheme = createTheme({
           padding: "8px 24px",
           fontSize: "16px",
           lineHeight: "24px",
+          color: palette.text?.primary,
           '@media (hover: hover)': {
             "&:hover": {
               backgroundColor: palette.hover?.main,
@@ -124,6 +127,23 @@ export const lightTheme = createTheme({
           }
         }
       },
+    },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          color: palette.text?.primary,
+          "&.Mui-disabled": {
+            color: palette.text?.disabled,
+          },
+          ":hover": {
+            backgroundColor: palette.hover?.light,
+          },
+          "&.selected": {
+            color: palette.primary?.main,
+          }
+        },
+
+      }
     },
     MuiInputLabel: {
       styleOverrides: {
