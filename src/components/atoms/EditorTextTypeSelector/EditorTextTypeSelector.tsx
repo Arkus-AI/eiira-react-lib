@@ -12,9 +12,10 @@ export interface EditorTextTypeSelectorProps {
     options: Array<TextTypeSelectorOption>;
     selectedValue: string;
     onChange: (value: string) => void;
+    disabled?: boolean;
 }
 
-const EditorTextTypeSelector = ({ options, selectedValue, onChange }: EditorTextTypeSelectorProps) => {
+const EditorTextTypeSelector = ({ options, selectedValue, onChange, disabled }: EditorTextTypeSelectorProps) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: any) => {
@@ -35,8 +36,17 @@ const EditorTextTypeSelector = ({ options, selectedValue, onChange }: EditorText
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
-            endIcon={<Icon iconType='caret-down' />}
+            disabled={disabled}
+            endIcon={<Icon iconType='caret-down' style={{
+                height: "11px",
+                width: "11px",
+                margin: "8px",
+                marginLeft: "4px"
+            }} />}
             variant="text"
+            style={{
+                padding: "4px 8px"
+            }}
         > {buttonLabel}
         </Button>
         <Menu
@@ -46,6 +56,9 @@ const EditorTextTypeSelector = ({ options, selectedValue, onChange }: EditorText
             onClose={onClose}
             MenuListProps={{
                 'aria-labelledby': 'text-type-selector-button',
+            }}
+            sx={{
+                
             }}
         >
             {options.map((option) => (

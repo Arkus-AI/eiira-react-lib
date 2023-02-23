@@ -116,6 +116,9 @@ export const lightTheme = createTheme({
             "&:hover": {
               backgroundColor: palette.hover?.main,
             }
+          },
+          "&.Mui-disabled": {
+            color: palette.text?.disabled,
           }
         },
         outlinedPrimary: {
@@ -125,7 +128,13 @@ export const lightTheme = createTheme({
               backgroundColor: palette.hover?.light,
             }
           }
+        },
+        text: {
+          ":hover": {
+            backgroundColor: palette.hover?.light,
+          }
         }
+
       },
     },
     MuiIconButton: {
@@ -379,8 +388,21 @@ export const lightTheme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: palette.neutral?.dark,
+          "&.MuiBackdrop-invisible": {
+            backgroundColor: "transparent",
+          }
+        }
+      }
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          "&:hover": {
+            backgroundColor: palette.hover?.light,
+          },
         }
       }
     }
+
   }
 });
