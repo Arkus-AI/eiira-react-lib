@@ -13,6 +13,8 @@ import PrePedigreeForm from "./components/templates/PrePedigreeForm/PrePedigreeF
 import OnboardingCard from "./components/templates/OnboardingCard/OnboardingCard";
 import SavedSnackbar from "./components/molecules/SavedSnackbar";
 import useDebounce from "./components/hooks/useDebounce";
+import EditorMenuButton from "./components/atoms/EditorMenuButton";
+import EditorTextTypeSelector from "./components/atoms/EditorTextTypeSelector";
 
 import { lightTheme } from "./themes/light.theme";
 
@@ -28,10 +30,9 @@ export const EiiraThemeWrapper = ({ children }: { children: React.ReactNode }) =
 };
 
 export {
-    Button, Typography, LoadingButton,
-    Icon,
+    Button, Typography, LoadingButton, Icon,
     AboutMemberForm, AddMemberMenu, ConfirmationDialog, FamilyMemberCard,
     TargetInformationForm, PrePedigreeForm, OnboardingCard,
-    SavedSnackbar, useDebounce
+    SavedSnackbar, useDebounce, EditorMenuButton, EditorTextTypeSelector
 };
 

@@ -7,7 +7,7 @@ export default {
     title: 'Atoms/EditorMenuButton',
     component: EditorMenuButton,
     args: {
-        icon: "help"
+        icon: "bold"
     },
 } as ComponentMeta<typeof EditorMenuButton>;
 

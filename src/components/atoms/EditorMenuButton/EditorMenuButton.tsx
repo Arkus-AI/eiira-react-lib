@@ -24,8 +24,12 @@ const EditorMenuButton = (props: EditorMenuButtonProps) => {
                 borderRadius: "4px",
                 height: "32px",
             }}
+            disableRipple
         >
-            <Icon iconType={icon} />
+            <Icon iconType={icon}
+                style={{
+                    fontSize: "16px"
+                }} />
         </IconButton>
     );
 }

@@ -1,11 +1,11 @@
 import React from 'react';
-import { Menu, MenuItem, Button, Typography } from '@mui/material';
+import { Menu, MenuItem, Button, Typography, TypographyVariant } from '@mui/material';
 import Icon from '../Icon/Icon';
 
 interface TextTypeSelectorOption {
     value: string;
     label: string;
-    typographyVariant: string;
+    typographyVariant: TypographyVariant;
 }
 
 export interface EditorTextTypeSelectorProps {
@@ -38,14 +38,17 @@ const EditorTextTypeSelector = ({ options, selectedValue, onChange, disabled }: 
             onClick={handleClick}
             disabled={disabled}
             endIcon={<Icon iconType='caret-down' style={{
-                height: "11px",
-                width: "11px",
-                margin: "8px",
-                marginLeft: "4px"
+                height: "12px",
+                width: "12px",
+                margin: "6px",
+                marginLeft: "4px",
+                marginRight: "8px"
             }} />}
             variant="text"
             style={{
-                padding: "4px 8px"
+                padding: "4px 8px",
+                lineHeight: "20px",
+                whiteSpace: "nowrap",
             }}
         > {buttonLabel}
         </Button>
@@ -58,7 +61,7 @@ const EditorTextTypeSelector = ({ options, selectedValue, onChange, disabled }: 
                 'aria-labelledby': 'text-type-selector-button',
             }}
             sx={{
-                
+
             }}
         >
             {options.map((option) => (
