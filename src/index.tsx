@@ -15,6 +15,7 @@ import SavedSnackbar from "./components/molecules/SavedSnackbar";
 import useDebounce from "./components/hooks/useDebounce";
 import EditorMenuButton from "./components/atoms/EditorMenuButton";
 import EditorTextTypeSelector from "./components/atoms/EditorTextTypeSelector";
+import TextInput from "./components/molecules/TextInput";
 
 import { lightTheme } from "./themes/light.theme";
 
@@ -33,6 +34,7 @@ export {
     Button, Typography, LoadingButton, Icon,
     AboutMemberForm, AddMemberMenu, ConfirmationDialog, FamilyMemberCard,
     TargetInformationForm, PrePedigreeForm, OnboardingCard,
-    SavedSnackbar, useDebounce, EditorMenuButton, EditorTextTypeSelector
+    SavedSnackbar, useDebounce, EditorMenuButton, EditorTextTypeSelector,
+    TextInput
 };
 
