@@ -136,11 +136,15 @@ export interface TextInputProps extends FormFieldProps {
      * Name of the field
      */
     name?: string;
+    /**
+     * autoFocus
+     */
+    autoFocus?: boolean;
 }
 
 export default function TextInput({ label, errorText = "", tooltipText = "",
     helperText = "", onChange, value, required, format = "default",
-    placeholder = "", id = "", name = "" }: TextInputProps) {
+    placeholder = "", id = "", name = "", autoFocus = false }: TextInputProps) {
 
     const error = errorText.length > 0;
     const inputLabelProps = {
@@ -187,7 +191,8 @@ export default function TextInput({ label, errorText = "", tooltipText = "",
                 }
             });
             window.dispatchEvent(validationEvent);
-        }
+        },
+        autoFocus,
     }
 
     return (
