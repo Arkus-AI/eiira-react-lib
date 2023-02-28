@@ -22,13 +22,13 @@ describe('Default', () => {
             expect(style['padding']).toBe('4px 8px');
         })
 
-        it('should have a carret icon wiht 24px in height and width', () => {
+        it('should have a carret icon wiht 12px in height and width', () => {
             render(<Default />);
             const element = screen.getByText('Normal text');
             const carret = element.getElementsByClassName('MuiSvgIcon-root')[0]
             const style = window.getComputedStyle(carret);
-            expect(style['height']).toBe('11px');
-            expect(style['width']).toBe('11px');
+            expect(style['height']).toBe('12px');
+            expect(style['width']).toBe('12px');
         })
     })
 });

@@ -15,6 +15,14 @@ export interface EditorTextTypeSelectorProps {
     disabled?: boolean;
 }
 
+export const EditorCarretDownIcon = () => {
+    return <Icon iconType='caret-down' style={{
+        height: "12px",
+        width: "12px",
+    }} />
+};
+
+
 const EditorTextTypeSelector = ({ options, selectedValue, onChange, disabled }: EditorTextTypeSelectorProps) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -37,18 +45,17 @@ const EditorTextTypeSelector = ({ options, selectedValue, onChange, disabled }: 
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
             disabled={disabled}
-            endIcon={<Icon iconType='caret-down' style={{
-                height: "12px",
-                width: "12px",
-                margin: "6px",
-                marginLeft: "4px",
-                marginRight: "8px"
-            }} />}
+            endIcon={<EditorCarretDownIcon />}
             variant="text"
-            style={{
+            sx={{
                 padding: "4px 8px",
                 lineHeight: "20px",
                 whiteSpace: "nowrap",
+                ".MuiButton-endIcon > .MuiSvgIcon-root": {
+                    margin: "6px",
+                    marginLeft: "4px",
+                    marginRight: "8px",
+                }
             }}
         > {buttonLabel}
         </Button>
@@ -60,12 +67,12 @@ const EditorTextTypeSelector = ({ options, selectedValue, onChange, disabled }: 
             MenuListProps={{
                 'aria-labelledby': 'text-type-selector-button',
             }}
-            sx={{
-
-            }}
         >
             {options.map((option) => (
-                <MenuItem key={option.value} onClick={() => handleMenuItemClick(option.value)}>
+                <MenuItem key={option.value}
+                    onClick={() => handleMenuItemClick(option.value)}
+                    selected={option.value === selectedValue}
+                >
                     <Typography variant={option.typographyVariant}>{option.label}</Typography>
                 </MenuItem>
             ))}

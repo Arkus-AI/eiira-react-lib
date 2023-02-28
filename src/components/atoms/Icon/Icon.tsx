@@ -6,7 +6,7 @@ import {
     faPlus, faSave, faBold, faItalic, faAlignLeft, faAlignCenter,
     faAlignRight, faListOl, faListUl, faIndent, faOutdent, faLink,
     faImage, faCode, faTable, faChartSimple, faUndoAlt, faRedoAlt,
-    faFileExport, faDna
+    faFileExport, faDna, faCube
 } from '@fortawesome/free-solid-svg-icons'
 import { SvgIcon, SvgIconProps } from "@mui/material";
 
@@ -18,7 +18,7 @@ export interface IconProps extends SvgIconProps {
     "caret-down" | "xmark" | "circle-xmark" | "users" | "plus" | "save" | "bold" |
     "italic" | "align-left" | "align-center" | "align-right" | "list-ol" | "list-ul" |
     "indent" | "outdent" | "link" | "image" | "code" | "table" | "chart-simple" | "undo-alt" |
-    "redo-alt" | "file-export" | "dna";
+    "redo-alt" | "file-export" | "dna" | "cube";
     /**
      * Color of icon
      */
@@ -54,7 +54,8 @@ export const ICONS = {
     "undo-alt": faUndoAlt,
     "redo-alt": faRedoAlt,
     "file-export": faFileExport,
-    "dna": faDna
+    "dna": faDna,
+    "cube": faCube
 }
 
 export default function Icon({ iconType, color, ...props }: IconProps) {
