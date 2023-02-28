@@ -1,11 +1,11 @@
 import React from "react";
-import { Button, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Button, Menu, MenuItem, ListItemIcon, ListItemText, ButtonProps } from '@mui/material';
 import Icon, { IconProps } from '../Icon/Icon';
 import { EditorCarretDownIcon } from '../EditorTextTypeSelector/EditorTextTypeSelector';
 
-interface EditorDropdownMenuOption {
+interface EditorDropdownMenuOption extends ButtonProps {
     label: string;
-    diasbled: boolean;
+    disabled: boolean;
     value: string;
     iconType?: IconProps['iconType'];
     divider?: boolean;
@@ -18,7 +18,7 @@ export interface EditorDropdownMenuProps {
     onOptionClick: (value: string) => void;
 }
 
-const EditorDropdownMenu = ({ iconType, options, onOptionClick }: EditorDropdownMenuProps) => {
+const EditorDropdownMenu = ({ iconType, options, onOptionClick, ...buttonProps }: EditorDropdownMenuProps) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: any) => {
@@ -44,15 +44,19 @@ const EditorDropdownMenu = ({ iconType, options, onOptionClick }: EditorDropdown
                 endIcon={<EditorCarretDownIcon />}
                 sx={{
                     padding: "6px",
+                    height: "32px",
                     minWidth: "auto",
                     ".MuiButton-endIcon": {
                         marginLeft: "4px",
                         "> .MuiSvgIcon-root": {
-                            margin: 0
+                            margin: 0,
                         }
                     }
-                }}>
-                <Icon iconType={iconType} />
+                }}
+                {...buttonProps} >
+                <Icon iconType={iconType} style={{
+                    fontSize: "16px"
+                }} />
             </Button>
             <Menu
                 id={menuId}
@@ -71,7 +75,7 @@ const EditorDropdownMenu = ({ iconType, options, onOptionClick }: EditorDropdown
                 {options.map((option, index) => {
                     return <MenuItem key={option.value}
                         onClick={() => handleMenuItemClick(option.value)}
-                        disabled={option.diasbled}
+                        disabled={option.disabled}
                         divider={option.divider}>
 
                         {option.iconType &&

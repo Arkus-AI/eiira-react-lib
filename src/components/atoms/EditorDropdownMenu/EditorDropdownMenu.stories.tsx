@@ -10,18 +10,18 @@ export default {
         iconType: "table",
         options: [{
             label: "Option 1",
-            diasbled: false,
+            disabled: false,
             value: "option-1",
             divider: true,
         },
         {
             label: "Option 2",
-            diasbled: false,
+            disabled: false,
             value: "option-2",
         },
         {
             label: "Option 3",
-            diasbled: true,
+            disabled: true,
             value: "option-3",
         },
         ],
@@ -39,10 +39,10 @@ Default.args = {};
 export const WithIcons = Template.bind({});
 WithIcons.args = {
     options: [{
-        label: "Option 1", diasbled: false, value: "option-1",
+        label: "Option 1", disabled: false, value: "option-1",
         iconType: "help", divider: true,
     },
-    { label: "Option 2", diasbled: false, value: "option-2", iconType: "waste-basket", },
-    { label: "Option 3", diasbled: true, value: "option-3", },
+    { label: "Option 2", disabled: false, value: "option-2", iconType: "waste-basket", },
+    { label: "Option 3", disabled: true, value: "option-3", },
     ],
 };

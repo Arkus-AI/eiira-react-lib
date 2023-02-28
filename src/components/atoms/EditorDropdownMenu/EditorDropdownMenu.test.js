@@ -21,6 +21,13 @@ describe('Default', () => {
             expect(style['padding']).toBe('6px');
         })
 
+        it('should have height of 32px', () => {
+            render(<Default />);
+            const element = screen.getByRole('button');
+            const style = window.getComputedStyle(element);
+            expect(style['height']).toBe('32px');
+        })
+
         it("should have carret with 0 margin", () => {
             render(<Default />);
             const element = screen.getByRole('button');
