@@ -16,6 +16,7 @@ import useDebounce from "./components/hooks/useDebounce";
 import EditorMenuButton from "./components/atoms/EditorMenuButton";
 import EditorTextTypeSelector from "./components/atoms/EditorTextTypeSelector";
 import EditorDropdownMenu from "./components/atoms/EditorDropdownMenu";
+import EditorCollapsibleRowMenu from "./components/atoms/EditorCollapsibleRowMenu";
 import TextInput from "./components/molecules/TextInput";
 
 import { lightTheme } from "./themes/light.theme";
@@ -36,6 +37,6 @@ export {
     AboutMemberForm, AddMemberMenu, ConfirmationDialog, FamilyMemberCard,
     TargetInformationForm, PrePedigreeForm, OnboardingCard,
     SavedSnackbar, useDebounce, EditorMenuButton, EditorTextTypeSelector,
-    EditorDropdownMenu, TextInput
+    EditorDropdownMenu, EditorCollapsibleRowMenu, TextInput
 };
 
