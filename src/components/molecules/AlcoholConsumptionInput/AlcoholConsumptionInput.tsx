@@ -49,14 +49,6 @@ export interface IAlcoholConsumptionInputProps {
     label: string;
 }
 
-// TODO: this needs translation
-const LABEL_DICT: { [key: string]: string; } = {
-    "wine": "glasses of wine (150ml)",
-    "beer": "bottles of beer (330ml)",
-    "alcopop": "cans of alcopop drinks (275ml)",
-    "shotOfSpirit": "shots of spirits (25ml)"
-}
-
 const StyledFormControlLabelForTextField = styled(FormControlLabel)(() => ({
     marginLeft: 0,
     '& .MuiFormControlLabel-label': {
