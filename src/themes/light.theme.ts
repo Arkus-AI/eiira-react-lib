@@ -1,4 +1,5 @@
 import { createTheme, PaletteOptions } from "@mui/material";
+import MuiCssBaseline from "./cssBaseline";
 
 declare module '@mui/material/styles' {
   interface PaletteColorOptions {
@@ -104,6 +105,7 @@ export const lightTheme = createTheme({
     }
   },
   components: {
+    MuiCssBaseline,
     MuiButton: {
       styleOverrides: {
         root: {
@@ -111,7 +113,6 @@ export const lightTheme = createTheme({
           padding: "8px 24px",
           fontSize: "16px",
           lineHeight: "24px",
-          color: palette.text?.primary,
           '@media (hover: hover)': {
             "&:hover": {
               backgroundColor: palette.hover?.main,

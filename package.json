@@ -32,11 +32,13 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
+    "rollup-plugin-url": "^3.0.1",
     "typescript": "^4.9.3"
   },
   "dependencies": {
     "eiira-i18n": "1.0.0",
-    "react-number-format": "^5.1.2"
+    "react-number-format": "^5.1.2",
+    "rollup-plugin-url": "^3.0.1"
   },
   "peerDependencies": {
     "@emotion/react": "^11.7.1",

@@ -6,21 +6,21 @@ const MuiCssBaseline = {
     styleOverrides: `
         @font-face {
             font-family: 'Manrope';
-            src: local('Manrope'), local('Manrope-ExtraLight'), url(${ManropeExtraLight}) format('woff2');
+            src: url(${ManropeExtraLight}) format('woff2');
             font-weight: 200;
             font-style: normal;
             font-display: swap;
         }
         @font-face {
             font-family: 'Manrope';
-            src: local('Manrope'), local('Manrope-Regular'), url(${Manrope}) format('woff2');
+            src: url(${Manrope}) format('woff2');
             font-weight: normal;
             font-style: normal;
             font-display: swap;
         }
         @font-face {
             font-family: 'Manrope';
-            src: local('Manrope'), local('Manrope-Bold'), url(${ManropeBold}) format('woff2');
+            src: url(${ManropeBold}) format('woff2');
             font-weight: bold;
             font-style: normal;
             font-display: swap;
