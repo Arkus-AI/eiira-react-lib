@@ -23,9 +23,9 @@ export default {
             label: "Option 3",
             disabled: true,
             value: "option-3",
-        },
-        ],
+        },],
         onOptionClick: (value: string) => { console.log(value) },
+        selected: false
     },
 } as ComponentMeta<typeof EditorDropdownMenu>;
 
@@ -46,3 +46,6 @@ WithIcons.args = {
     { label: "Option 3", disabled: true, value: "option-3", },
     ],
 };
+
+export const Selected = Template.bind({});
+Selected.args = { selected: true }

@@ -2,6 +2,7 @@ import React from "react";
 import { Button, Menu, MenuItem, ListItemIcon, ListItemText, ButtonProps } from '@mui/material';
 import Icon, { IconProps } from '../Icon/Icon';
 import { EditorCarretDownIcon } from '../EditorTextTypeSelector/EditorTextTypeSelector';
+import { useTheme } from "@mui/system";
 
 interface EditorDropdownMenuOption extends ButtonProps {
     label: string;
@@ -16,9 +17,11 @@ export interface EditorDropdownMenuProps {
     iconType: IconProps['iconType'];
     options: Array<EditorDropdownMenuOption>;
     onOptionClick: (value: string) => void;
+    selected?: boolean;
 }
 
-const EditorDropdownMenu = ({ iconType, options, onOptionClick, ...buttonProps }: EditorDropdownMenuProps) => {
+const EditorDropdownMenu = ({ iconType, options, onOptionClick, selected, ...buttonProps }: EditorDropdownMenuProps) => {
+    const theme = useTheme();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: any) => {
@@ -38,6 +41,7 @@ const EditorDropdownMenu = ({ iconType, options, onOptionClick, ...buttonProps }
     return (
         <>
             <Button
+                className={`${selected ? "selected" : ""}`}
                 id={buttonId}
                 aria-controls={open ? menuId : undefined}
                 onClick={handleClick}
@@ -46,6 +50,10 @@ const EditorDropdownMenu = ({ iconType, options, onOptionClick, ...buttonProps }
                     padding: "6px",
                     height: "32px",
                     minWidth: "auto",
+                    color: theme.palette.text?.primary,
+                    "&.selected": {
+                        color: theme.palette.primary?.main,
+                    },
                     ".MuiButton-endIcon": {
                         marginLeft: "4px",
                         "> .MuiSvgIcon-root": {
