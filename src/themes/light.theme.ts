@@ -25,7 +25,7 @@ declare module '@mui/material/styles' {
   }
   interface SimplePaletteColorOptions {
     field?: string;
-    containers?: string
+    containers?: string;
   }
 }
 
@@ -63,6 +63,13 @@ const palette: PaletteOptions = {
     field: "rgba(35, 55, 73, 0.55)",
     containers: "rgba(35, 55, 73, 0.25)"
   },
+  success: {
+    main: "#E1FCE9",
+  },
+  warning: {
+    main: "#FCF3E1",
+  },
+
 }
 
 export const lightTheme = createTheme({
